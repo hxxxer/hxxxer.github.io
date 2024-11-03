@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on 闲碎</title>
-    <link>http://localhost:6138/categories/</link>
+    <link>https://hxxxer.github.io/categories/</link>
     <description>Recent content in Categories on 闲碎</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <copyright>This is a customized copyright.</copyright>
     <lastBuildDate>Sun, 03 Nov 2024 02:16:32 +0800</lastBuildDate>
-    <atom:link href="http://localhost:6138/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://hxxxer.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Blog</title>
-      <link>http://localhost:6138/categories/blog/</link>
+      <link>https://hxxxer.github.io/categories/blog/</link>
       <pubDate>Sun, 03 Nov 2024 02:16:32 +0800</pubDate>
-      <guid>http://localhost:6138/categories/blog/</guid>
+      <guid>https://hxxxer.github.io/categories/blog/</guid>
       <description></description>
     </item>
     <item>
       <title>记录</title>
-      <link>http://localhost:6138/categories/%E8%AE%B0%E5%BD%95/</link>
+      <link>https://hxxxer.github.io/categories/%E8%AE%B0%E5%BD%95/</link>
       <pubDate>Sat, 02 Nov 2024 15:08:53 +0800</pubDate>
-      <guid>http://localhost:6138/categories/%E8%AE%B0%E5%BD%95/</guid>
+      <guid>https://hxxxer.github.io/categories/%E8%AE%B0%E5%BD%95/</guid>
       <description></description>
     </item>
   </channel>
