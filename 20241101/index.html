@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html><head>
+<title>mini2440连接记录</title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="G-XXXXXXXXXX">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="首次全程尝试连接新的板子">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:url" content="http://example.org/20241101/">
+  <meta property="og:site_name" content="闲碎">
+  <meta property="og:title" content="mini2440连接记录">
+  <meta property="og:description" content="首次全程尝试连接新的板子">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2024-11-02T15:08:53+08:00">
+    <meta property="article:modified_time" content="2024-11-02T15:08:53+08:00">
+    <meta property="article:tag" content="嵌入式">
+    <meta property="article:tag" content="Mini2440">
+    <meta property="og:image" content="http://example.org/images/mini2440.png">
+
+
+
+
+
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        }
+      </script>
+
+
+
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "abcdefghzd");
+</script>
+
+
+
+  
+
+
+
+
+
+
+      <script src="/js/toc.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css" integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media="screen">
+
+
+<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/posts">
+                    归档 Archive
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    分类 Categories
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    标签 Tags
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/index.xml">
+                    RSS
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- 目录 -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#mini2440%e5%bc%80%e5%8f%91%e6%9d%bf%e8%bf%9e%e6%8e%a5%e8%ae%b0%e5%bd%95" class="nav-mini2440开发板连接记录">
+									Mini2440开发板连接记录
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%89%8d%e8%a8%80" class="nav-前言">
+									前言
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#1-%e5%bc%80%e5%8f%91%e6%9d%bf%e4%b8%b2%e5%8f%a3%e8%bf%9e%e6%8e%a5" class="nav-1-开发板串口连接">
+									1. 开发板串口连接
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#11-%e7%ba%bf%e6%9d%90%e9%80%89%e6%8b%a9" class="nav-11-线材选择">
+									1.1. 线材选择
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#12-%e8%bf%9e%e6%8e%a5%e6%b5%8b%e8%af%95" class="nav-12-连接测试">
+									1.2. 连接测试
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#2-%e8%bf%9e%e6%8e%a5usb%e4%b8%8b%e8%bd%bd%e7%ba%bf" class="nav-2-连接usb下载线">
+									2. 连接Usb下载线
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#21-%e7%ba%bf%e6%9d%90%e9%80%89%e6%8b%a9" class="nav-21-线材选择">
+									2.1. 线材选择
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#22-%e9%a9%b1%e5%8a%a8%e5%ae%89%e8%a3%85" class="nav-22-驱动安装">
+									2.2. 驱动安装
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#221-%e7%a6%81%e7%94%a8%e9%a9%b1%e5%8a%a8%e5%bc%ba%e5%88%b6%e7%ad%be%e5%90%8d" class="nav-221-禁用驱动强制签名">
+									2.2.1. 禁用驱动强制签名
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#222-%e8%ae%be%e5%a4%87%e5%ae%89%e8%a3%85usb%e9%a9%b1%e5%8a%a8" class="nav-222-设备安装usb驱动">
+									2.2.2. 设备安装usb驱动
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#23-%e8%bf%9e%e6%8e%a5%e6%b5%8b%e8%af%95" class="nav-23-连接测试">
+									2.3. 连接测试
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e9%99%84%e5%bd%95a" class="nav-附录a">
+									附录A
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e8%bf%9b%e5%85%a5%e8%ae%be%e5%a4%87%e7%ae%a1%e7%90%86%e5%99%a8%e6%ad%a5%e9%aa%a4" class="nav-进入设备管理器步骤">
+									进入设备管理器步骤
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="http://example.org/">
+            闲碎
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="http://example.org/">
+        <div class="single-column-header-title">闲碎</div>
+        
+        <div class="single-column-header-subtitle">夜雨寄北</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+                
+            
+
+            <div class="post-head-wrapper"
+                
+                    
+                    
+                    style="background-image: url('http://example.org/images/mini2440.png')"
+                    
+                
+            >
+                <div class="post-title">
+                    mini2440连接记录
+                    
+                    <div class="post-subtitle">
+                        首次全程尝试连接新的板子
+                    </div>
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2024-11-02 15:08
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/%E8%AE%B0%E5%BD%95">记录</a>
+                                &nbsp;
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F">嵌入式</a>
+                                &nbsp;
+                            
+                                <a href="/tags/mini2440">mini2440</a>
+                                &nbsp;
+                            
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <h1 id="mini2440开发板连接记录">Mini2440开发板连接记录</h1>
+<p><strong>编辑于2024.11.1</strong></p>
+<h2 id="前言">前言</h2>
+<p>系统为 win11 64位专业版，版本位21H2，版本号为22000.2538</p>
+<h2 id="1-开发板串口连接">1. 开发板串口连接</h2>
+<h3 id="11-线材选择">1.1. 线材选择</h3>
+<p>需要两个线：</p>
+<ol>
+<li>usb转串口，串口要为公头的，如图 1.1-1所示。</li>
+<li>附带的串口母对母直连线（可以上网买，但是只能买直连的而不是交叉），如图 1.1-2所示。</li>
+</ol>
+<p>因为板子上面的串口是公头的，但是为母头线序，所以需要母对母直连线。注意买的usb转串口的两侧要匹配串口母对母直连线的螺丝或螺柱（螺丝对螺柱）。</p>
+<h3 id="12-连接测试">1.2. 连接测试</h3>
+<p>将上面的两组线组装并连接到板子和电脑上，板子拨到NorFlash启动，通电开机，打开SCRT，新建Serial连接（也可以使用minitools的串口工具），选择合适的COM号，具体可以去设备管理器查看，如所示。待成功连接，输入数字或者按一下板子的复位按键（启动开关和复位按键如图 1.2-3所示），就可以看到功能菜单了，如图 1.2-4所示。</p>
+<p>本人的usb转串口线是不需要安装驱动的，如果连接之后显示未识别的设备，可以去问商家。</p>
+<h2 id="2-连接usb下载线">2. 连接Usb下载线</h2>
+<h3 id="21-线材选择">2.1. 线材选择</h3>
+<p>直接用老师发的那根usb方口线就行。</p>
+<h3 id="22-驱动安装">2.2. 驱动安装</h3>
+<h4 id="221-禁用驱动强制签名">2.2.1. 禁用驱动强制签名</h4>
+<p>网上有些人直接运行<code>FriendlyARM-2440-DVD\windows平台工具\usb下载驱动\FriendlyARM USB Download Driver Setup_20090421.exe</code>即可成功安装驱动，但是我不行。</p>
+<p>而且禁用驱动强制签名主要有两种，第一种是在高级启动-高级选项-启动设置里面，但是这种方法我在最后一步缺失了“启动设置”选项，部分电脑可行，如果可以，那就跳过这一步，这种方式最简单，而且禁用是只生效一次，再次重启失效。下面是我的操作：</p>
+<ol>
+<li>在设置里面选择高级启动，并在高级选项里面进入UEFI，（也可以重启电脑，按F12让电脑进入UEFI【不同机型按键可能不同】）。找到 安全启动/Secure Boot（具体路径可以百度），然后关闭它。重启。</li>
+<li>开机后打开cmd/命令提示符，注意要以管理员运行，而且不能是PowerShell。运行以下指令：，作用是进入测试模式。执行成功会提示“操作成功完成。”如图 2.2.1-5所示。</li>
+<li>重启电脑即可进入测试环境，桌面右下角可以看到测试模式，如图 2.2.1-6所示</li>
+<li>驶动安装完成之后就可以退出测试环境和开启安全启动了，注意退出测试环境要在关闭安全启动之前输入指令off。</li>
+</ol>
+<h4 id="222-设备安装usb驱动">2.2.2. 设备安装usb驱动</h4>
+<p>板子从NorFlash启动，通过usb方口线连接电脑后，可以在设备管理器看到有黄色感叹号。（进入设备管理器见附录A）</p>
+<p>我在板子的usb连接上的情况下运行<code>FriendlyARM-2440-DVD\windows平台工具\usb下载驱动\FriendlyARM USB Download Driver Setup_20090421.exe</code>，驱动能成功安装，但是电脑仍然不能正常识别设备。以下为手动安装驱动的步骤。</p>
+<ol>
+<li>安装minitools，位于<code>FriendlyARM-2440-DVD\windows平台工具\MiniTools-USB下载工具\MiniToolsSetup-Windows-20150528.exe</code>，安装完成之后驱动文件会存在安装目录<code>FriendlyARM\MiniTools\usb_dirver</code>，复制这个文件夹路径。</li>
+<li>右键设备，选择更新驱动程序，如图 2.2.2-8所示。然后按照下面的图片操作，阅读顺序为从左到右，从上到下。如图 2.2.2-9所示。</li>
+</ol>
+<h3 id="23-连接测试">2.3. 连接测试</h3>
+<p>测试可以将位于<code>FriendlyARM-2440-DVD\images\2440test\</code>的测试文件2440test_T35.bin烧到板子上运行。具体的烧录过程需要去看2011-4-21版的Mini2440用户手册（可以去官网下载），并不能使用minitools烧录，而且minitools也不能识别到设备，原因如下：根据在SCRT看到的功能菜单，如图 1.2-4所示，说明板子的NorFlash烧录的是旧版的supervivi，而不是新版的superboot，所以不支持minitools。想烧superboot的可以参考这里。</p>
+<h2 id="附录a">附录A</h2>
+<h3 id="进入设备管理器步骤">进入设备管理器步骤</h3>
+<p>如图 A 1</p>
+<ol>
+<li></li>
+<li>[2]: Android fastboot驱动无法安装和识别问题-CSDN博客</li>
+<li>[3]: 4 种简单方法，快速进入主板 BIOS 或 UEFI 固件设置 - 系统极客</li>
+<li>[4]: Win11和Win10怎么禁用驱动程序强制签名? 关闭Windows系统驱动强制签名的技巧？ - 知乎</li>
+<li></li>
+</ol>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">最后修改于 2024-11-02</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="/20241103/">
+			下回<br>初步使用Hugo以及主题的尝试
+                </a>
+                
+                
+                
+                <a class="older-posts">
+			上回<br>这是最旧的文章了。
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+                    </div>
+            </div><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="http://example.org/">
+    
+        <div class="nav-title">
+            闲碎
+        </div>
+        
+        <div class="nav-subtitle">
+            夜雨寄北
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/posts">
+                归档 Archive
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                分类 Categories
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                标签 Tags
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/index.xml">
+                RSS
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+移植自 <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    <div class="toc-wrapper">
+        
+
+        
+        <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- 目录 -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#mini2440%e5%bc%80%e5%8f%91%e6%9d%bf%e8%bf%9e%e6%8e%a5%e8%ae%b0%e5%bd%95" class="nav-mini2440开发板连接记录">
+									Mini2440开发板连接记录
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%89%8d%e8%a8%80" class="nav-前言">
+									前言
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#1-%e5%bc%80%e5%8f%91%e6%9d%bf%e4%b8%b2%e5%8f%a3%e8%bf%9e%e6%8e%a5" class="nav-1-开发板串口连接">
+									1. 开发板串口连接
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#11-%e7%ba%bf%e6%9d%90%e9%80%89%e6%8b%a9" class="nav-11-线材选择">
+									1.1. 线材选择
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#12-%e8%bf%9e%e6%8e%a5%e6%b5%8b%e8%af%95" class="nav-12-连接测试">
+									1.2. 连接测试
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#2-%e8%bf%9e%e6%8e%a5usb%e4%b8%8b%e8%bd%bd%e7%ba%bf" class="nav-2-连接usb下载线">
+									2. 连接Usb下载线
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#21-%e7%ba%bf%e6%9d%90%e9%80%89%e6%8b%a9" class="nav-21-线材选择">
+									2.1. 线材选择
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#22-%e9%a9%b1%e5%8a%a8%e5%ae%89%e8%a3%85" class="nav-22-驱动安装">
+									2.2. 驱动安装
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#221-%e7%a6%81%e7%94%a8%e9%a9%b1%e5%8a%a8%e5%bc%ba%e5%88%b6%e7%ad%be%e5%90%8d" class="nav-221-禁用驱动强制签名">
+									2.2.1. 禁用驱动强制签名
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#222-%e8%ae%be%e5%a4%87%e5%ae%89%e8%a3%85usb%e9%a9%b1%e5%8a%a8" class="nav-222-设备安装usb驱动">
+									2.2.2. 设备安装usb驱动
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#23-%e8%bf%9e%e6%8e%a5%e6%b5%8b%e8%af%95" class="nav-23-连接测试">
+									2.3. 连接测试
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e9%99%84%e5%bd%95a" class="nav-附录a">
+									附录A
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e8%bf%9b%e5%85%a5%e8%ae%be%e5%a4%87%e7%ae%a1%e7%90%86%e5%99%a8%e6%ad%a5%e9%aa%a4" class="nav-进入设备管理器步骤">
+									进入设备管理器步骤
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+        
+    </div>
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top"
+            :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
+</div>
+
+<div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+移植自 <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script></body>
+</html>

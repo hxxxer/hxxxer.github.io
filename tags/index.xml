@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on 闲碎</title>
+    <link>http://example.org/tags/</link>
+    <description>Recent content in Tags on 闲碎</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>This is a customized copyright.</copyright>
+    <lastBuildDate>Sun, 03 Nov 2024 02:16:32 +0800</lastBuildDate>
+    <atom:link href="http://example.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Blog</title>
+      <link>http://example.org/tags/blog/</link>
+      <pubDate>Sun, 03 Nov 2024 02:16:32 +0800</pubDate>
+      <guid>http://example.org/tags/blog/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Diary</title>
+      <link>http://example.org/tags/diary/</link>
+      <pubDate>Sun, 03 Nov 2024 02:16:32 +0800</pubDate>
+      <guid>http://example.org/tags/diary/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hugo</title>
+      <link>http://example.org/tags/hugo/</link>
+      <pubDate>Sun, 03 Nov 2024 02:16:32 +0800</pubDate>
+      <guid>http://example.org/tags/hugo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mini2440</title>
+      <link>http://example.org/tags/mini2440/</link>
+      <pubDate>Sat, 02 Nov 2024 15:08:53 +0800</pubDate>
+      <guid>http://example.org/tags/mini2440/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>嵌入式</title>
+      <link>http://example.org/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/</link>
+      <pubDate>Sat, 02 Nov 2024 15:08:53 +0800</pubDate>
+      <guid>http://example.org/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

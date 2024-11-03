@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Diary on 闲碎</title>
+    <link>http://example.org/tags/diary/</link>
+    <description>Recent content in Diary on 闲碎</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>This is a customized copyright.</copyright>
+    <lastBuildDate>Sun, 03 Nov 2024 02:16:32 +0800</lastBuildDate>
+    <atom:link href="http://example.org/tags/diary/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>初步使用Hugo以及主题的尝试</title>
+      <link>http://example.org/20241103/</link>
+      <pubDate>Sun, 03 Nov 2024 02:16:32 +0800</pubDate>
+      <guid>http://example.org/20241103/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;编辑于2024.11.03&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;&#xA;&lt;p&gt;因为感觉自己需要一个平台来记录一些技术博客，所以寻找了一些开源博客平台，一开始选择的是suiyan，因为其生成的html排版和vscode、marktext的预览都不同，只能放弃。&lt;a href=&#34;https://github.com/bosichong/suiyan&#34;&gt;suiyan&lt;/a&gt;&lt;br&gt;&#xA;然后看到了使用hugo的&lt;a href=&#34;https://krislinzhao.github.io/docs/create-a-wesite-using-github-pages-and-hugo&#34;&gt;blowfish主题的一篇博客&lt;/a&gt;，感觉很不错，就开始用hugo，但奈何这个主题我一直调不出来，😂😂，又放弃了。不过这次我又找到了hugo上面的&lt;a href=&#34;https://github.com/amazingrise/hugo-theme-diary&#34;&gt;diary主题&lt;/a&gt;，这次一路磕磕碰碰，勉强搞定了，所以记录一下。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h1 id=&#34;使用suiyan已放弃&#34;&gt;使用suiyan（已放弃）&lt;/h1&gt;&#xA;&lt;p&gt;suiyan项目是在公众号看到的，直接git clone下来，然后运行&lt;code&gt;python -m venv env&lt;/code&gt;来创建虚拟环境（甚至这时候创建虚拟环境已经忘了，还是去百度的），然后就是熟悉的&lt;code&gt;pip install -r requirment.txt&lt;/code&gt;，接着运行&lt;code&gt;w.py&lt;/code&gt;即可。甚至还有窗口GUI，感觉对我这种新手很良好。&lt;br&gt;&#xA;本来体验挺不错的，但是它的md格式解析好像和vscode、marktext不一样，多级列表没有正确解析成html。这我就没办法了，只能放弃。（也许会去仓库提一下issue？）&lt;/p&gt;&#xA;&lt;h1 id=&#34;使用hugo&#34;&gt;使用hugo&lt;/h1&gt;&#xA;&lt;h2 id=&#34;尝试blowfish又放弃了&#34;&gt;尝试blowfish（又放弃了😂）&lt;/h2&gt;&#xA;&lt;p&gt;这个是我直接搜&lt;strong&gt;github blog&lt;/strong&gt;，搜出来一篇介绍hugo+github pages的博客&lt;em&gt;就是参考的第一个链接&lt;/em&gt;。其实这个博客的主题风格我感觉挺喜欢的，所以马上入坑了。&lt;img src=&#34;http://example.org/images/blowfish-blog.png&#34; alt=&#34;blowfish主题博客&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;接触并使用diary&#34;&gt;接触并使用diary&lt;/h2&gt;&#xA;&lt;p&gt;这个则是我随意逛hugo的主题展览页时挑中的其中一个，只有它符合：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;有目录&lt;/li&gt;&#xA;&lt;li&gt;风格简洁淡雅&lt;br&gt;&#xA;其它的都不太符合&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;&#xA;&lt;hr&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://krislinzhao.github.io/docs/create-a-wesite-using-github-pages-and-hugo&#34;&gt;使用Hugo + blowfish搭建博客及Github Pages&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://ratmomo.github.io/p/2024/06/%E4%BD%BF%E7%94%A8-hugo--github-pages-%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/&#34;&gt;使用 Hugo + Github Pages 部署个人博客&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://docs.python.org/zh-cn/3/library/venv.html&#34;&gt;python使用自带的venv创建虚拟环境&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
+    </item>
+  </channel>
+</rss>
