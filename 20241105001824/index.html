@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=6138&amp;path=livereload" data-no-instant defer></script>
+<title>异步编程的一些理解</title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="G-XXXXXXXXXX">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="结合了AI和我自己的一些关于异步编程的思考">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:url" content="http://localhost:6138/20241105001824/">
+  <meta property="og:site_name" content="闲碎">
+  <meta property="og:title" content="异步编程的一些理解">
+  <meta property="og:description" content="结合了AI和我自己的一些关于异步编程的思考">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2024-11-05T00:18:26+08:00">
+    <meta property="article:modified_time" content="2024-11-05T00:18:26+08:00">
+    <meta property="article:tag" content="异步">
+
+
+
+
+
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        }
+      </script>
+
+
+
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "abcdefghzd");
+</script>
+
+
+
+  
+
+
+
+
+
+
+      <script src="/js/toc.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css" integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media="screen">
+
+
+<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    分类 Categories
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    标签 Tags
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/index.xml">
+                    RSS
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- 目录 -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%89%8d%e8%a8%80" class="nav-前言">
+									前言
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#ai%e5%92%8c%e6%88%91%e7%9a%84%e9%97%ae%e7%ad%94" class="nav-ai和我的问答">
+									AI和我的问答
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e9%97%ae%e7%ad%94%e4%b8%80" class="nav-问答一">
+									问答一
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%bc%82%e6%ad%a5%e7%bc%96%e7%a8%8b%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5" class="nav-异步编程的基本概念">
+									异步编程的基本概念
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e4%bd%a0%e7%9a%84%e7%90%86%e8%a7%a3%e4%b8%ad%e7%9a%84%e5%87%a0%e7%82%b9%e8%af%b4%e6%98%8e" class="nav-你的理解中的几点说明">
+									你的理解中的几点说明
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%a4%ba%e4%be%8b" class="nav-示例">
+									示例
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e9%97%ae%e7%ad%94%e4%ba%8c" class="nav-问答二">
+									问答二
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%bc%82%e6%ad%a5%e5%87%bd%e6%95%b0%e7%9a%84%e6%89%a7%e8%a1%8c" class="nav-异步函数的执行">
+									异步函数的执行
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%af%a6%e7%bb%86%e8%a7%a3%e9%87%8a" class="nav-详细解释">
+									详细解释
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%a4%ba%e4%be%8b-1" class="nav-示例-1">
+									示例
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%80%bb%e7%bb%93" class="nav-总结">
+									总结
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%9c%80%e5%90%8e%e6%88%91%e7%9a%84%e7%90%86%e8%a7%a3" class="nav-最后我的理解">
+									最后我的理解
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="http://localhost:6138/">
+            闲碎
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="http://localhost:6138/">
+        <div class="single-column-header-title">闲碎</div>
+        
+        <div class="single-column-header-subtitle">夜雨寄北</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+
+            <div class="post-head-wrapper-text-only"
+                
+            >
+                <div class="post-title">
+                    异步编程的一些理解
+                    
+                    <div class="post-subtitle">
+                        结合了AI和我自己的一些关于异步编程的思考
+                    </div>
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2024-11-05 00:18
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/%E7%BB%8F%E9%AA%8C">经验</a>
+                                &nbsp;
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/%E5%BC%82%E6%AD%A5">异步</a>
+                                &nbsp;
+                            
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <p><strong>最后编辑于20241105</strong></p>
+<h1 id="前言">前言</h1>
+<p>在编用于hugo的.NET桌面程序时，需要在启动服务时，禁用更新静态网页文件，在问千问时，它使用了异步编程：将开启服务函数定义为异步，并在<code>await Task.Run(() =&gt; process.WaitForExit());</code>后，<code>otherBotton_Click = true;</code>。一下子唤起了我了解异步编程的兴趣。</p>
+<p>其实我之前已经多次了解甚至使用过了，但是还是不能说是学会，现在凭借AI的力量，简单地记录一下学习过程。</p>
+<h1 id="ai和我的问答">AI和我的问答</h1>
+<h2 id="问答一">问答一</h2>
+<p>有关异步编程，我可以这么理解吗</p>
+<p>一个异步函数执行时是独立于主程序之外，其执行时不影响主程序，把异步函数和主程序看成两条独立的执行线，在它们内部，异步函数和主程序仍然是同步阻塞的</p>
+<p>你的理解大体上是正确的，但需要进一步澄清一些细节，以便更准确地理解异步编程的概念。</p>
+<h3 id="异步编程的基本概念">异步编程的基本概念</h3>
+<ol>
+<li>
+<p><strong>非阻塞性</strong>：异步操作的一个主要特点是它们不会阻塞主线程。这意味着当一个异步任务启动后，程序不会等待这个任务完成，而是继续执行后续的代码。一旦异步任务完成，通常会通过回调函数、事件、或者Future/Promise等机制通知主线程。</p>
+</li>
+<li>
+<p><strong>并发与并行</strong>：</p>
+<ul>
+<li><strong>并发</strong>（Concurrency）是指多个任务可以交替执行，即使在单核CPU上也可以通过快速切换上下文来实现。</li>
+<li><strong>并行</strong>（Parallelism）是指多个任务可以同时执行，这通常需要多核CPU的支持。</li>
+</ul>
+</li>
+<li>
+<p><strong>执行模型</strong>：在异步编程中，虽然异步任务看起来像是独立运行的，但实际上它们可能是在同一个线程中通过事件循环（Event Loop）来管理的。例如，在JavaScript的Node.js环境中，大多数I/O操作都是异步的，并且是非阻塞的，这是因为它们利用了底层的操作系统特性来处理I/O请求，而不需要阻塞主线程。</p>
+</li>
+</ol>
+<h3 id="你的理解中的几点说明">你的理解中的几点说明</h3>
+<ul>
+<li>
+<p><strong>独立于主程序</strong>：异步函数确实可以在一定程度上独立于主程序执行，但这并不意味着它们完全独立。实际上，异步函数的执行通常依赖于事件循环或者其他调度机制。这意味着异步任务的执行时机是由系统决定的，而不是立即执行。</p>
+</li>
+<li>
+<p><strong>不影响主程序</strong>：正确。异步函数执行时，主程序可以继续执行其他任务，不会因为等待异步任务完成而阻塞。</p>
+</li>
+<li>
+<p><strong>两条独立的执行线</strong>：这个说法有些误导。虽然从逻辑上看，异步函数和主程序似乎是两条独立的执行线，但在实际实现中，它们可能共享同一个线程。例如，在Node.js中，所有的异步I/O操作都是在同一个线程上通过事件循环来管理的。</p>
+</li>
+<li>
+<p><strong>内部仍然是同步阻塞的</strong>：这一点需要具体情境来看。在异步函数内部，如果它执行的是纯计算任务（例如复杂的数学运算），那么这部分确实是同步阻塞的。但如果异步函数涉及I/O操作或其他耗时任务，这些操作本身通常是通过操作系统或其他库异步处理的，因此不会阻塞异步函数的执行。</p>
+</li>
+</ul>
+<h3 id="示例">示例</h3>
+<p>假设你有一个异步函数来读取文件：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;iostream&gt;</span><span style="color:#1e889b">
+</span></span></span><span style="display:flex;"><span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;fstream&gt;</span><span style="color:#1e889b">
+</span></span></span><span style="display:flex;"><span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;future&gt;</span><span style="color:#1e889b">
+</span></span></span><span style="display:flex;"><span><span style="color:#1e889b"></span>
+</span></span><span style="display:flex;"><span>std::future&lt;std::string&gt; readFileAsync(<span style="color:#8b008b;font-weight:bold">const</span> std::string&amp; filename) {
+</span></span><span style="display:flex;"><span>    <span style="color:#8b008b;font-weight:bold">return</span> std::async(std::launch::async, [filename] {
+</span></span><span style="display:flex;"><span>        std::ifstream file(filename);
+</span></span><span style="display:flex;"><span>        std::string content((std::istreambuf_iterator&lt;<span style="color:#00688b;font-weight:bold">char</span>&gt;(file)),
+</span></span><span style="display:flex;"><span>                            (std::istreambuf_iterator&lt;<span style="color:#00688b;font-weight:bold">char</span>&gt;()));
+</span></span><span style="display:flex;"><span>        <span style="color:#8b008b;font-weight:bold">return</span> content;
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#8b008b;font-weight:bold">auto</span> future = readFileAsync(<span style="color:#cd5555">&#34;example.txt&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#228b22">// 主程序继续执行其他任务
+</span></span></span><span style="display:flex;"><span><span style="color:#228b22"></span>    std::cout &lt;&lt; <span style="color:#cd5555">&#34;Doing other work...&#34;</span> &lt;&lt; std::endl;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#228b22">// 等待异步任务完成
+</span></span></span><span style="display:flex;"><span><span style="color:#228b22"></span>    std::string content = future.get();
+</span></span><span style="display:flex;"><span>    std::cout &lt;&lt; <span style="color:#cd5555">&#34;File content: &#34;</span> &lt;&lt; content &lt;&lt; std::endl;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>在这个例子中，<code>readFileAsync</code> 是一个异步函数，它使用 <code>std::async</code> 来启动一个新线程读取文件。主程序在启动异步任务后继续执行其他任务，直到需要文件内容时才调用 <code>future.get()</code> 阻塞等待结果。</p>
+<h2 id="问答二">问答二</h2>
+<p>那我这样理解可不可以</p>
+<p>异步函数在主程序之外执行，当主程序需要结果的时候就调用await之类的，调用时异步函数可以看成其回到主程序的执行线上，可能会阻塞主程序。</p>
+<p>你的理解基本是正确的，但有一些细节需要注意。让我们进一步澄清一下：</p>
+<h3 id="异步函数的执行">异步函数的执行</h3>
+<ol>
+<li>
+<p><strong>异步函数在主程序之外执行</strong>：</p>
+<ul>
+<li><strong>部分正确</strong>：异步函数确实可以在主程序之外执行，但这取决于具体的实现方式。在某些情况下，异步函数可能在另一个线程或进程中执行（例如使用 <code>std::async</code> 或多线程库）。而在其他情况下，异步函数可能在同一线程内通过事件循环（例如在Node.js中）执行。</li>
+</ul>
+</li>
+<li>
+<p><strong>当主程序需要结果的时候就调用 <code>await</code> 之类的</strong>：</p>
+<ul>
+<li><strong>正确</strong>：当你在主程序中使用 <code>await</code> 关键字（或类似的机制，如 <code>std::future::get</code>）来获取异步函数的结果时，主程序会暂停执行，等待异步任务完成。这是为了确保你可以在主程序中安全地使用异步任务的结果。</li>
+</ul>
+</li>
+<li>
+<p><strong>调用时异步函数可以看成其回到主程序的执行线上，可能会阻塞主程序</strong>：</p>
+<ul>
+<li><strong>部分正确</strong>：当你使用 <code>await</code> 或类似的方法获取异步任务的结果时，主程序确实会暂停执行，等待异步任务完成。这种暂停可以被视为一种“阻塞”，但这种阻塞是局部的，仅限于当前的同步上下文。在异步任务完成之前，主程序的其他部分仍然可以继续执行其他任务。</li>
+</ul>
+</li>
+</ol>
+<h3 id="详细解释">详细解释</h3>
+<ul>
+<li>
+<p><strong>异步任务的执行</strong>：</p>
+<ul>
+<li><strong>多线程</strong>：如果异步任务在另一个线程中执行（例如使用 <code>std::async</code>），那么它确实是独立于主程序的线程。主程序可以在等待结果时继续执行其他任务。</li>
+<li><strong>事件循环</strong>：如果异步任务在同一个线程中通过事件循环执行（例如在Node.js中），那么它会在事件循环的控制下异步执行。主程序可以在等待结果时继续处理其他事件。</li>
+</ul>
+</li>
+<li>
+<p><strong>获取结果</strong>：</p>
+<ul>
+<li><strong><code>await</code> 关键字</strong>：在支持 <code>await</code> 的语言（如C#、JavaScript）中，<code>await</code> 会暂停当前的同步上下文，等待异步任务完成。在这期间，主程序的其他部分仍然可以继续执行其他任务。</li>
+<li><strong><code>std::future::get</code> 方法</strong>：在C++中，<code>std::future::get</code> 会阻塞当前线程，直到异步任务完成。这意味着当前线程会暂停，但其他线程仍然可以继续执行。</li>
+</ul>
+</li>
+</ul>
+<h3 id="示例-1">示例</h3>
+<p>假设我们使用C++的 <code>std::async</code> 和 <code>std::future</code> 来实现一个异步任务：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;iostream&gt;</span><span style="color:#1e889b">
+</span></span></span><span style="display:flex;"><span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;future&gt;</span><span style="color:#1e889b">
+</span></span></span><span style="display:flex;"><span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;thread&gt;</span><span style="color:#1e889b">
+</span></span></span><span style="display:flex;"><span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;chrono&gt;</span><span style="color:#1e889b">
+</span></span></span><span style="display:flex;"><span><span style="color:#1e889b"></span>
+</span></span><span style="display:flex;"><span><span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">asyncTask</span>() {
+</span></span><span style="display:flex;"><span>    std::this_thread::sleep_for(std::chrono::seconds(<span style="color:#b452cd">2</span>)); <span style="color:#228b22">// 模拟耗时操作
+</span></span></span><span style="display:flex;"><span><span style="color:#228b22"></span>    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">42</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>() {
+</span></span><span style="display:flex;"><span>    std::future&lt;<span style="color:#00688b;font-weight:bold">int</span>&gt; result = std::async(std::launch::async, asyncTask);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#228b22">// 主程序继续执行其他任务
+</span></span></span><span style="display:flex;"><span><span style="color:#228b22"></span>    std::cout &lt;&lt; <span style="color:#cd5555">&#34;Doing other work...&#34;</span> &lt;&lt; std::endl;
+</span></span><span style="display:flex;"><span>    std::this_thread::sleep_for(std::chrono::seconds(<span style="color:#b452cd">1</span>));
+</span></span><span style="display:flex;"><span>    std::cout &lt;&lt; <span style="color:#cd5555">&#34;Still doing other work...&#34;</span> &lt;&lt; std::endl;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#228b22">// 获取异步任务的结果，可能会阻塞主程序
+</span></span></span><span style="display:flex;"><span><span style="color:#228b22"></span>    <span style="color:#00688b;font-weight:bold">int</span> value = result.get();
+</span></span><span style="display:flex;"><span>    std::cout &lt;&lt; <span style="color:#cd5555">&#34;Async task result: &#34;</span> &lt;&lt; value &lt;&lt; std::endl;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>在这个例子中：</p>
+<ol>
+<li><code>asyncTask</code> 是一个异步任务，它在另一个线程中执行。</li>
+<li>主程序在启动异步任务后继续执行其他任务。</li>
+<li>当主程序调用 <code>result.get()</code> 时，它会阻塞当前线程，等待异步任务完成。</li>
+</ol>
+<h3 id="总结">总结</h3>
+<ul>
+<li>异步函数可以在主程序之外执行，具体取决于实现方式。</li>
+<li>当主程序需要结果时，可以使用 <code>await</code> 或类似的方法来获取结果，这会暂时阻塞当前的同步上下文。</li>
+<li>在等待结果期间，主程序的其他部分仍然可以继续执行其他任务。</li>
+</ul>
+<h1 id="最后我的理解">最后我的理解</h1>
+<p>其实关于异步编程在很多情况都不需要了解底层原理，只需要知道怎么用就行，所以我觉得用执行线来理解也是可以的。</p>
+<p>主程序是一条主线，调用了一个异步函数就相当于新开了一条执行线，可能是并行（多进程），也可能是并发（不停切换），直到<code>await</code>之类的之前，异步执行线和主程序各自运行。等到主程序，或者其它执行线叫了异步执行线，那么这个异步执行线就加入到叫它的执行线上，阻塞这个执行线，直到有结果了。</p>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">最后修改于 2024-11-05</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="/20241105015218/">
+			下回<br>使用.NET开发hugo小程序
+                </a>
+                
+                
+                
+                <a class="older-posts" href="/20241103/">
+			上回<br>初步使用Hugo以及主题的尝试
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+                    </div>
+            </div><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="http://localhost:6138/">
+    
+        <div class="nav-title">
+            闲碎
+        </div>
+        
+        <div class="nav-subtitle">
+            夜雨寄北
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                分类 Categories
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                标签 Tags
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/index.xml">
+                RSS
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+移植自 <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    <div class="toc-wrapper">
+        
+
+        
+        <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- 目录 -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%89%8d%e8%a8%80" class="nav-前言">
+									前言
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#ai%e5%92%8c%e6%88%91%e7%9a%84%e9%97%ae%e7%ad%94" class="nav-ai和我的问答">
+									AI和我的问答
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e9%97%ae%e7%ad%94%e4%b8%80" class="nav-问答一">
+									问答一
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%bc%82%e6%ad%a5%e7%bc%96%e7%a8%8b%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5" class="nav-异步编程的基本概念">
+									异步编程的基本概念
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e4%bd%a0%e7%9a%84%e7%90%86%e8%a7%a3%e4%b8%ad%e7%9a%84%e5%87%a0%e7%82%b9%e8%af%b4%e6%98%8e" class="nav-你的理解中的几点说明">
+									你的理解中的几点说明
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%a4%ba%e4%be%8b" class="nav-示例">
+									示例
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e9%97%ae%e7%ad%94%e4%ba%8c" class="nav-问答二">
+									问答二
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%bc%82%e6%ad%a5%e5%87%bd%e6%95%b0%e7%9a%84%e6%89%a7%e8%a1%8c" class="nav-异步函数的执行">
+									异步函数的执行
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%af%a6%e7%bb%86%e8%a7%a3%e9%87%8a" class="nav-详细解释">
+									详细解释
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%a4%ba%e4%be%8b-1" class="nav-示例-1">
+									示例
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%80%bb%e7%bb%93" class="nav-总结">
+									总结
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%9c%80%e5%90%8e%e6%88%91%e7%9a%84%e7%90%86%e8%a7%a3" class="nav-最后我的理解">
+									最后我的理解
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+        
+    </div>
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top"
+            :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
+</div>
+
+<div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+移植自 <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script></body>
+</html>

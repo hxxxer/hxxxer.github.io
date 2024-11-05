@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head>
+<html><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=6138&amp;path=livereload" data-no-instant defer></script>
 <title>初步使用Hugo以及主题的尝试</title>
 
 
@@ -16,7 +16,7 @@
 
 
 
-<meta property="og:url" content="https://hxxxer.github.io/20241103/">
+<meta property="og:url" content="http://localhost:6138/20241103/">
   <meta property="og:site_name" content="闲碎">
   <meta property="og:title" content="初步使用Hugo以及主题的尝试">
   <meta property="og:description" content="首次尝试搭建本地博客">
@@ -290,7 +290,7 @@
                 menu
             </i>
         </button>
-        <a id="navTitle" class="navbar-brand" href="https://hxxxer.github.io/">
+        <a id="navTitle" class="navbar-brand" href="http://localhost:6138/">
             闲碎
         </a>
         
@@ -304,7 +304,7 @@
 </nav>
 <div class="single-column-header-container" id="pageHead"
      v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
-    <a href="https://hxxxer.github.io/">
+    <a href="http://localhost:6138/">
         <div class="single-column-header-title">闲碎</div>
         
         <div class="single-column-header-subtitle">夜雨寄北</div>
@@ -321,8 +321,15 @@
             
             
             
+                
+            
 
-            <div class="post-head-wrapper-text-only"
+            <div class="post-head-wrapper"
+                
+                    
+                    
+                    style="background-image: url('http://localhost:6138/images/hugo-logo.png')"
+                    
                 
             >
                 <div class="post-title">
@@ -341,7 +348,7 @@
 
                         
                             <i class="material-icons" style="">folder</i>
-                                <a href="/categories/blog">blog</a>
+                                <a href="/categories/%E6%8A%98%E8%85%BE">折腾</a>
                                 &nbsp;
                         
 
@@ -369,22 +376,26 @@
                 
                     <p><strong>编辑于2024.11.03</strong></p>
 <h1 id="前言">前言</h1>
-<p>因为感觉自己需要一个平台来记录一些技术博客，所以寻找了一些开源博客平台，一开始选择的是suiyan，因为其生成的html排版和vscode、marktext的预览都不同，只能放弃。<a href="https://github.com/bosichong/suiyan">suiyan</a><br>
-然后看到了使用hugo的<a href="https://krislinzhao.github.io/docs/create-a-wesite-using-github-pages-and-hugo">blowfish主题的一篇博客</a>，感觉很不错，就开始用hugo，但奈何这个主题我一直调不出来，😂😂，又放弃了。不过这次我又找到了hugo上面的<a href="https://github.com/amazingrise/hugo-theme-diary">diary主题</a>，这次一路磕磕碰碰，勉强搞定了，所以记录一下。</p>
+<p>因为感觉自己需要一个平台来记录一些技术博客，所以寻找了一些开源博客平台，一开始选择的是suiyan，因为其生成的html排版和vscode、marktext的预览都不同，只能放弃。<em><a href="https://github.com/bosichong/suiyan">suiyan项目地址</a></em></p>
+<p>然后看到了使用hugo的<a href="https://krislinzhao.github.io/docs/create-a-wesite-using-github-pages-and-hugo">blowfish主题的一篇博客</a>，感觉很不错，就开始用hugo，但奈何这个主题我一直调不出来，😂😂，又放弃了。不过这次我又找到了hugo上面的<a href="https://github.com/amazingrise/hugo-theme-diary">diary主题</a>，这次一路磕磕碰碰，勉强搞定了，所以记录一下。</p>
 <hr>
 <h1 id="使用suiyan已放弃">使用suiyan（已放弃）</h1>
-<p>suiyan项目是在公众号看到的，直接git clone下来，然后运行<code>python -m venv env</code>来创建虚拟环境（甚至这时候创建虚拟环境已经忘了，还是去百度的），然后就是熟悉的<code>pip install -r requirment.txt</code>，接着运行<code>w.py</code>即可。甚至还有窗口GUI，感觉对我这种新手很良好。<br>
-本来体验挺不错的，但是它的md格式解析好像和vscode、marktext不一样，多级列表没有正确解析成html。这我就没办法了，只能放弃。（也许会去仓库提一下issue？）</p>
+<p>suiyan项目是在公众号看到的，直接git clone下来，然后运行<code>python -m venv env</code>来创建虚拟环境（甚至这时候创建虚拟环境已经忘了，还是去百度的），然后就是熟悉的<code>pip install -r requirment.txt</code>，接着运行<code>w.py</code>即可。甚至还有窗口GUI，感觉对我这种新手很良好。</p>
+<p>本来体验挺不错的，但是它的md格式解析好像和vscode、marktext不一样，多级列表没有正确解析成html。这我就没办法了，只能放弃。（也许会去仓库提一下issue？）</p>
 <h1 id="使用hugo">使用hugo</h1>
 <h2 id="尝试blowfish又放弃了">尝试blowfish（又放弃了😂）</h2>
-<p>这个是我直接搜<strong>github blog</strong>，搜出来一篇介绍hugo+github pages的博客<em>就是参考的第一个链接</em>。其实这个博客的主题风格我感觉挺喜欢的，所以马上入坑了。<img src="/images/blowfish-blog.png" alt="blowfish主题博客"></p>
+<p>这个是我直接搜<strong>github blog</strong>，搜出来一篇介绍hugo+github pages的博客<em>就是参考的第一个链接</em>。其实这个博客的主题风格我感觉挺喜欢的，所以马上入坑了。</p>
+<p><img src="/images/blowfish-blog.png" alt="blowfish主题博客"></p>
+<p>然后我就安装了Hugo，其实只要去winget安装就行，注意要安装extended（扩展版），因为扩展版才支持modules，而这个主题是需要modules的。</p>
+<p>但是我按照上面那篇博客进行搭建，却不能正常运行，跑不起来。然后我就去看了主题的toml，发现它支持的最高hugo版本是<code>0.135.0</code>，但是我安装的是最新版<code>0.136.5</code>。于是我就卸载最新版。（不知道为什么，执行<code>winget uninstall --id Hugo.Hugo.Extended</code>不行，要执行<code>winget uninstall --name &quot;Hugo(扩展版)&quot;</code>）</p>
+<p>结果还是不行，所以懒得折腾了，放弃😂。</p>
 <h2 id="接触并使用diary">接触并使用diary</h2>
 <p>这个则是我随意逛hugo的主题展览页时挑中的其中一个，只有它符合：</p>
 <ol>
 <li>有目录</li>
 <li>风格简洁淡雅</li>
 </ol>
-<p>其它的都不太符合</p>
+<p>其它的都不太符合我的要求</p>
 <h1 id="参考">参考</h1>
 <hr>
 <blockquote>
@@ -404,8 +415,8 @@
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts">
-			下回<br>已经到头啦。
+                <a class="newer-posts" href="/20241105001824/">
+			下回<br>异步编程的一些理解
                 </a>
                 
                 
@@ -437,7 +448,7 @@
                     </div>
             </div><div id="sideContainer" class="side-container">
     
-    <a class="a-block nav-head false" href="https://hxxxer.github.io/">
+    <a class="a-block nav-head false" href="http://localhost:6138/">
     
         <div class="nav-title">
             闲碎

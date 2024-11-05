@@ -7,42 +7,6 @@
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <copyright>This is a customized copyright.</copyright>
-    <lastBuildDate>Sun, 03 Nov 2024 02:16:32 +0800</lastBuildDate>
     <atom:link href="https://hxxxer.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Blog</title>
-      <link>https://hxxxer.github.io/tags/blog/</link>
-      <pubDate>Sun, 03 Nov 2024 02:16:32 +0800</pubDate>
-      <guid>https://hxxxer.github.io/tags/blog/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Diary</title>
-      <link>https://hxxxer.github.io/tags/diary/</link>
-      <pubDate>Sun, 03 Nov 2024 02:16:32 +0800</pubDate>
-      <guid>https://hxxxer.github.io/tags/diary/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Hugo</title>
-      <link>https://hxxxer.github.io/tags/hugo/</link>
-      <pubDate>Sun, 03 Nov 2024 02:16:32 +0800</pubDate>
-      <guid>https://hxxxer.github.io/tags/hugo/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Mini2440</title>
-      <link>https://hxxxer.github.io/tags/mini2440/</link>
-      <pubDate>Sat, 02 Nov 2024 15:08:53 +0800</pubDate>
-      <guid>https://hxxxer.github.io/tags/mini2440/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>嵌入式</title>
-      <link>https://hxxxer.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/</link>
-      <pubDate>Sat, 02 Nov 2024 15:08:53 +0800</pubDate>
-      <guid>https://hxxxer.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/</guid>
-      <description></description>
-    </item>
   </channel>
 </rss>
