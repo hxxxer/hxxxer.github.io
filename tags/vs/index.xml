@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>VS on 闲碎</title>
+    <link>https://hxxxer.github.io/tags/vs/</link>
+    <description>Recent content in VS on 闲碎</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>This is a customized copyright.</copyright>
+    <lastBuildDate>Tue, 05 Nov 2024 22:15:00 +0800</lastBuildDate>
+    <atom:link href="https://hxxxer.github.io/tags/vs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>VS NET开发桌面程序的一些小经验</title>
+      <link>https://hxxxer.github.io/20241105net%E7%A8%8B%E5%BA%8F/</link>
+      <pubDate>Tue, 05 Nov 2024 22:15:00 +0800</pubDate>
+      <guid>https://hxxxer.github.io/20241105net%E7%A8%8B%E5%BA%8F/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;最后编辑于20241105&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;&#xA;&lt;p&gt;这篇博客就是记录一些提醒自己（包括未来的自己😋）的tips&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h1 id=&#34;控件改name事件重新绑定&#34;&gt;控件改(Name)，事件重新绑定&lt;/h1&gt;&#xA;&lt;p&gt;如上。以按钮为例，新建了一个button1，然后还没改名，不小心双击了，结果就直接新建Click事件了，这时候再改名的话，&lt;code&gt;form1.cs&lt;/code&gt;里面Click事件还是&lt;code&gt;button1_Click&lt;/code&gt;。&lt;/p&gt;&#xA;&lt;p&gt;结论就是直接改成改名之后的事件名，这时候设计器肯定变成空白了，然后打开随便一个控件或者窗口，什么都行，的属性页，然后选到改动的那个按钮，更改Click事件的绑定函数就行。&lt;/p&gt;&#xA;&lt;p&gt;如果设计器还是空白，那就关闭设计器，再打开，根据设计器的报错去设计文件里面更改事件绑定的函数就行。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/%E6%9B%B4%E6%94%B9%E4%BA%8B%E4%BB%B6%E7%BB%91%E5%AE%9A%E5%87%BD%E6%95%B0.png&#34; alt=&#34;更改事件绑定函数&#34;&gt;&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;参考&lt;/p&gt;&#xA;&lt;hr&gt;</description>
+    </item>
+  </channel>
+</rss>

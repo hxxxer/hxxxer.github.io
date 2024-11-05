@@ -255,9 +255,71 @@
 						
 						
 						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e6%90%ad%e5%bb%ba%e8%bf%87%e7%a8%8b" class="nav-搭建过程">
+									搭建过程
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e4%bf%ae%e4%b8%80%e4%ba%9bbug" class="nav-修一些bug">
+									修一些bug
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
 							
 								</ul>
 							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%89%98%e7%ae%a1%e5%88%b0github-pages" class="nav-托管到github-pages">
+									托管到Github pages
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
 						
 						
 						
@@ -382,12 +444,13 @@
 <h1 id="使用suiyan已放弃">使用suiyan（已放弃）</h1>
 <p>suiyan项目是在公众号看到的，直接git clone下来，然后运行<code>python -m venv env</code>来创建虚拟环境（甚至这时候创建虚拟环境已经忘了，还是去百度的），然后就是熟悉的<code>pip install -r requirment.txt</code>，接着运行<code>w.py</code>即可。甚至还有窗口GUI，感觉对我这种新手很良好。</p>
 <p>本来体验挺不错的，但是它的md格式解析好像和vscode、marktext不一样，多级列表没有正确解析成html。这我就没办法了，只能放弃。（也许会去仓库提一下issue？）</p>
+<hr>
 <h1 id="使用hugo">使用hugo</h1>
 <h2 id="尝试blowfish又放弃了">尝试blowfish（又放弃了😂）</h2>
 <p>这个是我直接搜<strong>github blog</strong>，搜出来一篇介绍hugo+github pages的博客<em>就是参考的第一个链接</em>。其实这个博客的主题风格我感觉挺喜欢的，所以马上入坑了。</p>
 <p><img src="/images/blowfish-blog.png" alt="blowfish主题博客"></p>
 <p>然后我就安装了Hugo，其实只要去winget安装就行，注意要安装extended（扩展版），因为扩展版才支持modules，而这个主题是需要modules的。</p>
-<p>但是我按照上面那篇博客进行搭建，却不能正常运行，跑不起来。然后我就去看了主题的toml，发现它支持的最高hugo版本是<code>0.135.0</code>，但是我安装的是最新版<code>0.136.5</code>。于是我就卸载最新版。（不知道为什么，执行<code>winget uninstall --id Hugo.Hugo.Extended</code>不行，要执行<code>winget uninstall --name &quot;Hugo(扩展版)&quot;</code>）</p>
+<p>但是我按照上面那篇博客进行搭建，却不能正常运行，跑不起来。然后我就去看了主题的toml，发现它支持的最高hugo版本是<code>0.135.0</code>，但是我安装的是最新版<code>0.136.5</code>。于是我就卸载最新版，（不知道为什么，执行<code>winget uninstall --id Hugo.Hugo.Extended</code>不行，要执行<code>winget uninstall --name &quot;Hugo(扩展版)&quot;</code>），安装<code>0.135.0</code>版本。</p>
 <p>结果还是不行，所以懒得折腾了，放弃😂。</p>
 <h2 id="接触并使用diary">接触并使用diary</h2>
 <p>这个则是我随意逛hugo的主题展览页时挑中的其中一个，只有它符合：</p>
@@ -395,7 +458,43 @@
 <li>有目录</li>
 <li>风格简洁淡雅</li>
 </ol>
-<p>其它的都不太符合我的要求</p>
+<p>其它的都不太符合我的要求，所以我就相中它了，下面是我的搭建过程：</p>
+<h3 id="搭建过程">搭建过程</h3>
+<p>先在一个目录下新建一个hugo站点：</p>
+<pre tabindex="0"><code>hugo new site BlogSite
+</code></pre><p>然后通过git拉主题文件下来：</p>
+<pre tabindex="0"><code>git submodule add https://github.com/AmazingRise/hugo-theme-diary.git themes/diary
+</code></pre><p>等下载完之后，就将主题里面一些文件夹拷贝到hugo的站点下：</p>
+<pre tabindex="0"><code>/exampleSite/*
+/archetypes
+</code></pre><p>然后将站点根目录的<code>hugo.toml</code>删除，复制出来的那个<code>config.toml</code>改名<code>hugo.toml</code>。</p>
+<p>此时就可以在当前目录运行本地服务测试命令：</p>
+<pre tabindex="0"><code>hugo server
+</code></pre><p>没问题就完成这一部分了。</p>
+<h3 id="修一些bug">修一些bug</h3>
+<p>那个新的<code>hugo.toml</code>里面有个bug，我当时排除了半天😓。文件尾部的定义侧边栏的命名漏了一个字母，导致和模板文件对不上。</p>
+<p>bug就是下面的<code>[[menus.main]]</code>，改之前是<code>[[menu.main]]</code>，模板文件里是<code>site.Munus.main</code>😓。<del>也许我会去提一下issue😋</del></p>
+<p>而且我一开始是不知道要把<code>config.toml</code>改名<code>hugo.toml</code>，因为只有<code>hugo.toml</code>才支持定义列表，可能是<code>config.toml</code>太老版本了吧，好像从<code>0.110.0</code>起就改用<code>hugo.toml</code>。</p>
+<p>修改之后的<code>hugo.toml</code>尾部：</p>
+<pre tabindex="0"><code>[[menus.main]]
+url = &#34;/categories&#34;
+name = &#34;分类 Categories&#34;
+weight = 1
+[[menus.main]]
+url = &#34;/tags&#34;
+name = &#34;标签 Tags&#34;
+weight = 2
+[[menus.main]]
+url = &#34;/posts&#34;
+name = &#34;归档 Archive&#34;
+weight = 1
+[[menus.main]]
+url = &#34;/index.xml&#34;
+name = &#34;RSS&#34;
+weight = 3
+</code></pre><hr>
+<h1 id="托管到github-pages">托管到Github pages</h1>
+<p>过程十分滴简单，先在GitHub新建一个仓库，名称一定要是<code>你的用户名.github.io</code>，比如我的就是<code>hxxxer.github.io</code>，记得选择公开和新建readme文档（为了在远程建立main分支）。</p>
 <h1 id="参考">参考</h1>
 <hr>
 <blockquote>
@@ -647,9 +746,71 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 						
 						
 						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e6%90%ad%e5%bb%ba%e8%bf%87%e7%a8%8b" class="nav-搭建过程">
+									搭建过程
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e4%bf%ae%e4%b8%80%e4%ba%9bbug" class="nav-修一些bug">
+									修一些bug
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
 							
 								</ul>
 							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%89%98%e7%ae%a1%e5%88%b0github-pages" class="nav-托管到github-pages">
+									托管到Github pages
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
 						
 						
 						

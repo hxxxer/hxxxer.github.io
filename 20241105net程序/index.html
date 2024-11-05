@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=6138&amp;path=livereload" data-no-instant defer></script>
-<title>Blog</title>
+<html><head>
+<title>VS NET开发桌面程序的一些小经验</title>
 
 
 
@@ -10,18 +10,22 @@
 <meta name="google-site-verification" content="G-XXXXXXXXXX">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 <meta content="telephone=no" name="format-detection">
-<meta name="description" content="">
+<meta name="description" content="在NET开发过程中遇到的一些有点蠢又有的少见的问题">
 <meta name="renderer" content="webkit">
 <meta name="theme-color" content="#ffffff">
 
 
 
-<meta property="og:url" content="http://localhost:6138/categories/blog/">
+<meta property="og:url" content="https://hxxxer.github.io/20241105net%E7%A8%8B%E5%BA%8F/">
   <meta property="og:site_name" content="闲碎">
-  <meta property="og:title" content="Blog">
-  <meta property="og:description" content="My HomePage Description">
+  <meta property="og:title" content="VS NET开发桌面程序的一些小经验">
+  <meta property="og:description" content="在NET开发过程中遇到的一些有点蠢又有的少见的问题">
   <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2024-11-05T22:15:00+08:00">
+    <meta property="article:modified_time" content="2024-11-05T22:15:00+08:00">
+    <meta property="article:tag" content="NET">
+    <meta property="article:tag" content="VS">
 
 
 
@@ -67,6 +71,8 @@
 
 
 
+      <script src="/js/toc.js"></script>
+    
     <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
 
 <link rel="stylesheet" href="/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css" integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media="screen">
@@ -105,11 +111,9 @@
                 
                 
                 
-                    
                 
                 
-                
-                <a class="a-block drawer-menu-item active" href="/categories">
+                <a class="a-block drawer-menu-item false" href="/categories">
                     分类 Categories
                 </a>
                 
@@ -135,6 +139,60 @@
                 
             
             
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- 目录 -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%89%8d%e8%a8%80" class="nav-前言">
+									前言
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%8e%a7%e4%bb%b6%e6%94%b9name%e4%ba%8b%e4%bb%b6%e9%87%8d%e6%96%b0%e7%bb%91%e5%ae%9a" class="nav-控件改name事件重新绑定">
+									控件改(Name)，事件重新绑定
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
         </div>
     </div>
 </div>
@@ -149,7 +207,7 @@
                 menu
             </i>
         </button>
-        <a id="navTitle" class="navbar-brand" href="http://localhost:6138/">
+        <a id="navTitle" class="navbar-brand" href="https://hxxxer.github.io/">
             闲碎
         </a>
         
@@ -163,7 +221,7 @@
 </nav>
 <div class="single-column-header-container" id="pageHead"
      v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
-    <a href="http://localhost:6138/">
+    <a href="https://hxxxer.github.io/">
         <div class="single-column-header-title">闲碎</div>
         
         <div class="single-column-header-subtitle">夜雨寄北</div>
@@ -176,41 +234,103 @@
                 <div id="streamContainer" class="stream-container">
 
     <div class="post-list-container post-list-container-shadow">
-        <div class="post-item-wrapper post-item-wrapper-no-hover">
-            <div class="post-item post-item-no-gaps">
-                <div class="post-item-info-wrapper">
-                    <div class="post-item-title  post-item-title-small">
-                        <a href="/categories/">Categories</a> / Blog
-                    </div>
-                </div>
-            </div>
-        </div><a href="/20241103/" class="a-block">
-            <div class="post-item-wrapper">
-                <div class="post-item post-item-no-gaps">
-                    <div class="post-item-info-wrapper">
-                        <div class="post-item-title">
-                            初步使用Hugo以及主题的尝试
-                        </div>
-                        <div class="post-item-meta">
-    2024-11-03
-    &emsp;
-    
-    
-    
-    &emsp;
-    
-</div>
+        <div class="post">
+            
+            
+            
 
+            <div class="post-head-wrapper-text-only"
+                
+            >
+                <div class="post-title">
+                    VS NET开发桌面程序的一些小经验
+                    
+                    <div class="post-subtitle">
+                        在NET开发过程中遇到的一些有点蠢又有的少见的问题
+                    </div>
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2024-11-05 22:15
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/%E7%BB%8F%E9%AA%8C">经验</a>
+                                &nbsp;
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/net">NET</a>
+                                &nbsp;
+                            
+                                <a href="/tags/vs">VS</a>
+                                &nbsp;
+                            
+                        
+                        
                     </div>
                 </div>
             </div>
-        </a></div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <p><strong>最后编辑于20241105</strong></p>
+<h1 id="前言">前言</h1>
+<p>这篇博客就是记录一些提醒自己（包括未来的自己😋）的tips</p>
+<hr>
+<h1 id="控件改name事件重新绑定">控件改(Name)，事件重新绑定</h1>
+<p>如上。以按钮为例，新建了一个button1，然后还没改名，不小心双击了，结果就直接新建Click事件了，这时候再改名的话，<code>form1.cs</code>里面Click事件还是<code>button1_Click</code>。</p>
+<p>结论就是直接改成改名之后的事件名，这时候设计器肯定变成空白了，然后打开随便一个控件或者窗口，什么都行，的属性页，然后选到改动的那个按钮，更改Click事件的绑定函数就行。</p>
+<p>如果设计器还是空白，那就关闭设计器，再打开，根据设计器的报错去设计文件里面更改事件绑定的函数就行。</p>
+<p><img src="/images/%E6%9B%B4%E6%94%B9%E4%BA%8B%E4%BB%B6%E7%BB%91%E5%AE%9A%E5%87%BD%E6%95%B0.png" alt="更改事件绑定函数"></p>
+<hr>
+<p>参考</p>
+<hr>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">最后修改于 2024-11-05</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts">
+			下回<br>已经到头啦。
+                </a>
+                
+                
+                
+                <a class="older-posts" href="/20241105022715/">
+			上回<br>mini2440的交叉编译环境搭建
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+                <p style="opacity: 0.6" align="center">
+                    <small>此篇文章的评论功能已经停用。</small>
+                </p>
+                
+            </div>
+        </div>
+    </div>
 
 
                     </div>
             </div><div id="sideContainer" class="side-container">
     
-    <a class="a-block nav-head false" href="http://localhost:6138/">
+    <a class="a-block nav-head false" href="https://hxxxer.github.io/">
     
         <div class="nav-title">
             闲碎
@@ -228,11 +348,9 @@
             
             
             
-                
             
             
-            
-            <a class="a-block nav-link-item active" href="/categories">
+            <a class="a-block nav-link-item false" href="/categories">
                 分类 Categories
             </a>
             
@@ -280,6 +398,60 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
         
 
         
+        <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- 目录 -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%89%8d%e8%a8%80" class="nav-前言">
+									前言
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%8e%a7%e4%bb%b6%e6%94%b9name%e4%ba%8b%e4%bb%b6%e9%87%8d%e6%96%b0%e7%bb%91%e5%ae%9a" class="nav-控件改name事件重新绑定">
+									控件改(Name)，事件重新绑定
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+        
     </div>
     <div class="pagination">
         <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top"
@@ -296,13 +468,8 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
         </a>
         
         
-        
-        
     </div>
 </div>
-
-
-
 
 <div id="single-column-footer">
 Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>

@@ -7,9 +7,32 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>This is a customized copyright.</copyright>
-    <lastBuildDate>Tue, 05 Nov 2024 02:27:17 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 05 Nov 2024 22:15:00 +0800</lastBuildDate>
     
         <atom:link href="https://hxxxer.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>VS NET开发桌面程序的一些小经验</title>
+        <link>https://hxxxer.github.io/20241105net%E7%A8%8B%E5%BA%8F/</link>
+        <pubDate>Tue, 05 Nov 2024 22:15:00 +0800</pubDate>
+        
+        <guid>https://hxxxer.github.io/20241105net%E7%A8%8B%E5%BA%8F/</guid>
+        <description>闲碎 https://hxxxer.github.io/20241105net%E7%A8%8B%E5%BA%8F/ -&lt;p&gt;&lt;strong&gt;最后编辑于20241105&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;这篇博客就是记录一些提醒自己（包括未来的自己😋）的tips&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;控件改name事件重新绑定&#34;&gt;控件改(Name)，事件重新绑定&lt;/h1&gt;
+&lt;p&gt;如上。以按钮为例，新建了一个button1，然后还没改名，不小心双击了，结果就直接新建Click事件了，这时候再改名的话，&lt;code&gt;form1.cs&lt;/code&gt;里面Click事件还是&lt;code&gt;button1_Click&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;结论就是直接改成改名之后的事件名，这时候设计器肯定变成空白了，然后打开随便一个控件或者窗口，什么都行，的属性页，然后选到改动的那个按钮，更改Click事件的绑定函数就行。&lt;/p&gt;
+&lt;p&gt;如果设计器还是空白，那就关闭设计器，再打开，根据设计器的报错去设计文件里面更改事件绑定的函数就行。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/%E6%9B%B4%E6%94%B9%E4%BA%8B%E4%BB%B6%E7%BB%91%E5%AE%9A%E5%87%BD%E6%95%B0.png&#34; alt=&#34;更改事件绑定函数&#34;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;参考&lt;/p&gt;
+&lt;hr&gt;
+- https://hxxxer.github.io/20241105net%E7%A8%8B%E5%BA%8F/ - This is a customized copyright.</description>
+        </item>
     
     
     
@@ -105,13 +128,15 @@ sudo apt-get install lib32stdc++6
         <description>闲碎 https://hxxxer.github.io/20241105015218/ -&lt;p&gt;&lt;strong&gt;最后编辑于20241105&lt;/strong&gt;&lt;/p&gt;
 &lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;因为使用hugo时，有几个很常用的指令，比如&lt;code&gt;hugo server&lt;/code&gt;之类的，但是去文件夹、然后打开ps7、再执行命令，这套流程实在是太麻烦了，所以我就想搞一个exe，把常用的功能都搞进去。&lt;/p&gt;
+&lt;p&gt;项目地址&lt;a href=&#34;https://github.com/hxxxer/HugoHelper&#34;&gt;HugoHelper&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
 &lt;h1 id=&#34;常用命令&#34;&gt;常用命令&lt;/h1&gt;
 &lt;p&gt;这段其实是为了防止我忘了而写了😋。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 切环境&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#658b00&#34;&gt;Set-Location&lt;/span&gt; -Path &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;D:\Tools\hugot\BST&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 生成可以上传到github的网页文件&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo --contentDir &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;C:\Users\15641\Documents\Blog&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 运行本地测试服务&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo server --port &lt;span style=&#34;color:#b452cd&#34;&gt;6138&lt;/span&gt; --contentDir &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;C:\Users\15641\Documents\Blog&amp;#34;&lt;/span&gt;
@@ -123,6 +148,7 @@ sudo apt-get install lib32stdc++6
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo --cleanDestinationDir  --contentDir &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;C:\Users\15641\Documents\Blog&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;注意！&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;刚运行玩本地服务不能马上&lt;code&gt;git add .&lt;/code&gt;，因为此时那些html的指向还是localhost😓，这时候上传就搞笑了。要&lt;code&gt;hugo&lt;/code&gt;一下才行。&lt;/p&gt;
+&lt;hr&gt;
 &lt;h1 id=&#34;开发进程&#34;&gt;开发进程&lt;/h1&gt;
 &lt;h2 id=&#34;配置vs开发环境&#34;&gt;配置VS开发环境&lt;/h2&gt;
 &lt;p&gt;其实直接在选择新项目里面就有可以添加新环境的地方，安装就行。&lt;/p&gt;
@@ -131,7 +157,13 @@ sudo apt-get install lib32stdc++6
 &lt;p&gt;右键按钮 - 属性，可以修改(Name)，这个(Name)是程序用的，好像只能字母数字。而后面那个Text才是我看到的按钮文本。&lt;/p&gt;
 &lt;p&gt;窗口的属性里面还能更改图标，就在那个Icon里面选一个ico文件就行。&lt;/p&gt;
 &lt;h2 id=&#34;创建新blog按钮&#34;&gt;“创建新Blog”按钮&lt;/h2&gt;
+&lt;p&gt;基本思路就是新开一个ps7进程，然后输入指令，或者在启动的时候用&lt;code&gt;-Command&lt;/code&gt;来实现带命令启动。&lt;/p&gt;
+&lt;p&gt;我一开始就是直接将ps1脚本里面的内容搬到代码里，脚本内容是通过&lt;code&gt;--fileName&lt;/code&gt;来实现文件名的传递，但是如果直接照搬到&lt;code&gt;-Command&lt;/code&gt;之后，无论我怎么搞都不能实现正常的文件名传递。&lt;/p&gt;
+&lt;p&gt;然后我就用直接执行脚本 + 传递参数的方式，执行很完美，但是感觉代码太WET😅，放弃。&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;最后我就是通过新开一个无窗口ps7进程，重定向输入输出，然后通过&lt;code&gt;streamWriter.WriteLine&lt;/code&gt;，&lt;strong&gt;一行行&lt;/strong&gt;地输入到ps7&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;最新的是新开了一个创建blog窗口，这样就可以自由输入文件名了，原来是硬编码以当前时间为文件名。&lt;/p&gt;
 &lt;h1 id=&#34;参帮考手&#34;&gt;参（帮）考（手）&lt;/h1&gt;
+&lt;hr&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;a href=&#34;https://tongyi.aliyun.com/qianwen/&#34;&gt;通义千问&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -150,6 +182,7 @@ sudo apt-get install lib32stdc++6
 &lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;在编用于hugo的.NET桌面程序时，需要在启动服务时，禁用更新静态网页文件，在问千问时，它使用了异步编程：将开启服务函数定义为异步，并在&lt;code&gt;await Task.Run(() =&amp;gt; process.WaitForExit());&lt;/code&gt;后，&lt;code&gt;otherBotton_Click = true;&lt;/code&gt;。一下子唤起了我了解异步编程的兴趣。&lt;/p&gt;
 &lt;p&gt;其实我之前已经多次了解甚至使用过了，但是还是不能说是学会，现在凭借AI的力量，简单地记录一下学习过程。&lt;/p&gt;
+&lt;hr&gt;
 &lt;h1 id=&#34;ai和我的问答&#34;&gt;AI和我的问答&lt;/h1&gt;
 &lt;h2 id=&#34;问答一&#34;&gt;问答一&lt;/h2&gt;
 &lt;p&gt;有关异步编程，我可以这么理解吗&lt;/p&gt;
@@ -294,6 +327,7 @@ sudo apt-get install lib32stdc++6
 &lt;li&gt;当主程序需要结果时，可以使用 &lt;code&gt;await&lt;/code&gt; 或类似的方法来获取结果，这会暂时阻塞当前的同步上下文。&lt;/li&gt;
 &lt;li&gt;在等待结果期间，主程序的其他部分仍然可以继续执行其他任务。&lt;/li&gt;
 &lt;/ul&gt;
+&lt;hr&gt;
 &lt;h1 id=&#34;最后我的理解&#34;&gt;最后我的理解&lt;/h1&gt;
 &lt;p&gt;其实关于异步编程在很多情况都不需要了解底层原理，只需要知道怎么用就行，所以我觉得用执行线来理解也是可以的。&lt;/p&gt;
 &lt;p&gt;主程序是一条主线，调用了一个异步函数就相当于新开了一条执行线，可能是并行（多进程），也可能是并发（不停切换），直到&lt;code&gt;await&lt;/code&gt;之类的之前，异步执行线和主程序各自运行。等到主程序，或者其它执行线叫了异步执行线，那么这个异步执行线就加入到叫它的执行线上，阻塞这个执行线，直到有结果了。&lt;/p&gt;
@@ -316,12 +350,13 @@ sudo apt-get install lib32stdc++6
 &lt;h1 id=&#34;使用suiyan已放弃&#34;&gt;使用suiyan（已放弃）&lt;/h1&gt;
 &lt;p&gt;suiyan项目是在公众号看到的，直接git clone下来，然后运行&lt;code&gt;python -m venv env&lt;/code&gt;来创建虚拟环境（甚至这时候创建虚拟环境已经忘了，还是去百度的），然后就是熟悉的&lt;code&gt;pip install -r requirment.txt&lt;/code&gt;，接着运行&lt;code&gt;w.py&lt;/code&gt;即可。甚至还有窗口GUI，感觉对我这种新手很良好。&lt;/p&gt;
 &lt;p&gt;本来体验挺不错的，但是它的md格式解析好像和vscode、marktext不一样，多级列表没有正确解析成html。这我就没办法了，只能放弃。（也许会去仓库提一下issue？）&lt;/p&gt;
+&lt;hr&gt;
 &lt;h1 id=&#34;使用hugo&#34;&gt;使用hugo&lt;/h1&gt;
 &lt;h2 id=&#34;尝试blowfish又放弃了&#34;&gt;尝试blowfish（又放弃了😂）&lt;/h2&gt;
 &lt;p&gt;这个是我直接搜&lt;strong&gt;github blog&lt;/strong&gt;，搜出来一篇介绍hugo+github pages的博客&lt;em&gt;就是参考的第一个链接&lt;/em&gt;。其实这个博客的主题风格我感觉挺喜欢的，所以马上入坑了。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/blowfish-blog.png&#34; alt=&#34;blowfish主题博客&#34;&gt;&lt;/p&gt;
 &lt;p&gt;然后我就安装了Hugo，其实只要去winget安装就行，注意要安装extended（扩展版），因为扩展版才支持modules，而这个主题是需要modules的。&lt;/p&gt;
-&lt;p&gt;但是我按照上面那篇博客进行搭建，却不能正常运行，跑不起来。然后我就去看了主题的toml，发现它支持的最高hugo版本是&lt;code&gt;0.135.0&lt;/code&gt;，但是我安装的是最新版&lt;code&gt;0.136.5&lt;/code&gt;。于是我就卸载最新版。（不知道为什么，执行&lt;code&gt;winget uninstall --id Hugo.Hugo.Extended&lt;/code&gt;不行，要执行&lt;code&gt;winget uninstall --name &amp;quot;Hugo(扩展版)&amp;quot;&lt;/code&gt;）&lt;/p&gt;
+&lt;p&gt;但是我按照上面那篇博客进行搭建，却不能正常运行，跑不起来。然后我就去看了主题的toml，发现它支持的最高hugo版本是&lt;code&gt;0.135.0&lt;/code&gt;，但是我安装的是最新版&lt;code&gt;0.136.5&lt;/code&gt;。于是我就卸载最新版，（不知道为什么，执行&lt;code&gt;winget uninstall --id Hugo.Hugo.Extended&lt;/code&gt;不行，要执行&lt;code&gt;winget uninstall --name &amp;quot;Hugo(扩展版)&amp;quot;&lt;/code&gt;），安装&lt;code&gt;0.135.0&lt;/code&gt;版本。&lt;/p&gt;
 &lt;p&gt;结果还是不行，所以懒得折腾了，放弃😂。&lt;/p&gt;
 &lt;h2 id=&#34;接触并使用diary&#34;&gt;接触并使用diary&lt;/h2&gt;
 &lt;p&gt;这个则是我随意逛hugo的主题展览页时挑中的其中一个，只有它符合：&lt;/p&gt;
@@ -329,7 +364,43 @@ sudo apt-get install lib32stdc++6
 &lt;li&gt;有目录&lt;/li&gt;
 &lt;li&gt;风格简洁淡雅&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;其它的都不太符合我的要求&lt;/p&gt;
+&lt;p&gt;其它的都不太符合我的要求，所以我就相中它了，下面是我的搭建过程：&lt;/p&gt;
+&lt;h3 id=&#34;搭建过程&#34;&gt;搭建过程&lt;/h3&gt;
+&lt;p&gt;先在一个目录下新建一个hugo站点：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hugo new site BlogSite
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后通过git拉主题文件下来：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git submodule add https://github.com/AmazingRise/hugo-theme-diary.git themes/diary
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;等下载完之后，就将主题里面一些文件夹拷贝到hugo的站点下：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;/exampleSite/*
+/archetypes
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后将站点根目录的&lt;code&gt;hugo.toml&lt;/code&gt;删除，复制出来的那个&lt;code&gt;config.toml&lt;/code&gt;改名&lt;code&gt;hugo.toml&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;此时就可以在当前目录运行本地服务测试命令：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hugo server
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;没问题就完成这一部分了。&lt;/p&gt;
+&lt;h3 id=&#34;修一些bug&#34;&gt;修一些bug&lt;/h3&gt;
+&lt;p&gt;那个新的&lt;code&gt;hugo.toml&lt;/code&gt;里面有个bug，我当时排除了半天😓。文件尾部的定义侧边栏的命名漏了一个字母，导致和模板文件对不上。&lt;/p&gt;
+&lt;p&gt;bug就是下面的&lt;code&gt;[[menus.main]]&lt;/code&gt;，改之前是&lt;code&gt;[[menu.main]]&lt;/code&gt;，模板文件里是&lt;code&gt;site.Munus.main&lt;/code&gt;😓。&lt;del&gt;也许我会去提一下issue😋&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;而且我一开始是不知道要把&lt;code&gt;config.toml&lt;/code&gt;改名&lt;code&gt;hugo.toml&lt;/code&gt;，因为只有&lt;code&gt;hugo.toml&lt;/code&gt;才支持定义列表，可能是&lt;code&gt;config.toml&lt;/code&gt;太老版本了吧，好像从&lt;code&gt;0.110.0&lt;/code&gt;起就改用&lt;code&gt;hugo.toml&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;修改之后的&lt;code&gt;hugo.toml&lt;/code&gt;尾部：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[[menus.main]]
+url = &amp;#34;/categories&amp;#34;
+name = &amp;#34;分类 Categories&amp;#34;
+weight = 1
+[[menus.main]]
+url = &amp;#34;/tags&amp;#34;
+name = &amp;#34;标签 Tags&amp;#34;
+weight = 2
+[[menus.main]]
+url = &amp;#34;/posts&amp;#34;
+name = &amp;#34;归档 Archive&amp;#34;
+weight = 1
+[[menus.main]]
+url = &amp;#34;/index.xml&amp;#34;
+name = &amp;#34;RSS&amp;#34;
+weight = 3
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h1 id=&#34;托管到github-pages&#34;&gt;托管到Github pages&lt;/h1&gt;
+&lt;p&gt;过程十分滴简单，先在GitHub新建一个仓库，名称一定要是&lt;code&gt;你的用户名.github.io&lt;/code&gt;，比如我的就是&lt;code&gt;hxxxer.github.io&lt;/code&gt;，记得选择公开和新建readme文档（为了在远程建立main分支）。&lt;/p&gt;
 &lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
 &lt;hr&gt;
 &lt;blockquote&gt;
@@ -351,6 +422,7 @@ sudo apt-get install lib32stdc++6
         <description>闲碎 https://hxxxer.github.io/20241101/ -&lt;p&gt;&lt;strong&gt;编辑于2024.11.1&lt;/strong&gt;&lt;/p&gt;
 &lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;电脑系统为 win11 64位专业版，版本位21H2，版本号为22000.2538&lt;/p&gt;
+&lt;hr&gt;
 &lt;h1 id=&#34;1-开发板串口连接&#34;&gt;1. 开发板串口连接&lt;/h1&gt;
 &lt;h2 id=&#34;11-线材选择&#34;&gt;1.1. 线材选择&lt;/h2&gt;
 &lt;p&gt;需要两个线：&lt;/p&gt;
@@ -369,6 +441,7 @@ sudo apt-get install lib32stdc++6
 &lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/%E8%AE%BE%E5%A4%87COM.png&#34; alt=&#34;看COM号&#34;&gt;&lt;/p&gt;
 &lt;p&gt;待成功连接，发一个数字或者按一下板子的复位按键，就可以看到功能菜单了。&lt;/p&gt;
 &lt;p&gt;usb转串口线应该是不需要安装驱动的，网上好像也没有相关案例。&lt;/p&gt;
+&lt;hr&gt;
 &lt;h1 id=&#34;2-连接usb下载线&#34;&gt;2. 连接Usb下载线&lt;/h1&gt;
 &lt;h2 id=&#34;21-线材选择&#34;&gt;2.1. 线材选择&lt;/h2&gt;
 &lt;p&gt;直接用老师发的那根usb方口线就行，虽然我是自己买了一根。&lt;/p&gt;

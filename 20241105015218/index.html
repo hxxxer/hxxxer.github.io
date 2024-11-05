@@ -366,13 +366,15 @@
                     <p><strong>最后编辑于20241105</strong></p>
 <h1 id="前言">前言</h1>
 <p>因为使用hugo时，有几个很常用的指令，比如<code>hugo server</code>之类的，但是去文件夹、然后打开ps7、再执行命令，这套流程实在是太麻烦了，所以我就想搞一个exe，把常用的功能都搞进去。</p>
+<p>项目地址<a href="https://github.com/hxxxer/HugoHelper">HugoHelper</a></p>
+<hr>
 <h1 id="常用命令">常用命令</h1>
 <p>这段其实是为了防止我忘了而写了😋。</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#228b22"># 切环境</span>
 </span></span><span style="display:flex;"><span><span style="color:#658b00">Set-Location</span> -Path <span style="color:#cd5555">&#34;D:\Tools\hugot\BST&#34;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#228b22"># 生成可以上传到github的网页文件</span>
-</span></span><span style="display:flex;"><span>hugo
+</span></span><span style="display:flex;"><span>hugo --contentDir <span style="color:#cd5555">&#34;C:\Users\15641\Documents\Blog&#34;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#228b22"># 运行本地测试服务</span>
 </span></span><span style="display:flex;"><span>hugo server --port <span style="color:#b452cd">6138</span> --contentDir <span style="color:#cd5555">&#34;C:\Users\15641\Documents\Blog&#34;</span>
@@ -384,6 +386,7 @@
 </span></span><span style="display:flex;"><span>hugo --cleanDestinationDir  --contentDir <span style="color:#cd5555">&#34;C:\Users\15641\Documents\Blog&#34;</span>
 </span></span></code></pre></div><p><strong>注意！</strong></p>
 <p>刚运行玩本地服务不能马上<code>git add .</code>，因为此时那些html的指向还是localhost😓，这时候上传就搞笑了。要<code>hugo</code>一下才行。</p>
+<hr>
 <h1 id="开发进程">开发进程</h1>
 <h2 id="配置vs开发环境">配置VS开发环境</h2>
 <p>其实直接在选择新项目里面就有可以添加新环境的地方，安装就行。</p>
@@ -392,7 +395,13 @@
 <p>右键按钮 - 属性，可以修改(Name)，这个(Name)是程序用的，好像只能字母数字。而后面那个Text才是我看到的按钮文本。</p>
 <p>窗口的属性里面还能更改图标，就在那个Icon里面选一个ico文件就行。</p>
 <h2 id="创建新blog按钮">“创建新Blog”按钮</h2>
+<p>基本思路就是新开一个ps7进程，然后输入指令，或者在启动的时候用<code>-Command</code>来实现带命令启动。</p>
+<p>我一开始就是直接将ps1脚本里面的内容搬到代码里，脚本内容是通过<code>--fileName</code>来实现文件名的传递，但是如果直接照搬到<code>-Command</code>之后，无论我怎么搞都不能实现正常的文件名传递。</p>
+<p>然后我就用直接执行脚本 + 传递参数的方式，执行很完美，但是感觉代码太WET😅，放弃。</p>
+<p><del>最后我就是通过新开一个无窗口ps7进程，重定向输入输出，然后通过<code>streamWriter.WriteLine</code>，<strong>一行行</strong>地输入到ps7</del></p>
+<p>最新的是新开了一个创建blog窗口，这样就可以自由输入文件名了，原来是硬编码以当前时间为文件名。</p>
 <h1 id="参帮考手">参（帮）考（手）</h1>
+<hr>
 <blockquote>
 <p><a href="https://tongyi.aliyun.com/qianwen/">通义千问</a></p>
 </blockquote>
