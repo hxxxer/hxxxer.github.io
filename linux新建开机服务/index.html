@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html><head>
-<title>VS NET开发桌面程序的一些小经验</title>
+<title>Ubuntu新建开机服务</title>
 
 
 
@@ -10,22 +10,20 @@
 <meta name="google-site-verification" content="G-XXXXXXXXXX">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 <meta content="telephone=no" name="format-detection">
-<meta name="description" content="在NET开发过程中遇到的一些有点蠢又有的少见的问题">
+<meta name="description" content="通过服务单元建立开机服务">
 <meta name="renderer" content="webkit">
 <meta name="theme-color" content="#ffffff">
 
 
 
-<meta property="og:url" content="https://hxxxer.github.io/20241105net%E7%A8%8B%E5%BA%8F/">
+<meta property="og:url" content="https://hxxxer.github.io/linux%E6%96%B0%E5%BB%BA%E5%BC%80%E6%9C%BA%E6%9C%8D%E5%8A%A1/">
   <meta property="og:site_name" content="闲碎">
-  <meta property="og:title" content="VS NET开发桌面程序的一些小经验">
-  <meta property="og:description" content="在NET开发过程中遇到的一些有点蠢又有的少见的问题">
+  <meta property="og:title" content="Ubuntu新建开机服务">
+  <meta property="og:description" content="通过服务单元建立开机服务">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
-    <meta property="article:published_time" content="2024-11-05T22:15:00+08:00">
-    <meta property="article:modified_time" content="2024-11-05T22:15:00+08:00">
-    <meta property="article:tag" content="NET">
-    <meta property="article:tag" content="VS">
+    <meta property="article:published_time" content="2024-11-06T22:36:41+08:00">
+    <meta property="article:modified_time" content="2024-11-06T22:36:41+08:00">
 
 
 
@@ -179,8 +177,108 @@
 						
 						
 							<li>
-								<a href="#%e6%8e%a7%e4%bb%b6%e6%94%b9name%e4%ba%8b%e4%bb%b6%e9%87%8d%e6%96%b0%e7%bb%91%e5%ae%9a" class="nav-控件改name事件重新绑定">
-									控件改(Name)，事件重新绑定
+								<a href="#%e6%b3%95%e4%b8%80%e4%bd%bf%e7%94%a8etcrclocal" class="nav-法一使用etcrclocal">
+									法一：使用/etc/rc.local
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%b3%95%e4%ba%8c%e4%bd%bf%e7%94%a8%e6%9c%8d%e5%8a%a1%e5%8d%95%e5%85%83%e6%96%87%e4%bb%b6%e6%8e%a8%e8%8d%90" class="nav-法二使用服务单元文件推荐">
+									法二：使用服务单元文件（推荐）
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%86%85%e5%ae%b9%e8%a7%a3%e9%87%8a" class="nav-内容解释">
+									内容解释
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%b3%95%e4%b8%89%e4%bd%bf%e7%94%a8initd%e8%84%9a%e6%9c%ac" class="nav-法三使用initd脚本">
+									法三：使用init.d脚本
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%b3%95%e5%9b%9b%e4%bd%bf%e7%94%a8profile%e6%96%87%e4%bb%b6" class="nav-法四使用profile文件">
+									法四：使用profile文件
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%8f%82%e8%80%83" class="nav-参考">
+									参考
 								</a>
 							</li>
 						
@@ -243,34 +341,21 @@
                 
             >
                 <div class="post-title">
-                    VS NET开发桌面程序的一些小经验
+                    Ubuntu新建开机服务
                     
                     <div class="post-subtitle">
-                        在NET开发过程中遇到的一些有点蠢又有的少见的问题
+                        通过服务单元建立开机服务
                     </div>
                     
                     <div class="post-meta">
                         
                         <time itemprop="datePublished">
-                            2024-11-05 22:15
+                            2024-11-06 22:36
                         </time>
                         
 
                         
-                            <i class="material-icons" style="">folder</i>
-                                <a href="/categories/%E7%BB%8F%E9%AA%8C">经验</a>
-                                &nbsp;
-                        
 
-                        
-                            <i class="material-icons" style="">label</i>
-                            
-                                <a href="/tags/net">NET</a>
-                                &nbsp;
-                            
-                                <a href="/tags/vs">VS</a>
-                                &nbsp;
-                            
                         
                         
                     </div>
@@ -281,22 +366,101 @@
                 
                 <div class="post-body" v-pre>
                 
-                    <p><strong>最后编辑于2024年11月05日</strong></p>
+                    <p><strong>最后编辑于2024年11月06日</strong></p>
 <h1 id="前言">前言</h1>
-<p>这篇博客就是记录一些提醒自己（包括未来的自己😋）的tips</p>
+<p>在搞VBox的共享文件夹的时候，怎么搞都不能在开机的时候自动挂载，包括安装增强功能，指定目录开启自动挂载，这些都不行。最后直接祭出杀器，新建一个开机服务。</p>
 <hr>
-<h1 id="控件改name事件重新绑定">控件改(Name)，事件重新绑定</h1>
-<p>如上。以按钮为例，新建了一个button1，然后还没改名，不小心双击了，结果就直接新建Click事件了，这时候再改名的话，<code>form1.cs</code>里面Click事件还是<code>button1_Click</code>。</p>
-<p>结论就是直接改成改名之后的事件名，这时候设计器肯定变成空白了，然后打开随便一个控件或者窗口，什么都行，的属性页，然后选到改动的那个按钮，更改Click事件的绑定函数就行。</p>
-<p>如果设计器还是空白，那就关闭设计器，再打开，根据设计器的报错去设计文件里面更改事件绑定的函数就行。</p>
-<p><img src="/images/%E6%9B%B4%E6%94%B9%E4%BA%8B%E4%BB%B6%E7%BB%91%E5%AE%9A%E5%87%BD%E6%95%B0.png" alt="更改事件绑定函数"></p>
+<h1 id="法一使用etcrclocal">法一：使用<code>/etc/rc.local</code></h1>
+<p>因为这个方法是很传统的方法，在新版本的Ubuntu已经不推荐了，但是可能用得上，记录一下。</p>
+<ol>
+<li>
+<p>打开或新建<code>/etc/rc.local</code>文件。</p>
+</li>
+<li>
+<p>在文件中添加挂载命令：</p>
+<pre tabindex="0"><code>#!/bin/bash
+/bin/mount -t vboxsf shared /home/hx/Desktop/shared
+exit 0
+</code></pre></li>
+<li>
+<p>给予<code>+x</code>权限。</p>
+</li>
+</ol>
 <hr>
-<p>参考</p>
+<h1 id="法二使用服务单元文件推荐">法二：使用服务单元文件（推荐）</h1>
+<p>这个方法在新版Ubuntu中更为推荐，因为可操纵性更强。</p>
+<ol>
+<li>
+<p>新建<code>/etc/systemd/system/vbox-mount.service</code>。</p>
+</li>
+<li>
+<p>写入以下内容：</p>
+<pre tabindex="0"><code>[Unit]
+Description=vbox mount shared
+After=network.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/mount -t vboxsf shared /home/hx/Desktop/shared
+User=root
+
+[Install]
+WantedBy=multi-user.target
+</code></pre></li>
+<li>
+<p>然后重新加载配置文件：</p>
+<pre tabindex="0"><code>sudo systemctl daemon-reload
+</code></pre></li>
+<li>
+<p>然后启动服务单元：</p>
+<pre tabindex="0"><code>sudo systemctl enable vbox-mount.service
+</code></pre></li>
+<li>
+<p>可以查看一下启动状态：</p>
+<pre tabindex="0"><code>sudo systemctl status vbox-mount.service
+</code></pre></li>
+</ol>
+<h2 id="内容解释">内容解释</h2>
+<ul>
+<li><code>After=network.target</code>，就是在网路服务之后再执行，注意不是强制性的。</li>
+<li><code>Type=oneshot</code>，只执行一次。</li>
+<li><code>RemainAfterExit=yes</code>，执行退出之后仍然认为服务活跃，这是为了依赖这项服务的服务能正常运行（虽然这里没有）。</li>
+<li><code>WantedBy=multi-user.target</code>，在多用户模式下启动？猜测是在开机选用户那里启动。</li>
+</ul>
 <hr>
+<h1 id="法三使用initd脚本">法三：使用<code>init.d</code>脚本</h1>
+<p>这个和法一一样不常用了，但我是松鼠😋！</p>
+<ol>
+<li>
+<p>创建启动脚本<code>/etc/init.d/myscript</code>。</p>
+</li>
+<li>
+<p>在文件中添加挂载命令：</p>
+<pre tabindex="0"><code>#!/bin/bash
+/bin/mount -t vboxsf shared /home/hx/Desktop/shared
+exit 0
+</code></pre></li>
+<li>
+<p>给予<code>+x</code>权限。</p>
+</li>
+<li>
+<p>注册脚本到启动序列：</p>
+<pre tabindex="0"><code>sudo update-rc.d myscript defaults
+</code></pre></li>
+</ol>
+<hr>
+<h1 id="法四使用profile文件">法四：使用<code>profile</code>文件</h1>
+<p>就像将<code>arm-linux-gcc</code>及其库添加到环境变量一样，直接添加命令到<code>~/.profile</code>或者<code>~/.bashrc</code>即可</p>
+<h1 id="参考">参考</h1>
+<hr>
+<blockquote>
+<p>全是AI写的😋</p>
+</blockquote>
 
                     
                     <HR width="100%" id="EOF">
-		    <p style="color:#777;">最后修改于 2024-11-05</p>
+		    <p style="color:#777;">最后修改于 2024-11-06</p>
                     
                 </div>
             </div>
@@ -305,14 +469,14 @@
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts" href="/linux%E6%96%B0%E5%BB%BA%E5%BC%80%E6%9C%BA%E6%9C%8D%E5%8A%A1/">
-			下回<br>Ubuntu新建开机服务
+                <a class="newer-posts">
+			下回<br>已经到头啦。
                 </a>
                 
                 
                 
-                <a class="older-posts" href="/20241105022715/">
-			上回<br>mini2440的交叉编译环境搭建
+                <a class="older-posts" href="/20241105net%E7%A8%8B%E5%BA%8F/">
+			上回<br>VS NET开发桌面程序的一些小经验
                 </a>
                 
             </nav>
@@ -438,8 +602,108 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 						
 						
 							<li>
-								<a href="#%e6%8e%a7%e4%bb%b6%e6%94%b9name%e4%ba%8b%e4%bb%b6%e9%87%8d%e6%96%b0%e7%bb%91%e5%ae%9a" class="nav-控件改name事件重新绑定">
-									控件改(Name)，事件重新绑定
+								<a href="#%e6%b3%95%e4%b8%80%e4%bd%bf%e7%94%a8etcrclocal" class="nav-法一使用etcrclocal">
+									法一：使用/etc/rc.local
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%b3%95%e4%ba%8c%e4%bd%bf%e7%94%a8%e6%9c%8d%e5%8a%a1%e5%8d%95%e5%85%83%e6%96%87%e4%bb%b6%e6%8e%a8%e8%8d%90" class="nav-法二使用服务单元文件推荐">
+									法二：使用服务单元文件（推荐）
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%86%85%e5%ae%b9%e8%a7%a3%e9%87%8a" class="nav-内容解释">
+									内容解释
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%b3%95%e4%b8%89%e4%bd%bf%e7%94%a8initd%e8%84%9a%e6%9c%ac" class="nav-法三使用initd脚本">
+									法三：使用init.d脚本
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%b3%95%e5%9b%9b%e4%bd%bf%e7%94%a8profile%e6%96%87%e4%bb%b6" class="nav-法四使用profile文件">
+									法四：使用profile文件
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%8f%82%e8%80%83" class="nav-参考">
+									参考
 								</a>
 							</li>
 						
