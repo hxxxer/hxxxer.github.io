@@ -2,28 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://hxxxer.github.io/</loc>
+    <lastmod>2024-11-08T01:53:42+08:00</lastmod>
+  </url><url>
+    <loc>https://hxxxer.github.io/categories/</loc>
+    <lastmod>2024-11-08T01:07:05+08:00</lastmod>
+  </url><url>
+    <loc>https://hxxxer.github.io/tags/tags/</loc>
+    <lastmod>2024-11-08T01:07:05+08:00</lastmod>
+  </url><url>
+    <loc>https://hxxxer.github.io/tags/</loc>
+    <lastmod>2024-11-08T01:07:05+08:00</lastmod>
+  </url><url>
+    <loc>https://hxxxer.github.io/tags/vs/</loc>
+    <lastmod>2024-11-08T01:07:05+08:00</lastmod>
+  </url><url>
+    <loc>https://hxxxer.github.io/vs%E6%8E%A8%E9%80%81tags/</loc>
+    <lastmod>2024-11-08T01:07:05+08:00</lastmod>
+  </url><url>
+    <loc>https://hxxxer.github.io/categories/%E7%BB%8F%E9%AA%8C/</loc>
+    <lastmod>2024-11-08T01:07:05+08:00</lastmod>
+  </url><url>
+    <loc>https://hxxxer.github.io/tags/%E6%8E%A8%E9%80%81/</loc>
+    <lastmod>2024-11-08T01:07:05+08:00</lastmod>
+  </url><url>
+    <loc>https://hxxxer.github.io/tags/ubuntu/</loc>
+    <lastmod>2024-11-06T22:36:41+08:00</lastmod>
+  </url><url>
     <loc>https://hxxxer.github.io/linux%E6%96%B0%E5%BB%BA%E5%BC%80%E6%9C%BA%E6%9C%8D%E5%8A%A1/</loc>
     <lastmod>2024-11-06T22:36:41+08:00</lastmod>
   </url><url>
-    <loc>https://hxxxer.github.io/</loc>
+    <loc>https://hxxxer.github.io/tags/%E5%BC%80%E6%9C%BA%E6%9C%8D%E5%8A%A1/</loc>
     <lastmod>2024-11-06T22:36:41+08:00</lastmod>
-  </url><url>
-    <loc>https://hxxxer.github.io/categories/</loc>
-    <lastmod>2024-11-05T22:15:00+08:00</lastmod>
   </url><url>
     <loc>https://hxxxer.github.io/tags/net/</loc>
     <lastmod>2024-11-05T22:15:00+08:00</lastmod>
   </url><url>
-    <loc>https://hxxxer.github.io/tags/</loc>
-    <lastmod>2024-11-05T22:15:00+08:00</lastmod>
-  </url><url>
-    <loc>https://hxxxer.github.io/tags/vs/</loc>
-    <lastmod>2024-11-05T22:15:00+08:00</lastmod>
-  </url><url>
     <loc>https://hxxxer.github.io/20241105net%E7%A8%8B%E5%BA%8F/</loc>
-    <lastmod>2024-11-05T22:15:00+08:00</lastmod>
-  </url><url>
-    <loc>https://hxxxer.github.io/categories/%E7%BB%8F%E9%AA%8C/</loc>
     <lastmod>2024-11-05T22:15:00+08:00</lastmod>
   </url><url>
     <loc>https://hxxxer.github.io/tags/mini2440/</loc>

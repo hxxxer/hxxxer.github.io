@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <copyright>This is a customized copyright.</copyright>
-    <lastBuildDate>Tue, 05 Nov 2024 22:15:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 08 Nov 2024 01:07:05 +0800</lastBuildDate>
     <atom:link href="https://hxxxer.github.io/tags/vs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>VS推送tags</title>
+      <link>https://hxxxer.github.io/vs%E6%8E%A8%E9%80%81tags/</link>
+      <pubDate>Fri, 08 Nov 2024 01:07:05 +0800</pubDate>
+      <guid>https://hxxxer.github.io/vs%E6%8E%A8%E9%80%81tags/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月08日&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;&#xA;&lt;p&gt;我在GitHub启用了actions，其工作是检测到上传的tags是v开头时，自动构建并发布。但是刚开始不会在vs里面搞。现在搞明白了，记录一下。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h1 id=&#34;打标签&#34;&gt;打标签&lt;/h1&gt;&#xA;&lt;p&gt;打开位于vs顶栏的git - 管理分支，然后对某一个上传记录右键 - 新建标签。新建完成之后，打开顶栏的视图 - git更改，然后在git更改窗口的分支那一栏，打开右边的选项（三个点） - 将所有标签推送到 - origin。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/VS%E7%AE%A1%E7%90%86%E5%88%86%E6%94%AF.png&#34; alt=&#34;管理分支&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/VS%E6%8E%A8%E9%80%81tags.png&#34; alt=&#34;推送tags&#34;&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;&#xA;&lt;hr&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/71379079/visual-studio-2022-git-push-tags&#34;&gt;Visual Studio 2022 Git Push Tags&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
+    </item>
     <item>
       <title>VS NET开发桌面程序的一些小经验</title>
       <link>https://hxxxer.github.io/20241105net%E7%A8%8B%E5%BA%8F/</link>
