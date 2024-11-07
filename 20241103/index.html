@@ -495,6 +495,14 @@ weight = 3
 </code></pre><hr>
 <h1 id="托管到github-pages">托管到Github pages</h1>
 <p>过程十分滴简单，先在GitHub新建一个仓库，名称一定要是<code>你的用户名.github.io</code>，比如我的就是<code>hxxxer.github.io</code>，记得选择公开和新建readme文档（为了在远程建立main分支）。</p>
+<p>然后在hugo项目根目录的<code>pulic</code>文件夹下新建仓库，连接远程仓库，拉取，添加，推送：</p>
+<pre tabindex="0"><code>git init -b main
+git remote add origin-when-cross-origin xxx@github.com:xxx
+git pull --rebase origin main
+git add .
+git commit -m &#34;&#34;
+git push origin main
+</code></pre><p>然后完了。以后就直接<code>add</code> <code>commit</code> <code>push</code>就行。</p>
 <h1 id="参考">参考</h1>
 <hr>
 <blockquote>

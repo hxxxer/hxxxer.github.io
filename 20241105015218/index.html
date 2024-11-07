@@ -254,6 +254,106 @@
 						
 						
 						
+						
+						
+							<li>
+								<a href="#%e4%b8%80%e4%ba%9b%e7%ae%80%e5%8d%95%e7%9a%84%e6%8c%89%e9%92%ae" class="nav-一些简单的按钮">
+									一些简单的按钮
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#git%e7%aa%97%e5%8f%a3" class="nav-git窗口">
+									Git窗口
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#11%e6%9c%887" class="nav-11月7">
+									11月7
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e6%b7%bb%e5%8a%a0%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6" class="nav-添加配置文件">
+									添加配置文件
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%aa%97%e5%8f%a3%e8%99%9a%e5%8c%96" class="nav-窗口虚化">
+									窗口虚化
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
 							
 								</ul>
 							
@@ -400,6 +500,23 @@
 <p>然后我就用直接执行脚本 + 传递参数的方式，执行很完美，但是感觉代码太WET😅，放弃。</p>
 <p><del>最后我就是通过新开一个无窗口ps7进程，重定向输入输出，然后通过<code>streamWriter.WriteLine</code>，<strong>一行行</strong>地输入到ps7</del></p>
 <p>最新的是新开了一个创建blog窗口，这样就可以自由输入文件名了，原来是硬编码以当前时间为文件名。</p>
+<h2 id="一些简单的按钮">一些简单的按钮</h2>
+<p>就是一些在点击事件内就能完全执行的按钮，包括开启Server、构建网页、清理垃圾。</p>
+<p>开启Server我想看到ps窗口，就简单设定了一下ps进程设定：</p>
+<pre tabindex="0"><code>RedirectStandardInput = true, // 重定向标准输入
+RedirectStandardOutput = false, // 重定向标准输出
+UseShellExecute = false, // 不使用系统外壳程序启动
+CreateNoWindow = false // 创建窗口
+</code></pre><h2 id="git窗口">Git窗口</h2>
+<p>我是想将Git操作也写在窗口里，但是目前还没搞定。</p>
+<hr>
+<h1 id="11月7">11月7</h1>
+<h2 id="添加配置文件">添加配置文件</h2>
+<p>右键项目 - 添加 - 新建项，找到应用程序配置文件就行。在里面添加键值对就行，通过在代码使用<code>ConfigurationManager.AppSettings[&quot;键&quot;]</code>来获取对应的值。</p>
+<p>我现在是把配置的初始化写在专门一个类里面<code>AppConfig.cs</code>，只要其它的类的命名开机和它一样（都是<code>namespace Hugo</code>），就可以通过<code>AppConfig.HugoRootDir</code>直接调用。</p>
+<h2 id="窗口虚化">窗口虚化</h2>
+<p>因为按钮的点击事件都是通过ps间接实现的，所以有的耗时，为了提醒我正在运行而不是没响应之类的。</p>
+<p>现在是直接将窗口的透明度临时设置为0.91，结束再改回来。不过我想实现类似高斯模糊的效果，但是好像都要引入包。</p>
 <h1 id="参帮考手">参（帮）考（手）</h1>
 <hr>
 <blockquote>
@@ -612,6 +729,106 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 							<li>
 								<a href="#%e5%88%9b%e5%bb%ba%e6%96%b0blog%e6%8c%89%e9%92%ae" class="nav-创建新blog按钮">
 									“创建新Blog”按钮
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e4%b8%80%e4%ba%9b%e7%ae%80%e5%8d%95%e7%9a%84%e6%8c%89%e9%92%ae" class="nav-一些简单的按钮">
+									一些简单的按钮
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#git%e7%aa%97%e5%8f%a3" class="nav-git窗口">
+									Git窗口
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#11%e6%9c%887" class="nav-11月7">
+									11月7
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e6%b7%bb%e5%8a%a0%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6" class="nav-添加配置文件">
+									添加配置文件
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e7%aa%97%e5%8f%a3%e8%99%9a%e5%8c%96" class="nav-窗口虚化">
+									窗口虚化
 								</a>
 							</li>
 						
