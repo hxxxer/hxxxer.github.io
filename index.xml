@@ -227,7 +227,7 @@ sudo apt-get install lib32stdc++6
         <pubDate>Tue, 05 Nov 2024 01:52:20 +0800</pubDate>
         
         <guid>https://hxxxer.github.io/20241105015218/</guid>
-        <description>闲碎 https://hxxxer.github.io/20241105015218/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月05日&lt;/strong&gt;&lt;/p&gt;
+        <description>闲碎 https://hxxxer.github.io/20241105015218/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月07日&lt;/strong&gt;&lt;/p&gt;
 &lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;因为使用hugo时，有几个很常用的指令，比如&lt;code&gt;hugo server&lt;/code&gt;之类的，但是去文件夹、然后打开ps7、再执行命令，这套流程实在是太麻烦了，所以我就想搞一个exe，把常用的功能都搞进去。&lt;/p&gt;
 &lt;p&gt;项目地址&lt;a href=&#34;https://github.com/hxxxer/HugoHelper&#34;&gt;HugoHelper&lt;/a&gt;&lt;/p&gt;
