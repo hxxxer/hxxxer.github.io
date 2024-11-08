@@ -162,8 +162,8 @@
 						
 						
 							<li>
-								<a href="#%e5%89%8d%e8%a8%80" class="nav-前言">
-									前言
+								<a href="#%e5%89%8d%e8%a8%80sh" class="nav-前言sh">
+									前言sh
 								</a>
 							</li>
 						
@@ -546,7 +546,7 @@
                 <div class="post-body" v-pre>
                 
                     <p><strong>编辑于2024年11月1日</strong></p>
-<h1 id="前言">前言</h1>
+<h1 id="前言sh">前言sh</h1>
 <p>电脑系统为 win11 64位专业版，版本位21H2，版本号为22000.2538</p>
 <hr>
 <h1 id="1-开发板串口连接">1. 开发板串口连接</h1>
@@ -594,8 +594,8 @@
 </li>
 <li>
 <p>开机后打开cmd/命令提示符，注意要以管理员运行，而且不能是PowerShell。运行指令</p>
-<pre tabindex="0"><code>bcdedit.exe /set {current} testsigning on
-</code></pre><p>作用是进入测试模式。执行成功会提示“操作成功完成。”。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>bcdedit.exe /set {current} testsigning on
+</span></span></code></pre></div><p>作用是进入测试模式。执行成功会提示“操作成功完成。”。</p>
 </li>
 <li>
 <p>重启电脑即可进入测试环境，桌面右下角可以看到测试模式。<br>
@@ -609,8 +609,8 @@
 <ol>
 <li>
 <p>也是关闭安全启动，去cmd（管理员）运行</p>
-<pre tabindex="0"><code>bcdedit /set {default} bootmenupolicy legacy
-</code></pre><p>作用是启动高级启动设置，就是第一步那个。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>bcdedit /set {default} bootmenupolicy legacy
+</span></span></code></pre></div><p>作用是启动高级启动设置，就是第一步那个。</p>
 </li>
 <li>
 <p>重启之后摁F8，就可以看到高级启动设置了，界面和win7的出问题之后的启动页面很像，按数字键选择就行。</p>
@@ -804,8 +804,8 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 						
 						
 							<li>
-								<a href="#%e5%89%8d%e8%a8%80" class="nav-前言">
-									前言
+								<a href="#%e5%89%8d%e8%a8%80sh" class="nav-前言sh">
+									前言sh
 								</a>
 							</li>
 						

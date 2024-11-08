@@ -1,0 +1,467 @@
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>闲碎</title>
+    <link>https://hxxxer.github.io/</link>
+    <description>Recent content on 闲碎</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>This is a customized copyright.</copyright>
+    <lastBuildDate>Fri, 08 Nov 2024 01:53:42 +0800</lastBuildDate>
+    
+        <atom:link href="https://hxxxer.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>使用.NET开发hugo小程序</title>
+        <link>https://hxxxer.github.io/20241105015218/</link>
+        <pubDate>Tue, 05 Nov 2024 01:52:20 +0800</pubDate>
+        
+        <guid>https://hxxxer.github.io/20241105015218/</guid>
+        <description>闲碎 https://hxxxer.github.io/20241105015218/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月07日&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;因为使用hugo时，有几个很常用的指令，比如&lt;code&gt;hugo server&lt;/code&gt;之类的，但是去文件夹、然后打开ps7、再执行命令，这套流程实在是太麻烦了，所以我就想搞一个exe，把常用的功能都搞进去。&lt;/p&gt;
+&lt;p&gt;项目地址&lt;a href=&#34;https://github.com/hxxxer/HugoHelper&#34;&gt;HugoHelper&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;常用命令&#34;&gt;常用命令&lt;/h1&gt;
+&lt;p&gt;这段其实是为了防止我忘了而写了😋。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 切环境&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Set-Location -Path &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;D:\Tools\hugot\BST&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 生成可以上传到github的网页文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo --contentDir &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;C:\Users\15641\Documents\Blog&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 运行本地测试服务&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo server --port &lt;span style=&#34;color:#b452cd&#34;&gt;6138&lt;/span&gt; --contentDir &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;C:\Users\15641\Documents\Blog&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 创建新博客&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo new content (&lt;span style=&#34;color:#00688b&#34;&gt;$fileName&lt;/span&gt; + &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;.md&amp;#34;&lt;/span&gt;) --contentDir &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;C:\Users\15641\Documents\Blog&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;# 清理垃圾&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo --cleanDestinationDir  --contentDir &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;C:\Users\15641\Documents\Blog&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;注意！&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;刚运行玩本地服务不能马上&lt;code&gt;git add .&lt;/code&gt;，因为此时那些html的指向还是localhost😓，这时候上传就搞笑了。要&lt;code&gt;hugo&lt;/code&gt;一下才行。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;开发进程&#34;&gt;开发进程&lt;/h1&gt;
+&lt;h2 id=&#34;配置vs开发环境&#34;&gt;配置VS开发环境&lt;/h2&gt;
+&lt;p&gt;其实直接在选择新项目里面就有可以添加新环境的地方，安装就行。&lt;/p&gt;
+&lt;p&gt;安装之后，新建一个.NET项目，然后就会看到一个设计用的窗口，这时候摁&lt;code&gt;Ctrl+Alt+X&lt;/code&gt;打开工具箱，拖一个Botton出来。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/NET%E5%B7%A5%E5%85%B7%E7%AE%B1.png&#34; alt=&#34;VS .NET工具箱&#34;&gt;&lt;/p&gt;
+&lt;p&gt;右键按钮 - 属性，可以修改(Name)，这个(Name)是程序用的，好像只能字母数字。而后面那个Text才是我看到的按钮文本。&lt;/p&gt;
+&lt;p&gt;窗口的属性里面还能更改图标，就在那个Icon里面选一个ico文件就行。&lt;/p&gt;
+&lt;h2 id=&#34;创建新blog按钮&#34;&gt;“创建新Blog”按钮&lt;/h2&gt;
+&lt;p&gt;基本思路就是新开一个ps7进程，然后输入指令，或者在启动的时候用&lt;code&gt;-Command&lt;/code&gt;来实现带命令启动。&lt;/p&gt;
+&lt;p&gt;我一开始就是直接将ps1脚本里面的内容搬到代码里，脚本内容是通过&lt;code&gt;--fileName&lt;/code&gt;来实现文件名的传递，但是如果直接照搬到&lt;code&gt;-Command&lt;/code&gt;之后，无论我怎么搞都不能实现正常的文件名传递。&lt;/p&gt;
+&lt;p&gt;然后我就用直接执行脚本 + 传递参数的方式，执行很完美，但是感觉代码太WET😅，放弃。&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;最后我就是通过新开一个无窗口ps7进程，重定向输入输出，然后通过&lt;code&gt;streamWriter.WriteLine&lt;/code&gt;，&lt;strong&gt;一行行&lt;/strong&gt;地输入到ps7&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;最新的是新开了一个创建blog窗口，这样就可以自由输入文件名了，原来是硬编码以当前时间为文件名。&lt;/p&gt;
+&lt;h2 id=&#34;一些简单的按钮&#34;&gt;一些简单的按钮&lt;/h2&gt;
+&lt;p&gt;就是一些在点击事件内就能完全执行的按钮，包括开启Server、构建网页、清理垃圾。&lt;/p&gt;
+&lt;p&gt;开启Server我想看到ps窗口，就简单设定了一下ps进程设定：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c#&#34; data-lang=&#34;c#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;RedirectStandardInput = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;true&lt;/span&gt;, &lt;span style=&#34;color:#228b22&#34;&gt;// 重定向标准输入&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;RedirectStandardOutput = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;, &lt;span style=&#34;color:#228b22&#34;&gt;// 重定向标准输出&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;UseShellExecute = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;, &lt;span style=&#34;color:#228b22&#34;&gt;// 不使用系统外壳程序启动&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;CreateNoWindow = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt; &lt;span style=&#34;color:#228b22&#34;&gt;// 创建窗口&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;git窗口&#34;&gt;Git窗口&lt;/h2&gt;
+&lt;p&gt;&lt;del&gt;我是想将Git操作也写在窗口里，但是目前还没搞定。&lt;/del&gt;&lt;/p&gt;
+&lt;h3 id=&#34;手动&#34;&gt;手动&lt;/h3&gt;
+&lt;p&gt;目前搞定了手动git，设置ps进程信息为进入&lt;code&gt;public&lt;/code&gt;目录，并添加&lt;code&gt;NoExit&lt;/code&gt;参数就行。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c#&#34; data-lang=&#34;c#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;string&lt;/span&gt; script = &lt;span style=&#34;color:#cd5555&#34;&gt;$&amp;#34;Set-Location {AppConfig.HugoRootDir};cd public&amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.........
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;FileName = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;C:\\Program Files\\PowerShell\\7\\pwsh.exe&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Arguments = &lt;span style=&#34;color:#cd5555&#34;&gt;$&amp;#34;-NoExit -Command {script}&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;RedirectStandardOutput = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;, &lt;span style=&#34;color:#228b22&#34;&gt;// 重定向标准输出&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;UseShellExecute = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt;, &lt;span style=&#34;color:#228b22&#34;&gt;// 不使用系统外壳程序启动&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;CreateNoWindow = &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;false&lt;/span&gt; &lt;span style=&#34;color:#228b22&#34;&gt;// 不创建窗口&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;自动&#34;&gt;自动&lt;/h3&gt;
+&lt;p&gt;这个就确实没搞定。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;11月7&#34;&gt;11月7&lt;/h1&gt;
+&lt;h2 id=&#34;添加配置文件&#34;&gt;添加配置文件&lt;/h2&gt;
+&lt;p&gt;右键项目 - 添加 - 新建项，找到应用程序配置文件就行。在里面添加键值对就行，通过在代码使用&lt;code&gt;ConfigurationManager.AppSettings[&amp;quot;键&amp;quot;]&lt;/code&gt;来获取对应的值。&lt;/p&gt;
+&lt;p&gt;我现在是把配置的初始化写在专门一个类里面&lt;code&gt;AppConfig.cs&lt;/code&gt;，只要其它的类的命名开机和它一样（都是&lt;code&gt;namespace Hugo&lt;/code&gt;），就可以通过&lt;code&gt;AppConfig.HugoRootDir&lt;/code&gt;直接调用。&lt;/p&gt;
+&lt;h2 id=&#34;窗口虚化&#34;&gt;窗口虚化&lt;/h2&gt;
+&lt;p&gt;因为按钮的点击事件都是通过ps间接实现的，所以有的耗时，为了提醒我正在运行而不是没响应之类的。&lt;/p&gt;
+&lt;p&gt;现在是直接将窗口的透明度临时设置为0.91，结束再改回来。不过我想实现类似高斯模糊的效果，但是好像都要引入包。&lt;/p&gt;
+&lt;h1 id=&#34;参帮考手&#34;&gt;参（帮）考（手）&lt;/h1&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://tongyi.aliyun.com/qianwen/&#34;&gt;通义千问&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+- https://hxxxer.github.io/20241105015218/ - This is a customized copyright.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>异步编程的一些理解</title>
+        <link>https://hxxxer.github.io/20241105001824/</link>
+        <pubDate>Tue, 05 Nov 2024 00:18:26 +0800</pubDate>
+        
+        <guid>https://hxxxer.github.io/20241105001824/</guid>
+        <description>闲碎 https://hxxxer.github.io/20241105001824/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月05日&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;在编用于hugo的.NET桌面程序时，需要在启动服务时，禁用更新静态网页文件，在问千问时，它使用了异步编程：将开启服务函数定义为异步，并在&lt;code&gt;await Task.Run(() =&amp;gt; process.WaitForExit());&lt;/code&gt;后，&lt;code&gt;otherBotton_Click = true;&lt;/code&gt;。一下子唤起了我了解异步编程的兴趣。&lt;/p&gt;
+&lt;p&gt;其实我之前已经多次了解甚至使用过了，但是还是不能说是学会，现在凭借AI的力量，简单地记录一下学习过程。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;ai和我的问答&#34;&gt;AI和我的问答&lt;/h1&gt;
+&lt;h2 id=&#34;问答一&#34;&gt;问答一&lt;/h2&gt;
+&lt;p&gt;有关异步编程，我可以这么理解吗&lt;/p&gt;
+&lt;p&gt;一个异步函数执行时是独立于主程序之外，其执行时不影响主程序，把异步函数和主程序看成两条独立的执行线，在它们内部，异步函数和主程序仍然是同步阻塞的&lt;/p&gt;
+&lt;p&gt;你的理解大体上是正确的，但需要进一步澄清一些细节，以便更准确地理解异步编程的概念。&lt;/p&gt;
+&lt;h3 id=&#34;异步编程的基本概念&#34;&gt;异步编程的基本概念&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;非阻塞性&lt;/strong&gt;：异步操作的一个主要特点是它们不会阻塞主线程。这意味着当一个异步任务启动后，程序不会等待这个任务完成，而是继续执行后续的代码。一旦异步任务完成，通常会通过回调函数、事件、或者Future/Promise等机制通知主线程。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;并发与并行&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;并发&lt;/strong&gt;（Concurrency）是指多个任务可以交替执行，即使在单核CPU上也可以通过快速切换上下文来实现。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;并行&lt;/strong&gt;（Parallelism）是指多个任务可以同时执行，这通常需要多核CPU的支持。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;执行模型&lt;/strong&gt;：在异步编程中，虽然异步任务看起来像是独立运行的，但实际上它们可能是在同一个线程中通过事件循环（Event Loop）来管理的。例如，在JavaScript的Node.js环境中，大多数I/O操作都是异步的，并且是非阻塞的，这是因为它们利用了底层的操作系统特性来处理I/O请求，而不需要阻塞主线程。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;你的理解中的几点说明&#34;&gt;你的理解中的几点说明&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;独立于主程序&lt;/strong&gt;：异步函数确实可以在一定程度上独立于主程序执行，但这并不意味着它们完全独立。实际上，异步函数的执行通常依赖于事件循环或者其他调度机制。这意味着异步任务的执行时机是由系统决定的，而不是立即执行。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;不影响主程序&lt;/strong&gt;：正确。异步函数执行时，主程序可以继续执行其他任务，不会因为等待异步任务完成而阻塞。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;两条独立的执行线&lt;/strong&gt;：这个说法有些误导。虽然从逻辑上看，异步函数和主程序似乎是两条独立的执行线，但在实际实现中，它们可能共享同一个线程。例如，在Node.js中，所有的异步I/O操作都是在同一个线程上通过事件循环来管理的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;内部仍然是同步阻塞的&lt;/strong&gt;：这一点需要具体情境来看。在异步函数内部，如果它执行的是纯计算任务（例如复杂的数学运算），那么这部分确实是同步阻塞的。但如果异步函数涉及I/O操作或其他耗时任务，这些操作本身通常是通过操作系统或其他库异步处理的，因此不会阻塞异步函数的执行。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;示例&#34;&gt;示例&lt;/h3&gt;
+&lt;p&gt;假设你有一个异步函数来读取文件：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;fstream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;future&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;std::future&amp;lt;std::string&amp;gt; readFileAsync(&lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;const&lt;/span&gt; std::string&amp;amp; filename) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; std::async(std::launch::async, [filename] {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        std::ifstream file(filename);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        std::string content((std::istreambuf_iterator&amp;lt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;&amp;gt;(file)),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                            (std::istreambuf_iterator&amp;lt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;char&lt;/span&gt;&amp;gt;()));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; content;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    });
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;auto&lt;/span&gt; future = readFileAsync(&lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;example.txt&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;// 主程序继续执行其他任务
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    std::cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Doing other work...&amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; std::endl;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;// 等待异步任务完成
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    std::string content = future.get();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    std::cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;File content: &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; content &amp;lt;&amp;lt; std::endl;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在这个例子中，&lt;code&gt;readFileAsync&lt;/code&gt; 是一个异步函数，它使用 &lt;code&gt;std::async&lt;/code&gt; 来启动一个新线程读取文件。主程序在启动异步任务后继续执行其他任务，直到需要文件内容时才调用 &lt;code&gt;future.get()&lt;/code&gt; 阻塞等待结果。&lt;/p&gt;
+&lt;h2 id=&#34;问答二&#34;&gt;问答二&lt;/h2&gt;
+&lt;p&gt;那我这样理解可不可以&lt;/p&gt;
+&lt;p&gt;异步函数在主程序之外执行，当主程序需要结果的时候就调用await之类的，调用时异步函数可以看成其回到主程序的执行线上，可能会阻塞主程序。&lt;/p&gt;
+&lt;p&gt;你的理解基本是正确的，但有一些细节需要注意。让我们进一步澄清一下：&lt;/p&gt;
+&lt;h3 id=&#34;异步函数的执行&#34;&gt;异步函数的执行&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;异步函数在主程序之外执行&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;部分正确&lt;/strong&gt;：异步函数确实可以在主程序之外执行，但这取决于具体的实现方式。在某些情况下，异步函数可能在另一个线程或进程中执行（例如使用 &lt;code&gt;std::async&lt;/code&gt; 或多线程库）。而在其他情况下，异步函数可能在同一线程内通过事件循环（例如在Node.js中）执行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;当主程序需要结果的时候就调用 &lt;code&gt;await&lt;/code&gt; 之类的&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;正确&lt;/strong&gt;：当你在主程序中使用 &lt;code&gt;await&lt;/code&gt; 关键字（或类似的机制，如 &lt;code&gt;std::future::get&lt;/code&gt;）来获取异步函数的结果时，主程序会暂停执行，等待异步任务完成。这是为了确保你可以在主程序中安全地使用异步任务的结果。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;调用时异步函数可以看成其回到主程序的执行线上，可能会阻塞主程序&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;部分正确&lt;/strong&gt;：当你使用 &lt;code&gt;await&lt;/code&gt; 或类似的方法获取异步任务的结果时，主程序确实会暂停执行，等待异步任务完成。这种暂停可以被视为一种“阻塞”，但这种阻塞是局部的，仅限于当前的同步上下文。在异步任务完成之前，主程序的其他部分仍然可以继续执行其他任务。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;详细解释&#34;&gt;详细解释&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;异步任务的执行&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;多线程&lt;/strong&gt;：如果异步任务在另一个线程中执行（例如使用 &lt;code&gt;std::async&lt;/code&gt;），那么它确实是独立于主程序的线程。主程序可以在等待结果时继续执行其他任务。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;事件循环&lt;/strong&gt;：如果异步任务在同一个线程中通过事件循环执行（例如在Node.js中），那么它会在事件循环的控制下异步执行。主程序可以在等待结果时继续处理其他事件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;获取结果&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;await&lt;/code&gt; 关键字&lt;/strong&gt;：在支持 &lt;code&gt;await&lt;/code&gt; 的语言（如C#、JavaScript）中，&lt;code&gt;await&lt;/code&gt; 会暂停当前的同步上下文，等待异步任务完成。在这期间，主程序的其他部分仍然可以继续执行其他任务。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;std::future::get&lt;/code&gt; 方法&lt;/strong&gt;：在C++中，&lt;code&gt;std::future::get&lt;/code&gt; 会阻塞当前线程，直到异步任务完成。这意味着当前线程会暂停，但其他线程仍然可以继续执行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;示例-1&#34;&gt;示例&lt;/h3&gt;
+&lt;p&gt;假设我们使用C++的 &lt;code&gt;std::async&lt;/code&gt; 和 &lt;code&gt;std::future&lt;/code&gt; 来实现一个异步任务：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;future&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;thread&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#1e889b&#34;&gt;&amp;lt;chrono&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1e889b&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;asyncTask&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    std::this_thread::sleep_for(std::chrono::seconds(&lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;)); &lt;span style=&#34;color:#228b22&#34;&gt;// 模拟耗时操作
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;42&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#008b45&#34;&gt;main&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    std::future&amp;lt;&lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt;&amp;gt; result = std::async(std::launch::async, asyncTask);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;// 主程序继续执行其他任务
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    std::cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Doing other work...&amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; std::endl;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    std::this_thread::sleep_for(std::chrono::seconds(&lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    std::cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Still doing other work...&amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; std::endl;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#228b22&#34;&gt;// 获取异步任务的结果，可能会阻塞主程序
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#228b22&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#00688b;font-weight:bold&#34;&gt;int&lt;/span&gt; value = result.get();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    std::cout &amp;lt;&amp;lt; &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;Async task result: &amp;#34;&lt;/span&gt; &amp;lt;&amp;lt; value &amp;lt;&amp;lt; std::endl;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#8b008b;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#b452cd&#34;&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在这个例子中：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;asyncTask&lt;/code&gt; 是一个异步任务，它在另一个线程中执行。&lt;/li&gt;
+&lt;li&gt;主程序在启动异步任务后继续执行其他任务。&lt;/li&gt;
+&lt;li&gt;当主程序调用 &lt;code&gt;result.get()&lt;/code&gt; 时，它会阻塞当前线程，等待异步任务完成。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;总结&#34;&gt;总结&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;异步函数可以在主程序之外执行，具体取决于实现方式。&lt;/li&gt;
+&lt;li&gt;当主程序需要结果时，可以使用 &lt;code&gt;await&lt;/code&gt; 或类似的方法来获取结果，这会暂时阻塞当前的同步上下文。&lt;/li&gt;
+&lt;li&gt;在等待结果期间，主程序的其他部分仍然可以继续执行其他任务。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;最后我的理解&#34;&gt;最后我的理解&lt;/h1&gt;
+&lt;p&gt;其实关于异步编程在很多情况都不需要了解底层原理，只需要知道怎么用就行，所以我觉得用执行线来理解也是可以的。&lt;/p&gt;
+&lt;p&gt;主程序是一条主线，调用了一个异步函数就相当于新开了一条执行线，可能是并行（多进程），也可能是并发（不停切换），直到&lt;code&gt;await&lt;/code&gt;之类的之前，异步执行线和主程序各自运行。等到主程序，或者其它执行线叫了异步执行线，那么这个异步执行线就加入到叫它的执行线上，阻塞这个执行线，直到有结果了。&lt;/p&gt;
+&lt;p&gt;下面是一张感觉有的点合适的网图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/sync.webp&#34; alt=&#34;sync和async&#34;&gt;&lt;/p&gt;
+- https://hxxxer.github.io/20241105001824/ - This is a customized copyright.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>初步使用Hugo以及主题的尝试</title>
+        <link>https://hxxxer.github.io/20241103/</link>
+        <pubDate>Sun, 03 Nov 2024 02:16:32 +0800</pubDate>
+        
+        <guid>https://hxxxer.github.io/20241103/</guid>
+        <description>闲碎 https://hxxxer.github.io/20241103/ -&lt;p&gt;&lt;strong&gt;编辑于2024年11月03日&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;因为感觉自己需要一个平台来记录一些技术博客，所以寻找了一些开源博客平台，一开始选择的是suiyan，因为其生成的html排版和vscode、marktext的预览都不同，只能放弃。&lt;em&gt;&lt;a href=&#34;https://github.com/bosichong/suiyan&#34;&gt;suiyan项目地址&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;然后看到了使用hugo的&lt;a href=&#34;https://krislinzhao.github.io/docs/create-a-wesite-using-github-pages-and-hugo&#34;&gt;blowfish主题的一篇博客&lt;/a&gt;，感觉很不错，就开始用hugo，但奈何这个主题我一直调不出来，😂😂，又放弃了。不过这次我又找到了hugo上面的&lt;a href=&#34;https://github.com/amazingrise/hugo-theme-diary&#34;&gt;diary主题&lt;/a&gt;，这次一路磕磕碰碰，勉强搞定了，所以记录一下。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;使用suiyan已放弃&#34;&gt;使用suiyan（已放弃）&lt;/h1&gt;
+&lt;p&gt;suiyan项目是在公众号看到的，直接git clone下来，然后运行&lt;code&gt;python -m venv env&lt;/code&gt;来创建虚拟环境（甚至这时候创建虚拟环境已经忘了，还是去百度的），然后就是熟悉的&lt;code&gt;pip install -r requirment.txt&lt;/code&gt;，接着运行&lt;code&gt;w.py&lt;/code&gt;即可。甚至还有窗口GUI，感觉对我这种新手很良好。&lt;/p&gt;
+&lt;p&gt;本来体验挺不错的，但是它的md格式解析好像和vscode、marktext不一样，多级列表没有正确解析成html。这我就没办法了，只能放弃。（也许会去仓库提一下issue？）&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;使用hugo&#34;&gt;使用hugo&lt;/h1&gt;
+&lt;h2 id=&#34;尝试blowfish又放弃了&#34;&gt;尝试blowfish（又放弃了😂）&lt;/h2&gt;
+&lt;p&gt;这个是我直接搜&lt;strong&gt;github blog&lt;/strong&gt;，搜出来一篇介绍hugo+github pages的博客&lt;em&gt;就是参考的第一个链接&lt;/em&gt;。其实这个博客的主题风格我感觉挺喜欢的，所以马上入坑了。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/blowfish-blog.png&#34; alt=&#34;blowfish主题博客&#34;&gt;&lt;/p&gt;
+&lt;p&gt;然后我就安装了Hugo，其实只要去winget安装就行，注意要安装extended（扩展版），因为扩展版才支持modules，而这个主题是需要modules的。&lt;/p&gt;
+&lt;p&gt;但是我按照上面那篇博客进行搭建，却不能正常运行，跑不起来。然后我就去看了主题的toml，发现它支持的最高hugo版本是&lt;code&gt;0.135.0&lt;/code&gt;，但是我安装的是最新版&lt;code&gt;0.136.5&lt;/code&gt;。于是我就卸载最新版，（不知道为什么，执行&lt;code&gt;winget uninstall --id Hugo.Hugo.Extended&lt;/code&gt;不行，要执行&lt;code&gt;winget uninstall --name &amp;quot;Hugo(扩展版)&amp;quot;&lt;/code&gt;），安装&lt;code&gt;0.135.0&lt;/code&gt;版本。&lt;/p&gt;
+&lt;p&gt;结果还是不行，所以懒得折腾了，放弃😂。&lt;/p&gt;
+&lt;h2 id=&#34;接触并使用diary&#34;&gt;接触并使用diary&lt;/h2&gt;
+&lt;p&gt;这个则是我随意逛hugo的主题展览页时挑中的其中一个，只有它符合：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;有目录&lt;/li&gt;
+&lt;li&gt;风格简洁淡雅&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;其它的都不太符合我的要求，所以我就相中它了，下面是我的搭建过程：&lt;/p&gt;
+&lt;h3 id=&#34;搭建过程&#34;&gt;搭建过程&lt;/h3&gt;
+&lt;p&gt;先在一个目录下新建一个hugo站点：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo new site BlogSite
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后通过git拉主题文件下来：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git submodule add https://github.com/AmazingRise/hugo-theme-diary.git themes/diary
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;等下载完之后，就将主题里面一些文件夹拷贝到hugo的站点下：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;/exampleSite/*
+/archetypes
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后将站点根目录的&lt;code&gt;hugo.toml&lt;/code&gt;删除，复制出来的那个&lt;code&gt;config.toml&lt;/code&gt;改名&lt;code&gt;hugo.toml&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;此时就可以在当前目录运行本地服务测试命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo server
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;没问题就完成这一部分了。&lt;/p&gt;
+&lt;h3 id=&#34;修一些bug&#34;&gt;修一些bug&lt;/h3&gt;
+&lt;p&gt;那个新的&lt;code&gt;hugo.toml&lt;/code&gt;里面有个bug，我当时排除了半天😓。文件尾部的定义侧边栏的命名漏了一个字母，导致和模板文件对不上。&lt;/p&gt;
+&lt;p&gt;bug就是下面的&lt;code&gt;[[menus.main]]&lt;/code&gt;，改之前是&lt;code&gt;[[menu.main]]&lt;/code&gt;，模板文件里是&lt;code&gt;site.Munus.main&lt;/code&gt;😓。&lt;del&gt;也许我会去提一下issue😋&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;而且我一开始是不知道要把&lt;code&gt;config.toml&lt;/code&gt;改名&lt;code&gt;hugo.toml&lt;/code&gt;，因为只有&lt;code&gt;hugo.toml&lt;/code&gt;才支持定义列表，可能是&lt;code&gt;config.toml&lt;/code&gt;太老版本了吧，好像从&lt;code&gt;0.110.0&lt;/code&gt;起就改用&lt;code&gt;hugo.toml&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;修改之后的&lt;code&gt;hugo.toml&lt;/code&gt;尾部：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[[menus.main]]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;url = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;/categories&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;name = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;分类 Categories&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;weight = &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[[menus.main]]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;url = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;/tags&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;name = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;标签 Tags&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;weight = &lt;span style=&#34;color:#b452cd&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[[menus.main]]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;url = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;/posts&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;name = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;归档 Archive&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;weight = &lt;span style=&#34;color:#b452cd&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[[menus.main]]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;url = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;/index.xml&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;name = &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;RSS&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;weight = &lt;span style=&#34;color:#b452cd&#34;&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h1 id=&#34;托管到github-pages&#34;&gt;托管到Github pages&lt;/h1&gt;
+&lt;p&gt;过程十分滴简单，先在GitHub新建一个仓库，名称一定要是&lt;code&gt;你的用户名.github.io&lt;/code&gt;，比如我的就是&lt;code&gt;hxxxer.github.io&lt;/code&gt;，记得选择公开和新建readme文档（为了在远程建立main分支）。&lt;/p&gt;
+&lt;p&gt;然后在hugo项目根目录的&lt;code&gt;pulic&lt;/code&gt;文件夹下新建仓库，连接远程仓库，拉取，添加，推送：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git init -b main
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git remote add origin-when-cross-origin xxx@github.com:xxx
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git pull --rebase origin main
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git add .
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git commit -m &lt;span style=&#34;color:#cd5555&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git push origin main
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后完了。以后就直接&lt;code&gt;add&lt;/code&gt; &lt;code&gt;commit&lt;/code&gt; &lt;code&gt;push&lt;/code&gt;就行。&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://krislinzhao.github.io/docs/create-a-wesite-using-github-pages-and-hugo&#34;&gt;使用Hugo + blowfish搭建博客及Github Pages&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://ratmomo.github.io/p/2024/06/%E4%BD%BF%E7%94%A8-hugo--github-pages-%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/&#34;&gt;使用 Hugo + Github Pages 部署个人博客&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://docs.python.org/zh-cn/3/library/venv.html&#34;&gt;python使用自带的venv创建虚拟环境&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+- https://hxxxer.github.io/20241103/ - This is a customized copyright.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>mini2440连接记录</title>
+        <link>https://hxxxer.github.io/20241101/</link>
+        <pubDate>Sat, 02 Nov 2024 15:08:53 +0800</pubDate>
+        
+        <guid>https://hxxxer.github.io/20241101/</guid>
+        <description>闲碎 https://hxxxer.github.io/20241101/ -&lt;p&gt;&lt;strong&gt;编辑于2024年11月1日&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;前言sh&#34;&gt;前言sh&lt;/h1&gt;
+&lt;p&gt;电脑系统为 win11 64位专业版，版本位21H2，版本号为22000.2538&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;1-开发板串口连接&#34;&gt;1. 开发板串口连接&lt;/h1&gt;
+&lt;h2 id=&#34;11-线材选择&#34;&gt;1.1. 线材选择&lt;/h2&gt;
+&lt;p&gt;需要两个线：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;usb转串口，串口要为公头的&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;附带的串口母对母直连线（可以上网买，但是只能买直连的而不是交叉）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;因为板子上面的串口是公头的，但是为母头线序，所以需要母对母直连线。注意买的usb转串口的两侧要匹配串口母对母直连线的螺丝或螺柱（螺丝对螺柱）。&lt;/p&gt;
+&lt;p&gt;其实我感觉可以买一个usb转母头 + 公对母的交叉线，板子的母头线序交叉变成了公头线序，在加上母头线序的usb线，可能可以🤔。&lt;/p&gt;
+&lt;h2 id=&#34;12-连接测试&#34;&gt;1.2. 连接测试&lt;/h2&gt;
+&lt;p&gt;将上面的两组线组装并连接到板子和电脑上，板子拨到NorFlash启动，通电开机，打开SCRT，新建Serial连接（也可以使用minitools的串口工具），选择合适的COM号，可以去设备管理器查看。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/%E8%AE%BE%E5%A4%87COM.png&#34; alt=&#34;看COM号&#34;&gt;&lt;/p&gt;
+&lt;p&gt;待成功连接，发一个数字或者按一下板子的复位按键，就可以看到功能菜单了。&lt;/p&gt;
+&lt;p&gt;usb转串口线应该是不需要安装驱动的，网上好像也没有相关案例。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;2-连接usb下载线&#34;&gt;2. 连接Usb下载线&lt;/h1&gt;
+&lt;h2 id=&#34;21-线材选择&#34;&gt;2.1. 线材选择&lt;/h2&gt;
+&lt;p&gt;直接用老师发的那根usb方口线就行，虽然我是自己买了一根。&lt;/p&gt;
+&lt;h2 id=&#34;22-驱动安装&#34;&gt;2.2. 驱动安装&lt;/h2&gt;
+&lt;h3 id=&#34;221-禁用驱动强制签名&#34;&gt;2.2.1. 禁用驱动强制签名&lt;/h3&gt;
+&lt;p&gt;这一步折磨了我相当久&lt;br&gt;
+网上有些人直接运行&lt;code&gt;FriendlyARM-2440-DVD\windows平台工具\usb下载驱动\FriendlyARM USB Download Driver Setup_20090421.exe&lt;/code&gt;即可成功安装驱动，但是我不行，应该win10甚至win7之后都不行了。&lt;/p&gt;
+&lt;p&gt;禁用驱动强制签名主要有三种：&lt;/p&gt;
+&lt;h4 id=&#34;第一种方法&#34;&gt;第一种方法：&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;设置-恢复-高级启动&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重启之后到高级选项，里面有一个启动设置，选择这个重启之后就可以选禁用驱动签名了&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;但是这种方法我在最后一步缺失了“启动设置”选项，刘诚敏的可行&lt;/p&gt;
+&lt;p&gt;这种方式最简单，而且禁用是只生效一次，再次重启失效，可惜我的不行。&lt;/p&gt;
+&lt;h4 id=&#34;第二种方法&#34;&gt;第二种方法：&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;去UEFI关闭安全启动，可以去高级启动里面进UEFI，也可以按F12（好像是这个键）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;开机后打开cmd/命令提示符，注意要以管理员运行，而且不能是PowerShell。运行指令&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;bcdedit.exe /set {current} testsigning on
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;作用是进入测试模式。执行成功会提示“操作成功完成。”。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重启电脑即可进入测试环境，桌面右下角可以看到测试模式。&lt;br&gt;
+&lt;img src=&#34;https://hxxxer.github.io/images/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83.png&#34; alt=&#34;测试环境水印&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;此时就可以随意安装驱动了，好像是驱动只要是有签名的就行，不安全的测试签名也可以。退出就on改off，要在安全启动关闭下运行。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;第三章方法&#34;&gt;第三章方法：&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;也是关闭安全启动，去cmd（管理员）运行&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;bcdedit /set {default} bootmenupolicy legacy
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;作用是启动高级启动设置，就是第一步那个。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重启之后摁F8，就可以看到高级启动设置了，界面和win7的出问题之后的启动页面很像，按数字键选择就行。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这个方法同样是只生效一次。&lt;/p&gt;
+&lt;h3 id=&#34;222-设备安装usb驱动&#34;&gt;2.2.2. 设备安装usb驱动&lt;/h3&gt;
+&lt;p&gt;板子从NorFlash启动，通过usb方口线连接电脑后，可以在设备管理器看到有黄色感叹号。&lt;/p&gt;
+&lt;p&gt;我在板子的usb连接上的情况下运行&lt;code&gt;FriendlyARM-2440-DVD\windows平台工具\usb下载驱动\FriendlyARM USB Download Driver Setup_20090421.exe&lt;/code&gt;，驱动能成功安装，但是电脑仍然不能正常识别设备。以下为手动安装驱动的步骤。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;找到驱动文件夹，我找到了3个&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;安装minitools，位于&lt;code&gt;FriendlyARM-2440-DVD\windows平台工具\MiniTools-USB下载工具\MiniToolsSetup-Windows-20150528.exe&lt;/code&gt;，安装完成之后驱动文件会存在安装目录&lt;code&gt;FriendlyARM\MiniTools\usb_dirver&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;supervivi-usb-transfer-tool文件夹里面有一个Dirver文件夹。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;网上搜到一个自安装的驱动文件exe，可惜依然不能识别到。安装之后用dism++提取。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;右键设备，选择更新驱动程序。然后按照下面的图片操作。&lt;img src=&#34;https://hxxxer.github.io/images/%E9%A9%B1%E5%8A%A8%E5%AE%89%E8%A3%851.jpg&#34; alt=&#34;驱动安装1-4&#34;&gt;&lt;img src=&#34;https://hxxxer.github.io/images/%E9%A9%B1%E5%8A%A8%E5%AE%89%E8%A3%852.jpg&#34; alt=&#34;驱动安装5-6&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;23-连接测试&#34;&gt;2.3. 连接测试&lt;/h2&gt;
+&lt;p&gt;测试可以将位于&lt;code&gt;FriendlyARM-2440-DVD\images\2440test\&lt;/code&gt;的测试文件2440test_T35.bin烧到板子上运行。&lt;/p&gt;
+&lt;p&gt;具体的烧录过程要去看2011-4-21版的Mini2440用户手册（可以去官网下载）。&lt;/p&gt;
+&lt;p&gt;这里并不能使用minitools烧录，而且minitools也不能识别到设备，原因如下：根据在SCRT看到的功能菜单，说明板子的NorFlash烧录的是旧版的supervivi，而不是新版的superboot，所以不支持minitools。&lt;/p&gt;
+&lt;p&gt;想烧superboot的可以参考&lt;a href=&#34;https://blog.csdn.net/oqqHuTu12345678/article/details/137104410&#34;&gt;这里&lt;/a&gt;，需要JTAG线 + JLINK + 转接板。&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/oqqHuTu12345678/article/details/137104410&#34;&gt;与Mini2440开发板有关的开发操作-CSDN&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_44281591/article/details/134844247&#34;&gt;Android fastboot驱动无法安装和识别问题-CSDN&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.sysgeek.cn/boot-to-uefi-bios-firmware-settings/&#34;&gt;4 种简单方法，快速进入主板 BIOS 或 UEFI 固件设置&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/622920268&#34;&gt;Win11和Win10怎么禁用驱动程序强制签名? - 知乎评论区&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.friendlyelec.com.cn/download.asp&#34;&gt;广州友善电子计算机科技有限公司&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+- https://hxxxer.github.io/20241101/ - This is a customized copyright.</description>
+        </item>
+    
+    
+  </channel>
+</rss> 

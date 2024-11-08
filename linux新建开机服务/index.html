@@ -338,8 +338,15 @@
             
             
             
+                
+            
 
-            <div class="post-head-wrapper-text-only"
+            <div class="post-head-wrapper"
+                
+                    
+                    
+                    style="background-image: url('https://hxxxer.github.io/images/ubuntu-logo.avif')"
+                    
                 
             >
                 <div class="post-title">
@@ -393,10 +400,10 @@
 </li>
 <li>
 <p>在文件中添加挂载命令：</p>
-<pre tabindex="0"><code>#!/bin/bash
-/bin/mount -t vboxsf shared /home/hx/Desktop/shared
-exit 0
-</code></pre></li>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#1e889b">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#1e889b"></span>/bin/mount -t vboxsf shared /home/hx/Desktop/shared
+</span></span><span style="display:flex;"><span><span style="color:#658b00">exit</span> <span style="color:#b452cd">0</span>
+</span></span></code></pre></div></li>
 <li>
 <p>给予<code>+x</code>权限。</p>
 </li>
@@ -425,16 +432,16 @@ WantedBy=multi-user.target
 </code></pre></li>
 <li>
 <p>然后重新加载配置文件：</p>
-<pre tabindex="0"><code>sudo systemctl daemon-reload
-</code></pre></li>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo systemctl daemon-reload
+</span></span></code></pre></div></li>
 <li>
 <p>然后启动服务单元：</p>
-<pre tabindex="0"><code>sudo systemctl enable vbox-mount.service
-</code></pre></li>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo systemctl <span style="color:#658b00">enable</span> vbox-mount.service
+</span></span></code></pre></div></li>
 <li>
 <p>可以查看一下启动状态：</p>
-<pre tabindex="0"><code>sudo systemctl status vbox-mount.service
-</code></pre></li>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo systemctl status vbox-mount.service
+</span></span></code></pre></div></li>
 </ol>
 <h2 id="内容解释">内容解释</h2>
 <ul>
@@ -452,17 +459,17 @@ WantedBy=multi-user.target
 </li>
 <li>
 <p>在文件中添加挂载命令：</p>
-<pre tabindex="0"><code>#!/bin/bash
-/bin/mount -t vboxsf shared /home/hx/Desktop/shared
-exit 0
-</code></pre></li>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#1e889b">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#1e889b"></span>/bin/mount -t vboxsf shared /home/hx/Desktop/shared
+</span></span><span style="display:flex;"><span><span style="color:#658b00">exit</span> <span style="color:#b452cd">0</span>
+</span></span></code></pre></div></li>
 <li>
 <p>给予<code>+x</code>权限。</p>
 </li>
 <li>
 <p>注册脚本到启动序列：</p>
-<pre tabindex="0"><code>sudo update-rc.d myscript defaults
-</code></pre></li>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo update-rc.d myscript defaults
+</span></span></code></pre></div></li>
 </ol>
 <hr>
 <h1 id="法四使用profile文件">法四：使用<code>profile</code>文件</h1>

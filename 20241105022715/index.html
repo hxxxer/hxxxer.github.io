@@ -495,34 +495,34 @@
 |.......
 </code></pre><h2 id="复制交叉编译工具到arm">复制交叉编译工具到arm</h2>
 <p>然后在<code>/usr/local/</code>下新建一个文件夹<code>arm</code>，并给权限。</p>
-<pre tabindex="0"><code>sudo mkdir /usr/local/arm
-sudo chmod 777 /usr/local/arm
-</code></pre><p>然后将文件夹<code>4.4.3</code>复制到<code>arm</code>文件夹。</p>
-<pre tabindex="0"><code>cd /opt/FriendlyARM/toolschain/
-sudo cp -r 4.4.3 /usr/local/arm
-</code></pre><h2 id="配置环境变量">配置环境变量</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo mkdir /usr/local/arm
+</span></span><span style="display:flex;"><span>sudo chmod <span style="color:#b452cd">777</span> /usr/local/arm
+</span></span></code></pre></div><p>然后将文件夹<code>4.4.3</code>复制到<code>arm</code>文件夹。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#658b00">cd</span> /opt/FriendlyARM/toolschain/
+</span></span><span style="display:flex;"><span>sudo cp -r 4.4.3 /usr/local/arm
+</span></span></code></pre></div><h2 id="配置环境变量">配置环境变量</h2>
 <p>环境变量是写在<code>/etc/profile</code>里面，所以下面的操作可以在终端执行，也可以用文本编辑器。</p>
 <p>终端命令：</p>
-<pre tabindex="0"><code>sudo nano /etc/profile
-</code></pre><p>然后在文件尾部添加两行：</p>
-<pre tabindex="0"><code>export PATH=$PATH:/usr/local/arm/4.4.3/bin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/arm/4.4.3/lib
-</code></pre><p><img src="/images/profile%E6%96%87%E4%BB%B6%E6%B7%BB%E5%8A%A0%E8%B7%AF%E5%BE%84.png" alt="添加环境变量"></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo nano /etc/profile
+</span></span></code></pre></div><p>然后在文件尾部添加两行：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#658b00">export</span> <span style="color:#00688b">PATH</span>=<span style="color:#00688b">$PATH</span>:/usr/local/arm/4.4.3/bin
+</span></span><span style="display:flex;"><span><span style="color:#658b00">export</span> <span style="color:#00688b">LD_LIBRARY_PATH</span>=<span style="color:#00688b">$LD_LIBRARY_PATH</span>:/usr/local/arm/4.4.3/lib
+</span></span></code></pre></div><p><img src="/images/profile%E6%96%87%E4%BB%B6%E6%B7%BB%E5%8A%A0%E8%B7%AF%E5%BE%84.png" alt="添加环境变量"></p>
 <p>添加完之后，使用source命令重新加载配置文件：</p>
-<pre tabindex="0"><code>source /etc/profile
-</code></pre><p>执行完后终端不会有什么输出，以防万一可以重启。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#658b00">source</span> /etc/profile
+</span></span></code></pre></div><p>执行完后终端不会有什么输出，以防万一可以重启。</p>
 <hr>
 <h1 id="安装缺失的库">安装缺失的库</h1>
 <p>在执行完上面的操作之后，理论上<code>arm-linux-gcc</code>就安装完成了，但是事实上还没完，因为这个交叉编译工具非常老，是为32位系统做的，而现在的系统基本都是64位，所以需要补装一些32位的库。</p>
 <p>由于我的虚拟机已经安装好了，所以无法复现，但是可以根据报错来安装缺失的32位库。先在终端输入命令检测版本，如果没有库是缺失的话，是可以正常输出的。</p>
-<pre tabindex="0"><code>arm-linux-gcc -v
-</code></pre><p><img src="/images/arm-linux-gcc%E6%A3%80%E6%9F%A5%E7%89%88%E6%9C%AC%E6%AD%A3%E5%B8%B8%E8%BE%93%E5%87%BA.png" alt="正常输出"></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>arm-linux-gcc -v
+</span></span></code></pre></div><p><img src="/images/arm-linux-gcc%E6%A3%80%E6%9F%A5%E7%89%88%E6%9C%AC%E6%AD%A3%E5%B8%B8%E8%BE%93%E5%87%BA.png" alt="正常输出"></p>
 <p>如果没有安装好32位的库，就会报错（下面不是原始的报错，是我网上找到报错信息的重点，但格式相差不大）：</p>
-<pre tabindex="0"><code>error while loading shared libraries: libstdc++.so.6: cannot open shared object file: No such file or directory
-</code></pre><p>重点是<strong>libstdc++.so.6</strong>，根据这个来安装合适的32位版本的库，以防万一，64位也一起安装（其实一般64位版本是预安装的）：</p>
-<pre tabindex="0"><code>sudo apt-get install libstdc++6
-sudo apt-get install lib32stdc++6
-</code></pre><p>可以看到32位就是在<code>lib</code>后面加<code>32</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>error <span style="color:#8b008b;font-weight:bold">while</span> loading shared libraries: libstdc++.so.6: cannot open shared object file: No such file or directory
+</span></span></code></pre></div><p>重点是<strong>libstdc++.so.6</strong>，根据这个来安装合适的32位版本的库，以防万一，64位也一起安装（其实一般64位版本是预安装的）：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt-get install libstdc++6
+</span></span><span style="display:flex;"><span>sudo apt-get install lib32stdc++6
+</span></span></code></pre></div><p>可以看到32位就是在<code>lib</code>后面加<code>32</code>。</p>
 <p>如果安装失败，可以拿报错去百度搜一下。</p>
 <p>接下来就是不断重复<code>arm-linux-gcc -v</code>、看报错、<code>sudo apt-get install lib...</code>、<code>sudo apt-get install lib32...</code>，直至看到正常输出了。</p>
 <h1 id="参考">参考</h1>
