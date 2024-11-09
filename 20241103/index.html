@@ -461,46 +461,46 @@
 <p>其它的都不太符合我的要求，所以我就相中它了，下面是我的搭建过程：</p>
 <h3 id="搭建过程">搭建过程</h3>
 <p>先在一个目录下新建一个hugo站点：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>hugo new site BlogSite
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>hugo new site BlogSite
 </span></span></code></pre></div><p>然后通过git拉主题文件下来：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git submodule add https://github.com/AmazingRise/hugo-theme-diary.git themes/diary
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git submodule add https://github.com/AmazingRise/hugo-theme-diary.git themes/diary
 </span></span></code></pre></div><p>等下载完之后，就将主题里面一些文件夹拷贝到hugo的站点下：</p>
 <pre tabindex="0"><code>/exampleSite/*
 /archetypes
 </code></pre><p>然后将站点根目录的<code>hugo.toml</code>删除，复制出来的那个<code>config.toml</code>改名<code>hugo.toml</code>。</p>
 <p>此时就可以在当前目录运行本地服务测试命令：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>hugo server
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>hugo server
 </span></span></code></pre></div><p>没问题就完成这一部分了。</p>
 <h3 id="修一些bug">修一些bug</h3>
 <p>那个新的<code>hugo.toml</code>里面有个bug，我当时排除了半天😓。文件尾部的定义侧边栏的命名漏了一个字母，导致和模板文件对不上。</p>
 <p>bug就是下面的<code>[[menus.main]]</code>，改之前是<code>[[menu.main]]</code>，模板文件里是<code>site.Munus.main</code>😓。<del>也许我会去提一下issue😋</del></p>
 <p>而且我一开始是不知道要把<code>config.toml</code>改名<code>hugo.toml</code>，因为只有<code>hugo.toml</code>才支持定义列表，可能是<code>config.toml</code>太老版本了吧，好像从<code>0.110.0</code>起就改用<code>hugo.toml</code>。</p>
 <p>修改之后的<code>hugo.toml</code>尾部：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[[menus.main]]
-</span></span><span style="display:flex;"><span>url = <span style="color:#cd5555">&#34;/categories&#34;</span>
-</span></span><span style="display:flex;"><span>name = <span style="color:#cd5555">&#34;分类 Categories&#34;</span>
-</span></span><span style="display:flex;"><span>weight = <span style="color:#b452cd">1</span>
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[[menus.main]]
+</span></span><span style="display:flex;"><span>url = <span style="color:#a6d189">&#34;/categories&#34;</span>
+</span></span><span style="display:flex;"><span>name = <span style="color:#a6d189">&#34;分类 Categories&#34;</span>
+</span></span><span style="display:flex;"><span>weight = <span style="color:#ef9f76">1</span>
 </span></span><span style="display:flex;"><span>[[menus.main]]
-</span></span><span style="display:flex;"><span>url = <span style="color:#cd5555">&#34;/tags&#34;</span>
-</span></span><span style="display:flex;"><span>name = <span style="color:#cd5555">&#34;标签 Tags&#34;</span>
-</span></span><span style="display:flex;"><span>weight = <span style="color:#b452cd">2</span>
+</span></span><span style="display:flex;"><span>url = <span style="color:#a6d189">&#34;/tags&#34;</span>
+</span></span><span style="display:flex;"><span>name = <span style="color:#a6d189">&#34;标签 Tags&#34;</span>
+</span></span><span style="display:flex;"><span>weight = <span style="color:#ef9f76">2</span>
 </span></span><span style="display:flex;"><span>[[menus.main]]
-</span></span><span style="display:flex;"><span>url = <span style="color:#cd5555">&#34;/posts&#34;</span>
-</span></span><span style="display:flex;"><span>name = <span style="color:#cd5555">&#34;归档 Archive&#34;</span>
-</span></span><span style="display:flex;"><span>weight = <span style="color:#b452cd">1</span>
+</span></span><span style="display:flex;"><span>url = <span style="color:#a6d189">&#34;/posts&#34;</span>
+</span></span><span style="display:flex;"><span>name = <span style="color:#a6d189">&#34;归档 Archive&#34;</span>
+</span></span><span style="display:flex;"><span>weight = <span style="color:#ef9f76">1</span>
 </span></span><span style="display:flex;"><span>[[menus.main]]
-</span></span><span style="display:flex;"><span>url = <span style="color:#cd5555">&#34;/index.xml&#34;</span>
-</span></span><span style="display:flex;"><span>name = <span style="color:#cd5555">&#34;RSS&#34;</span>
-</span></span><span style="display:flex;"><span>weight = <span style="color:#b452cd">3</span>
+</span></span><span style="display:flex;"><span>url = <span style="color:#a6d189">&#34;/index.xml&#34;</span>
+</span></span><span style="display:flex;"><span>name = <span style="color:#a6d189">&#34;RSS&#34;</span>
+</span></span><span style="display:flex;"><span>weight = <span style="color:#ef9f76">3</span>
 </span></span></code></pre></div><hr>
 <h1 id="托管到github-pages">托管到Github pages</h1>
 <p>过程十分滴简单，先在GitHub新建一个仓库，名称一定要是<code>你的用户名.github.io</code>，比如我的就是<code>hxxxer.github.io</code>，记得选择公开和新建readme文档（为了在远程建立main分支）。</p>
 <p>然后在hugo项目根目录的<code>pulic</code>文件夹下新建仓库，连接远程仓库，拉取，添加，推送：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git init -b main
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git init -b main
 </span></span><span style="display:flex;"><span>git remote add origin-when-cross-origin xxx@github.com:xxx
 </span></span><span style="display:flex;"><span>git pull --rebase origin main
 </span></span><span style="display:flex;"><span>git add .
-</span></span><span style="display:flex;"><span>git commit -m <span style="color:#cd5555">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#a6d189">&#34;&#34;</span>
 </span></span><span style="display:flex;"><span>git push origin main
 </span></span></code></pre></div><p>然后完了。以后就直接<code>add</code> <code>commit</code> <code>push</code>就行。</p>
 <h1 id="参考">参考</h1>

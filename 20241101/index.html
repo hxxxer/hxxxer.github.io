@@ -594,7 +594,7 @@
 </li>
 <li>
 <p>开机后打开cmd/命令提示符，注意要以管理员运行，而且不能是PowerShell。运行指令</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>bcdedit.exe /set {current} testsigning on
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>bcdedit.exe /set <span style="color:#99d1db;font-weight:bold">{</span>current<span style="color:#99d1db;font-weight:bold">}</span> testsigning on
 </span></span></code></pre></div><p>作用是进入测试模式。执行成功会提示“操作成功完成。”。</p>
 </li>
 <li>
@@ -609,7 +609,7 @@
 <ol>
 <li>
 <p>也是关闭安全启动，去cmd（管理员）运行</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>bcdedit /set {default} bootmenupolicy legacy
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>bcdedit /set <span style="color:#99d1db;font-weight:bold">{</span>default<span style="color:#99d1db;font-weight:bold">}</span> bootmenupolicy legacy
 </span></span></code></pre></div><p>作用是启动高级启动设置，就是第一步那个。</p>
 </li>
 <li>

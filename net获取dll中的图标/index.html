@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html><head>
-<title>Ubuntu新建开机服务</title>
+<title>NET获取dll中的图标</title>
 
 
 
@@ -10,22 +10,23 @@
 <meta name="google-site-verification" content="G-XXXXXXXXXX">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 <meta content="telephone=no" name="format-detection">
-<meta name="description" content="通过服务单元建立开机服务">
+<meta name="description" content="在NET里面用C#来获取shell32.dll里面的图标">
 <meta name="renderer" content="webkit">
 <meta name="theme-color" content="#ffffff">
 
 
 
-<meta property="og:url" content="https://hxxxer.github.io/linux%E6%96%B0%E5%BB%BA%E5%BC%80%E6%9C%BA%E6%9C%8D%E5%8A%A1/">
+<meta property="og:url" content="https://hxxxer.github.io/net%E8%8E%B7%E5%8F%96dll%E4%B8%AD%E7%9A%84%E5%9B%BE%E6%A0%87/">
   <meta property="og:site_name" content="闲碎">
-  <meta property="og:title" content="Ubuntu新建开机服务">
-  <meta property="og:description" content="通过服务单元建立开机服务">
+  <meta property="og:title" content="NET获取dll中的图标">
+  <meta property="og:description" content="在NET里面用C#来获取shell32.dll里面的图标">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
-    <meta property="article:published_time" content="2024-11-06T22:36:41+08:00">
-    <meta property="article:modified_time" content="2024-11-06T22:36:41+08:00">
-    <meta property="article:tag" content="Ubuntu">
-    <meta property="article:tag" content="开机服务">
+    <meta property="article:published_time" content="2024-11-09T16:24:42+08:00">
+    <meta property="article:modified_time" content="2024-11-09T16:24:42+08:00">
+    <meta property="article:tag" content="C#">
+    <meta property="article:tag" content="Dll">
+    <meta property="article:tag" content="图标">
 
 
 
@@ -179,90 +180,8 @@
 						
 						
 							<li>
-								<a href="#%e6%b3%95%e4%b8%80%e4%bd%bf%e7%94%a8etcrclocal" class="nav-法一使用etcrclocal">
-									法一：使用/etc/rc.local
-								</a>
-							</li>
-						
-						
-					
-				
-			
-				
-				
-					
-						
-						
-						
-						
-						
-							<li>
-								<a href="#%e6%b3%95%e4%ba%8c%e4%bd%bf%e7%94%a8%e6%9c%8d%e5%8a%a1%e5%8d%95%e5%85%83%e6%96%87%e4%bb%b6%e6%8e%a8%e8%8d%90" class="nav-法二使用服务单元文件推荐">
-									法二：使用服务单元文件（推荐）
-								</a>
-							</li>
-						
-						
-					
-				
-			
-				
-				
-					
-						
-						
-						
-						
-							
-								
-									<ul>
-								
-							
-						
-						
-							<li>
-								<a href="#%e5%86%85%e5%ae%b9%e8%a7%a3%e9%87%8a" class="nav-内容解释">
-									内容解释
-								</a>
-							</li>
-						
-						
-					
-				
-			
-				
-				
-					
-						
-						
-						
-							
-								</ul>
-							
-						
-						
-						
-							<li>
-								<a href="#%e6%b3%95%e4%b8%89%e4%bd%bf%e7%94%a8initd%e8%84%9a%e6%9c%ac" class="nav-法三使用initd脚本">
-									法三：使用init.d脚本
-								</a>
-							</li>
-						
-						
-					
-				
-			
-				
-				
-					
-						
-						
-						
-						
-						
-							<li>
-								<a href="#%e6%b3%95%e5%9b%9b%e4%bd%bf%e7%94%a8profile%e6%96%87%e4%bb%b6" class="nav-法四使用profile文件">
-									法四：使用profile文件
+								<a href="#%e4%bb%a3%e7%a0%81" class="nav-代码">
+									代码
 								</a>
 							</li>
 						
@@ -345,21 +264,21 @@
                 
                     
                     
-                    style="background-image: url('https://hxxxer.github.io/images/ubuntu-logo.avif')"
+                    style="background-image: url('https://hxxxer.github.io/images/NET.png')"
                     
                 
             >
                 <div class="post-title">
-                    Ubuntu新建开机服务
+                    NET获取dll中的图标
                     
                     <div class="post-subtitle">
-                        通过服务单元建立开机服务
+                        在NET里面用C#来获取shell32.dll里面的图标
                     </div>
                     
                     <div class="post-meta">
                         
                         <time itemprop="datePublished">
-                            2024-11-06 22:36
+                            2024-11-09 16:24
                         </time>
                         
 
@@ -372,10 +291,13 @@
                         
                             <i class="material-icons" style="">label</i>
                             
-                                <a href="/tags/ubuntu">Ubuntu</a>
+                                <a href="/tags/c">C#</a>
                                 &nbsp;
                             
-                                <a href="/tags/%E5%BC%80%E6%9C%BA%E6%9C%8D%E5%8A%A1">开机服务</a>
+                                <a href="/tags/dll">dll</a>
+                                &nbsp;
+                            
+                                <a href="/tags/%E5%9B%BE%E6%A0%87">图标</a>
                                 &nbsp;
                             
                         
@@ -388,101 +310,49 @@
                 
                 <div class="post-body" v-pre>
                 
-                    <p><strong>最后编辑于2024年11月06日</strong></p>
+                    <p><strong>最后编辑于2024年11月09日</strong></p>
 <h1 id="前言">前言</h1>
-<p>在搞VBox的共享文件夹的时候，怎么搞都不能在开机的时候自动挂载，包括安装增强功能，指定目录开启自动挂载，这些都不行。最后直接祭出杀器，新建一个开机服务。</p>
+<p>在搞那个快捷方式可视化的net程序时，因为图标列表第一个是百度网盘的图标，而文件夹没有指定图标，就默认第一个。结果就是一堆百度网盘😅。</p>
+<p>就算指定文件夹节点的图标索引为-1也还是这样，不知道为什么，所以就要搞一个文件夹图标。</p>
 <hr>
-<h1 id="法一使用etcrclocal">法一：使用<code>/etc/rc.local</code></h1>
-<p>因为这个方法是很传统的方法，在新版本的Ubuntu已经不推荐了，但是可能用得上，记录一下。</p>
-<ol>
-<li>
-<p>打开或新建<code>/etc/rc.local</code>文件。</p>
-</li>
-<li>
-<p>在文件中添加挂载命令：</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#737994;font-style:italic">#!/bin/bash
-</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>/bin/mount -t vboxsf shared /home/hx/Desktop/shared
-</span></span><span style="display:flex;"><span><span style="color:#99d1db">exit</span> <span style="color:#ef9f76">0</span>
-</span></span></code></pre></div></li>
-<li>
-<p>给予<code>+x</code>权限。</p>
-</li>
-</ol>
-<hr>
-<h1 id="法二使用服务单元文件推荐">法二：使用服务单元文件（推荐）</h1>
-<p>这个方法在新版Ubuntu中更为推荐，因为可操纵性更强。</p>
-<ol>
-<li>
-<p>新建<code>/etc/systemd/system/vbox-mount.service</code>。</p>
-</li>
-<li>
-<p>写入以下内容：</p>
-<pre tabindex="0"><code>[Unit]
-Description=vbox mount shared
-After=network.target
-
-[Service]
-Type=oneshot
-RemainAfterExit=yes
-ExecStart=/bin/mount -t vboxsf shared /home/hx/Desktop/shared
-User=root
-
-[Install]
-WantedBy=multi-user.target
-</code></pre></li>
-<li>
-<p>然后重新加载配置文件：</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo systemctl daemon-reload
-</span></span></code></pre></div></li>
-<li>
-<p>然后启动服务单元：</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo systemctl <span style="color:#99d1db">enable</span> vbox-mount.service
-</span></span></code></pre></div></li>
-<li>
-<p>可以查看一下启动状态：</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo systemctl status vbox-mount.service
-</span></span></code></pre></div></li>
-</ol>
-<h2 id="内容解释">内容解释</h2>
-<ul>
-<li><code>After=network.target</code>，就是在网路服务之后再执行，注意不是强制性的。</li>
-<li><code>Type=oneshot</code>，只执行一次。</li>
-<li><code>RemainAfterExit=yes</code>，执行退出之后仍然认为服务活跃，这是为了依赖这项服务的服务能正常运行（虽然这里没有）。</li>
-<li><code>WantedBy=multi-user.target</code>，在多用户模式下启动？猜测是在开机选用户那里启动。</li>
-</ul>
-<hr>
-<h1 id="法三使用initd脚本">法三：使用<code>init.d</code>脚本</h1>
-<p>这个和法一一样不常用了，但我是松鼠😋！</p>
-<ol>
-<li>
-<p>创建启动脚本<code>/etc/init.d/myscript</code>。</p>
-</li>
-<li>
-<p>在文件中添加挂载命令：</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#737994;font-style:italic">#!/bin/bash
-</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>/bin/mount -t vboxsf shared /home/hx/Desktop/shared
-</span></span><span style="display:flex;"><span><span style="color:#99d1db">exit</span> <span style="color:#ef9f76">0</span>
-</span></span></code></pre></div></li>
-<li>
-<p>给予<code>+x</code>权限。</p>
-</li>
-<li>
-<p>注册脚本到启动序列：</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo update-rc.d myscript defaults
-</span></span></code></pre></div></li>
-</ol>
-<hr>
-<h1 id="法四使用profile文件">法四：使用<code>profile</code>文件</h1>
-<p>就像将<code>arm-linux-gcc</code>及其库添加到环境变量一样，直接添加命令到<code>~/.profile</code>或者<code>~/.bashrc</code>即可</p>
-<h1 id="参考">参考</h1>
+<h1 id="代码">代码</h1>
+<p>主要是通过shell32 API的ExtractIcon函数来提取，然后文件夹图标的索引在shell32.dll里面是3。代码如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c#" data-lang="c#"><span style="display:flex;"><span><span style="color:#e78284">public</span> <span style="color:#ca9ee6">class</span> <span style="color:#e5c890">ShellIcon</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span><span style="color:#8caaee">    [DllImport(&#34;shell32.dll&#34;, CharSet = CharSet.Auto)]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">private</span> <span style="color:#e78284">static</span> <span style="color:#e78284">extern</span> IntPtr ExtractIcon(IntPtr hInst, <span style="color:#e78284">string</span> lpszExeFileName, <span style="color:#e78284">int</span> nIconIndex);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">public</span> <span style="color:#e78284">static</span> Icon? GetFolderIcon(<span style="color:#e78284">int</span> index)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#737994;font-style:italic">// 从shell32.dll提取文件夹图标 (索引3是标准的关闭文件夹图标)</span>
+</span></span><span style="display:flex;"><span>        IntPtr hIcon = ExtractIcon(IntPtr.Zero, <span style="color:#a6d189">&#34;shell32.dll&#34;</span>, index);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ca9ee6">if</span> (hIcon != IntPtr.Zero)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#ca9ee6">return</span> Icon.FromHandle(hIcon);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ca9ee6">return</span> <span style="color:#ef9f76">null</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.......
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">// 添加文件夹图标</span>
+</span></span><span style="display:flex;"><span>Icon folderIcon = ShellIcon.GetFolderIcon(<span style="color:#ef9f76">3</span>);
+</span></span><span style="display:flex;"><span><span style="color:#ca9ee6">if</span> (folderIcon != <span style="color:#ef9f76">null</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    imageList1.Images.Add(<span style="color:#a6d189">&#34;folder&#34;</span>, folderIcon);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="参考">参考</h1>
 <hr>
 <blockquote>
-<p>全是AI写的😋</p>
+<p>Claude<del>又是AI😋</del></p>
 </blockquote>
 
                     
                     <HR width="100%" id="EOF">
-		    <p style="color:#777;">最后修改于 2024-11-06</p>
+		    <p style="color:#777;">最后修改于 2024-11-09</p>
                     
                 </div>
             </div>
@@ -491,14 +361,14 @@ WantedBy=multi-user.target
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts" href="/vs%E6%8E%A8%E9%80%81tags/">
-			下回<br>VS推送tags
+                <a class="newer-posts">
+			下回<br>已经到头啦。
                 </a>
                 
                 
                 
-                <a class="older-posts" href="/20241105net%E7%A8%8B%E5%BA%8F/">
-			上回<br>VS NET开发桌面程序的一些小经验
+                <a class="older-posts" href="/net%E4%BD%BF%E7%94%A8github-actions/">
+			上回<br>NET使用Github Actions
                 </a>
                 
             </nav>
@@ -624,90 +494,8 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 						
 						
 							<li>
-								<a href="#%e6%b3%95%e4%b8%80%e4%bd%bf%e7%94%a8etcrclocal" class="nav-法一使用etcrclocal">
-									法一：使用/etc/rc.local
-								</a>
-							</li>
-						
-						
-					
-				
-			
-				
-				
-					
-						
-						
-						
-						
-						
-							<li>
-								<a href="#%e6%b3%95%e4%ba%8c%e4%bd%bf%e7%94%a8%e6%9c%8d%e5%8a%a1%e5%8d%95%e5%85%83%e6%96%87%e4%bb%b6%e6%8e%a8%e8%8d%90" class="nav-法二使用服务单元文件推荐">
-									法二：使用服务单元文件（推荐）
-								</a>
-							</li>
-						
-						
-					
-				
-			
-				
-				
-					
-						
-						
-						
-						
-							
-								
-									<ul>
-								
-							
-						
-						
-							<li>
-								<a href="#%e5%86%85%e5%ae%b9%e8%a7%a3%e9%87%8a" class="nav-内容解释">
-									内容解释
-								</a>
-							</li>
-						
-						
-					
-				
-			
-				
-				
-					
-						
-						
-						
-							
-								</ul>
-							
-						
-						
-						
-							<li>
-								<a href="#%e6%b3%95%e4%b8%89%e4%bd%bf%e7%94%a8initd%e8%84%9a%e6%9c%ac" class="nav-法三使用initd脚本">
-									法三：使用init.d脚本
-								</a>
-							</li>
-						
-						
-					
-				
-			
-				
-				
-					
-						
-						
-						
-						
-						
-							<li>
-								<a href="#%e6%b3%95%e5%9b%9b%e4%bd%bf%e7%94%a8profile%e6%96%87%e4%bb%b6" class="nav-法四使用profile文件">
-									法四：使用profile文件
+								<a href="#%e4%bb%a3%e7%a0%81" class="nav-代码">
+									代码
 								</a>
 							</li>
 						

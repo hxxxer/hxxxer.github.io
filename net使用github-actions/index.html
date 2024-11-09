@@ -324,8 +324,8 @@
 						
 						
 							<li>
-								<a href="#%e5%9c%a8yml%e6%96%87%e4%bb%b6%e8%ae%be%e5%ae%9a%e5%8f%91%e5%b8%83" class="nav-在yml文件设定发布">
-									在yml文件设定发布
+								<a href="#%e8%a1%a5%e5%85%85" class="nav-补充">
+									补充
 								</a>
 							</li>
 						
@@ -341,6 +341,26 @@
 						
 							
 								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e5%9c%a8yml%e6%96%87%e4%bb%b6%e8%ae%be%e5%ae%9a%e5%8f%91%e5%b8%83" class="nav-在yml文件设定发布">
+									在yml文件设定发布
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
 							
 								</ul>
 							
@@ -462,7 +482,7 @@
                 
                 <div class="post-body" v-pre>
                 
-                    <p><strong>最后编辑于2024年11月08日</strong></p>
+                    <p><strong>最后编辑于2024年11月09日</strong></p>
 <h1 id="前言">前言</h1>
 <p>早就知道GitHub actions很方便好用，所以我想搞一个。不过遇到了好多困难，现在基本搞定了，记录一下。</p>
 <p>主要的难点是yml文件的编写，毕竟是第一次接触，脑子有点混。</p>
@@ -472,11 +492,11 @@
 <hr>
 <h1 id="yml文件的理解">yml文件的理解</h1>
 <p>开头的on是指当发生什么的时候开始这条工作流，比如：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">on</span>:<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">  </span><span style="color:#8b008b;font-weight:bold">push</span>:<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">tags</span>:<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">      </span>- v*<span style="color:#bbb">
-</span></span></span></code></pre></div><p>就是在push且tag是以v开头时启动。注意push内的每个条件是或关系，只要满足一个就开始工作。</p>
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#ca9ee6">on</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ca9ee6">push</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">tags</span>:
+</span></span><span style="display:flex;"><span>      - v*
+</span></span></code></pre></div><p>就是在push且tag是以v开头时启动。注意push内的每个条件是或关系，只要满足一个就开始工作。</p>
 <p>然后就是具体工作内容，是一种多级列表，每一级都可以有多个。</p>
 <p>其实工作流程就是大概按顺序运行steps，这里大概是：</p>
 <ol>
@@ -498,44 +518,47 @@
 <li><strong>with</strong>，一般是使用uses时配置具体的参数，比如安装net core时指定版本。</li>
 <li><strong>run</strong>，就是执行指令，不同平台（win，Ubuntu）使用的不同</li>
 <li><strong>env</strong>，一些变量，通过$env:&lt;名字&gt;，来引用。（好像在一些字符串里面不能被正确解析），比如：
-<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#8b008b;font-weight:bold">run</span>:<span style="color:#bbb"> </span>|<span style="color:#cd5555">
-</span></span></span><span style="display:flex;"><span><span style="color:#cd5555">    $zipFilePath = &#34;${{ github.workspace }}\$env:&#34;</span><span style="color:#bbb">    
-</span></span></span></code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#ca9ee6">run</span>: |<span style="color:#737994">
+</span></span></span><span style="display:flex;"><span><span style="color:#737994">    $zipFilePath = &#34;${{ github.workspace }}\$env:&#34;</span>    
+</span></span></code></pre></div></li>
 </ul>
 <h2 id="发布到release">发布到release</h2>
 <p>这边是重点，我是先搞了一个给这个action用的token，然后再在yml文件里面设定steps。</p>
 <h3 id="token">TOKEN</h3>
-<h4 id="新建token">新建TOKEN</h4>
+<h4 id="新建token"><del>新建TOKEN</del></h4>
 <p>在头像 - <strong>setting</strong> - 侧边栏的<strong>Developer Settings</strong> - 侧边栏的<strong>Personal accesskey tokens</strong> - <strong>Token (classic)</strong>。然后<strong>generate new token</strong> - <strong>Generate new token (classic)</strong>。然后输密码之后，来到新建token的页面，名字随便起，过期时间随便，下面是<strong>Select scopes</strong>选择前三个。
 **
 新建完成之后记得复制token，因为只会出现一次，后面要用。</p>
 <p><img src="/images/%E9%80%89%E6%8B%A9token%E7%B1%BB%E5%9E%8B.png" alt="选择token类型"></p>
 <p><img src="/images/%E6%96%B0%E5%BB%BAtoken.png" alt="新建token"></p>
-<h4 id="新建secrets">新建secrets</h4>
+<h4 id="新建secrets"><del>新建secrets</del></h4>
 <p>刚刚的token要保存到项目的secrets里面。secrets是一种可以在yml里面调用的变量，但是无法得知内容。</p>
 <p>打开项目的<strong>setting</strong> - 侧边栏的<strong>Secrets and variables</strong> - <strong>Actions</strong>。然后选择绿色的<strong>New repository secret</strong>。接下来就是新建页面，名字随便，记住就行，secret就填刚刚的token。然后保存就行。</p>
 <p>但是还没完，还要配置项目的权限。打开项目的<strong>setting</strong> - 侧边栏的<strong>Actions</strong> - <strong>General</strong>，找到<strong>Workflow permission</strong>，选择第一个Read and write permissions。到这里就完成了。</p>
-<h4 id="在yml文件设定发布">在yml文件设定发布</h4>
+<h4 id="补充">补充</h4>
+<p>后来发现不用新建，直接在发布的<code>with: token</code>里用<code>${{ secrets.GITHUB_TOKEN }}</code>就行😂。</p>
+<h3 id="在yml文件设定发布">在yml文件设定发布</h3>
 <p>这里我是使用别人的actions和网友的模板：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span>- <span style="color:#8b008b;font-weight:bold">name</span>:<span style="color:#bbb"> </span>Create and Upload Release<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">  </span><span style="color:#8b008b;font-weight:bold">uses</span>:<span style="color:#bbb"> </span>softprops/action-gh-release@v2<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">  </span><span style="color:#8b008b;font-weight:bold">if</span>:<span style="color:#bbb"> </span>startsWith(github.ref, &#39;refs/tags/&#39;)<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">  </span><span style="color:#8b008b;font-weight:bold">with</span>:<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">token</span>:<span style="color:#bbb"> </span>${{ secrets.PB_TOKEN }}<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">tag_name</span>:<span style="color:#bbb"> </span>${{ github.ref_name }}<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">name</span>:<span style="color:#bbb"> </span>Release ${{ github.ref_name }}<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">body</span>:<span style="color:#bbb"> </span>船新版本！<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">makelatest</span>:<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">true</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">draft</span>:<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">false</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">prerelease</span>:<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">false</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#8b008b;font-weight:bold">files</span>:<span style="color:#bbb"> </span>|<span style="color:#cd5555">
-</span></span></span><span style="display:flex;"><span><span style="color:#cd5555">      HugoHelper.zip</span><span style="color:#bbb">      
-</span></span></span></code></pre></div><p><code>github.ref_name</code>就是上传连接的名字，比如我是限制在tags前缀是v时启动工作流，那这里就是v&hellip;。</p>
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span>- <span style="color:#ca9ee6">name</span>: Create and Upload Release
+</span></span><span style="display:flex;"><span>  <span style="color:#ca9ee6">uses</span>: softprops/action-gh-release@v2
+</span></span><span style="display:flex;"><span>  <span style="color:#ca9ee6">if</span>: startsWith(github.ref, &#39;refs/tags/&#39;)
+</span></span><span style="display:flex;"><span>  <span style="color:#ca9ee6">with</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">token</span>: ${{ secrets.PB_TOKEN }}
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">tag_name</span>: ${{ github.ref_name }}
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">name</span>: Release ${{ github.ref_name }}
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">body</span>: 船新版本！
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">makelatest</span>: <span style="color:#ef9f76">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">draft</span>: <span style="color:#ef9f76">false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">prerelease</span>: <span style="color:#ef9f76">false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">files</span>: |<span style="color:#737994">
+</span></span></span><span style="display:flex;"><span><span style="color:#737994">      HugoHelper.zip</span>      
+</span></span></code></pre></div><p><code>github.ref_name</code>就是上传连接的名字，比如我是限制在tags前缀是v时启动工作流，那这里就是v&hellip;。</p>
 <p><code>name</code>和<code>tag_name</code>顾名思义，<code>name</code>就是这次发布的名字，<code>tag_name</code>就是发布的tag的名字。</p>
 <p><code>makelatest</code>就是让这次发布设置为项目的最新release。</p>
 <h1 id="参考">参考</h1>
 <hr>
 <blockquote>
+<p><a href="https://blog.csdn.net/m0_74075298/article/details/141230617">Github Actions自动发布release</a></p>
 <p><a href="https://segmentfault.com/a/1190000045270503">学会Github Actions自动发布版本</a></p>
 <p><a href="https://cloud.tencent.com/developer/article/1970730">GitHub Action 自动构建 并release</a></p>
 <p><a href="https://juejin.cn/post/6908427616298991629">GitHub Actions - 使用 tag 作为发布的版本号</a></p>
@@ -553,8 +576,8 @@
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts">
-			下回<br>已经到头啦。
+                <a class="newer-posts" href="/net%E8%8E%B7%E5%8F%96dll%E4%B8%AD%E7%9A%84%E5%9B%BE%E6%A0%87/">
+			下回<br>NET获取dll中的图标
                 </a>
                 
                 
@@ -830,8 +853,8 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 						
 						
 							<li>
-								<a href="#%e5%9c%a8yml%e6%96%87%e4%bb%b6%e8%ae%be%e5%ae%9a%e5%8f%91%e5%b8%83" class="nav-在yml文件设定发布">
-									在yml文件设定发布
+								<a href="#%e8%a1%a5%e5%85%85" class="nav-补充">
+									补充
 								</a>
 							</li>
 						
@@ -847,6 +870,26 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 						
 							
 								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e5%9c%a8yml%e6%96%87%e4%bb%b6%e8%ae%be%e5%ae%9a%e5%8f%91%e5%b8%83" class="nav-在yml文件设定发布">
+									在yml文件设定发布
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
 							
 								</ul>
 							

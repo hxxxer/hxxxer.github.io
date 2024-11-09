@@ -536,30 +536,30 @@
 </ul>
 <h3 id="示例">示例</h3>
 <p>假设你有一个异步函数来读取文件：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;iostream&gt;</span><span style="color:#1e889b">
-</span></span></span><span style="display:flex;"><span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;fstream&gt;</span><span style="color:#1e889b">
-</span></span></span><span style="display:flex;"><span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;future&gt;</span><span style="color:#1e889b">
-</span></span></span><span style="display:flex;"><span><span style="color:#1e889b"></span>
-</span></span><span style="display:flex;"><span>std::future&lt;std::string&gt; readFileAsync(<span style="color:#8b008b;font-weight:bold">const</span> std::string&amp; filename) {
-</span></span><span style="display:flex;"><span>    <span style="color:#8b008b;font-weight:bold">return</span> std::async(std::launch::async, [filename] {
-</span></span><span style="display:flex;"><span>        std::ifstream file(filename);
-</span></span><span style="display:flex;"><span>        std::string content((std::istreambuf_iterator&lt;<span style="color:#00688b;font-weight:bold">char</span>&gt;(file)),
-</span></span><span style="display:flex;"><span>                            (std::istreambuf_iterator&lt;<span style="color:#00688b;font-weight:bold">char</span>&gt;()));
-</span></span><span style="display:flex;"><span>        <span style="color:#8b008b;font-weight:bold">return</span> content;
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#737994;font-style:italic">#include</span> <span style="color:#737994;font-weight:bold;font-style:italic">&lt;iostream&gt;</span><span style="color:#737994;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">#include</span> <span style="color:#737994;font-weight:bold;font-style:italic">&lt;fstream&gt;</span><span style="color:#737994;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">#include</span> <span style="color:#737994;font-weight:bold;font-style:italic">&lt;future&gt;</span><span style="color:#737994;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>std<span style="color:#99d1db;font-weight:bold">::</span>future<span style="color:#99d1db;font-weight:bold">&lt;</span>std<span style="color:#99d1db;font-weight:bold">::</span>string<span style="color:#99d1db;font-weight:bold">&gt;</span> readFileAsync(<span style="color:#ca9ee6">const</span> std<span style="color:#99d1db;font-weight:bold">::</span>string<span style="color:#99d1db;font-weight:bold">&amp;</span> filename) {
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">return</span> std<span style="color:#99d1db;font-weight:bold">::</span>async(std<span style="color:#99d1db;font-weight:bold">::</span>launch<span style="color:#99d1db;font-weight:bold">::</span>async, [filename] {
+</span></span><span style="display:flex;"><span>        std<span style="color:#99d1db;font-weight:bold">::</span>ifstream file(filename);
+</span></span><span style="display:flex;"><span>        std<span style="color:#99d1db;font-weight:bold">::</span>string content((std<span style="color:#99d1db;font-weight:bold">::</span>istreambuf_iterator<span style="color:#99d1db;font-weight:bold">&lt;</span><span style="color:#e78284">char</span><span style="color:#99d1db;font-weight:bold">&gt;</span>(file)),
+</span></span><span style="display:flex;"><span>                            (std<span style="color:#99d1db;font-weight:bold">::</span>istreambuf_iterator<span style="color:#99d1db;font-weight:bold">&lt;</span><span style="color:#e78284">char</span><span style="color:#99d1db;font-weight:bold">&gt;</span>()));
+</span></span><span style="display:flex;"><span>        <span style="color:#ca9ee6">return</span> content;
 </span></span><span style="display:flex;"><span>    });
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#8b008b;font-weight:bold">auto</span> future = readFileAsync(<span style="color:#cd5555">&#34;example.txt&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#e78284">int</span> <span style="color:#8caaee">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">auto</span> future <span style="color:#99d1db;font-weight:bold">=</span> readFileAsync(<span style="color:#a6d189">&#34;example.txt&#34;</span>);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#228b22">// 主程序继续执行其他任务
-</span></span></span><span style="display:flex;"><span><span style="color:#228b22"></span>    std::cout &lt;&lt; <span style="color:#cd5555">&#34;Doing other work...&#34;</span> &lt;&lt; std::endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#737994;font-style:italic">// 主程序继续执行其他任务
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>    std<span style="color:#99d1db;font-weight:bold">::</span>cout <span style="color:#99d1db;font-weight:bold">&lt;&lt;</span> <span style="color:#a6d189">&#34;Doing other work...&#34;</span> <span style="color:#99d1db;font-weight:bold">&lt;&lt;</span> std<span style="color:#99d1db;font-weight:bold">::</span>endl;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#228b22">// 等待异步任务完成
-</span></span></span><span style="display:flex;"><span><span style="color:#228b22"></span>    std::string content = future.get();
-</span></span><span style="display:flex;"><span>    std::cout &lt;&lt; <span style="color:#cd5555">&#34;File content: &#34;</span> &lt;&lt; content &lt;&lt; std::endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#737994;font-style:italic">// 等待异步任务完成
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>    std<span style="color:#99d1db;font-weight:bold">::</span>string content <span style="color:#99d1db;font-weight:bold">=</span> future.get();
+</span></span><span style="display:flex;"><span>    std<span style="color:#99d1db;font-weight:bold">::</span>cout <span style="color:#99d1db;font-weight:bold">&lt;&lt;</span> <span style="color:#a6d189">&#34;File content: &#34;</span> <span style="color:#99d1db;font-weight:bold">&lt;&lt;</span> content <span style="color:#99d1db;font-weight:bold">&lt;&lt;</span> std<span style="color:#99d1db;font-weight:bold">::</span>endl;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">return</span> <span style="color:#ef9f76">0</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>在这个例子中，<code>readFileAsync</code> 是一个异步函数，它使用 <code>std::async</code> 来启动一个新线程读取文件。主程序在启动异步任务后继续执行其他任务，直到需要文件内容时才调用 <code>future.get()</code> 阻塞等待结果。</p>
 <h2 id="问答二">问答二</h2>
@@ -606,29 +606,29 @@
 </ul>
 <h3 id="示例-1">示例</h3>
 <p>假设我们使用C++的 <code>std::async</code> 和 <code>std::future</code> 来实现一个异步任务：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;iostream&gt;</span><span style="color:#1e889b">
-</span></span></span><span style="display:flex;"><span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;future&gt;</span><span style="color:#1e889b">
-</span></span></span><span style="display:flex;"><span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;thread&gt;</span><span style="color:#1e889b">
-</span></span></span><span style="display:flex;"><span><span style="color:#1e889b">#include</span> <span style="color:#1e889b">&lt;chrono&gt;</span><span style="color:#1e889b">
-</span></span></span><span style="display:flex;"><span><span style="color:#1e889b"></span>
-</span></span><span style="display:flex;"><span><span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">asyncTask</span>() {
-</span></span><span style="display:flex;"><span>    std::this_thread::sleep_for(std::chrono::seconds(<span style="color:#b452cd">2</span>)); <span style="color:#228b22">// 模拟耗时操作
-</span></span></span><span style="display:flex;"><span><span style="color:#228b22"></span>    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">42</span>;
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#737994;font-style:italic">#include</span> <span style="color:#737994;font-weight:bold;font-style:italic">&lt;iostream&gt;</span><span style="color:#737994;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">#include</span> <span style="color:#737994;font-weight:bold;font-style:italic">&lt;future&gt;</span><span style="color:#737994;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">#include</span> <span style="color:#737994;font-weight:bold;font-style:italic">&lt;thread&gt;</span><span style="color:#737994;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">#include</span> <span style="color:#737994;font-weight:bold;font-style:italic">&lt;chrono&gt;</span><span style="color:#737994;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">int</span> <span style="color:#8caaee">asyncTask</span>() {
+</span></span><span style="display:flex;"><span>    std<span style="color:#99d1db;font-weight:bold">::</span>this_thread<span style="color:#99d1db;font-weight:bold">::</span>sleep_for(std<span style="color:#99d1db;font-weight:bold">::</span>chrono<span style="color:#99d1db;font-weight:bold">::</span>seconds(<span style="color:#ef9f76">2</span>)); <span style="color:#737994;font-style:italic">// 模拟耗时操作
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>    <span style="color:#ca9ee6">return</span> <span style="color:#ef9f76">42</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#00688b;font-weight:bold">int</span> <span style="color:#008b45">main</span>() {
-</span></span><span style="display:flex;"><span>    std::future&lt;<span style="color:#00688b;font-weight:bold">int</span>&gt; result = std::async(std::launch::async, asyncTask);
+</span></span><span style="display:flex;"><span><span style="color:#e78284">int</span> <span style="color:#8caaee">main</span>() {
+</span></span><span style="display:flex;"><span>    std<span style="color:#99d1db;font-weight:bold">::</span>future<span style="color:#99d1db;font-weight:bold">&lt;</span><span style="color:#e78284">int</span><span style="color:#99d1db;font-weight:bold">&gt;</span> result <span style="color:#99d1db;font-weight:bold">=</span> std<span style="color:#99d1db;font-weight:bold">::</span>async(std<span style="color:#99d1db;font-weight:bold">::</span>launch<span style="color:#99d1db;font-weight:bold">::</span>async, asyncTask);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#228b22">// 主程序继续执行其他任务
-</span></span></span><span style="display:flex;"><span><span style="color:#228b22"></span>    std::cout &lt;&lt; <span style="color:#cd5555">&#34;Doing other work...&#34;</span> &lt;&lt; std::endl;
-</span></span><span style="display:flex;"><span>    std::this_thread::sleep_for(std::chrono::seconds(<span style="color:#b452cd">1</span>));
-</span></span><span style="display:flex;"><span>    std::cout &lt;&lt; <span style="color:#cd5555">&#34;Still doing other work...&#34;</span> &lt;&lt; std::endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#737994;font-style:italic">// 主程序继续执行其他任务
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>    std<span style="color:#99d1db;font-weight:bold">::</span>cout <span style="color:#99d1db;font-weight:bold">&lt;&lt;</span> <span style="color:#a6d189">&#34;Doing other work...&#34;</span> <span style="color:#99d1db;font-weight:bold">&lt;&lt;</span> std<span style="color:#99d1db;font-weight:bold">::</span>endl;
+</span></span><span style="display:flex;"><span>    std<span style="color:#99d1db;font-weight:bold">::</span>this_thread<span style="color:#99d1db;font-weight:bold">::</span>sleep_for(std<span style="color:#99d1db;font-weight:bold">::</span>chrono<span style="color:#99d1db;font-weight:bold">::</span>seconds(<span style="color:#ef9f76">1</span>));
+</span></span><span style="display:flex;"><span>    std<span style="color:#99d1db;font-weight:bold">::</span>cout <span style="color:#99d1db;font-weight:bold">&lt;&lt;</span> <span style="color:#a6d189">&#34;Still doing other work...&#34;</span> <span style="color:#99d1db;font-weight:bold">&lt;&lt;</span> std<span style="color:#99d1db;font-weight:bold">::</span>endl;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#228b22">// 获取异步任务的结果，可能会阻塞主程序
-</span></span></span><span style="display:flex;"><span><span style="color:#228b22"></span>    <span style="color:#00688b;font-weight:bold">int</span> value = result.get();
-</span></span><span style="display:flex;"><span>    std::cout &lt;&lt; <span style="color:#cd5555">&#34;Async task result: &#34;</span> &lt;&lt; value &lt;&lt; std::endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#737994;font-style:italic">// 获取异步任务的结果，可能会阻塞主程序
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>    <span style="color:#e78284">int</span> value <span style="color:#99d1db;font-weight:bold">=</span> result.get();
+</span></span><span style="display:flex;"><span>    std<span style="color:#99d1db;font-weight:bold">::</span>cout <span style="color:#99d1db;font-weight:bold">&lt;&lt;</span> <span style="color:#a6d189">&#34;Async task result: &#34;</span> <span style="color:#99d1db;font-weight:bold">&lt;&lt;</span> value <span style="color:#99d1db;font-weight:bold">&lt;&lt;</span> std<span style="color:#99d1db;font-weight:bold">::</span>endl;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8b008b;font-weight:bold">return</span> <span style="color:#b452cd">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">return</span> <span style="color:#ef9f76">0</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>在这个例子中：</p>
 <ol>
