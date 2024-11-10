@@ -7,9 +7,84 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>This is a customized copyright.</copyright>
-    <lastBuildDate>Sat, 09 Nov 2024 16:24:42 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 10 Nov 2024 01:36:15 +0800</lastBuildDate>
     
         <atom:link href="https://hxxxer.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>编译mini2440的虚拟字符驱动</title>
+        <link>https://hxxxer.github.io/%E7%BC%96%E8%AF%91mini2440%E7%9A%84%E8%99%9A%E6%8B%9F%E5%AD%97%E7%AC%A6%E9%A9%B1%E5%8A%A8/</link>
+        <pubDate>Sun, 10 Nov 2024 01:36:15 +0800</pubDate>
+        
+        <guid>https://hxxxer.github.io/%E7%BC%96%E8%AF%91mini2440%E7%9A%84%E8%99%9A%E6%8B%9F%E5%AD%97%E7%AC%A6%E9%A9%B1%E5%8A%A8/</guid>
+        <description>闲碎 https://hxxxer.github.io/%E7%BC%96%E8%AF%91mini2440%E7%9A%84%E8%99%9A%E6%8B%9F%E5%AD%97%E7%AC%A6%E9%A9%B1%E5%8A%A8/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月10日&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;嵌入式的第四次实验是编译一个虚拟字符驱动模块，我在学校电脑上可以编译成适合x86架构的版本，但是编译成开发板上的arm架构的就不行。&lt;/p&gt;
+&lt;p&gt;后来在自己的电脑上尝试了一下，在一些参考资料的帮助下，最终完成既定目标。现在记录一下&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;配置编译环境&#34;&gt;配置编译环境&lt;/h1&gt;
+&lt;p&gt;将资料里面的开发板linux源码&lt;code&gt;\FriendlyARM-2440-DVD\Linux\linux-2.6.32.2-mini2440-20150709.tgz&lt;/code&gt;解压到虚拟机。&lt;/p&gt;
+&lt;p&gt;然后在解压目录下，将&lt;code&gt;mini2440_config_t35&lt;/code&gt;复制为&lt;code&gt;.config&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cp mini2440_config_t35 .config
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后执行下面的命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;make oldconfig &lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make prepare
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/make-oldconfig-prepare.png&#34; alt=&#34;执行make oldconfig &amp;amp;&amp;amp; make prepare&#34;&gt;&lt;/p&gt;
+&lt;p&gt;LCD就选择&lt;code&gt;6. 3.5 inch 240X230 Toppoly LCD (FB_S3C2410_T240320)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/LCDSelect.png&#34; alt=&#34;LCD Select&#34;&gt;&lt;/p&gt;
+&lt;p&gt;执行过程中如果出现有关&lt;code&gt;arm-linux-gcc&lt;/code&gt;的报错，就去检测一下&lt;code&gt;arm-linux-gcc -v&lt;/code&gt;有没有输出，没有就配置一下。&lt;/p&gt;
+&lt;p&gt;执行完成之后，再输入以下命令（这里有些报错是没问题的，只要都是warning就行）：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;make scripts
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/make-scripts.png&#34; alt=&#34;make scripts&#34;&gt;&lt;/p&gt;
+&lt;p&gt;执行完成就配置好了编译环境。&lt;/p&gt;
+&lt;h2 id=&#34;解释&#34;&gt;解释&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;mini2440_config_t35&lt;/code&gt;就是适合开发板屏幕的那个config文件，其实里面的&lt;code&gt;mini2440_config_&lt;/code&gt;文件内容都相差不大，只有屏幕相关部分有差别。&lt;/p&gt;
+&lt;p&gt;将其复制为&lt;code&gt;.config&lt;/code&gt;文件是为了设置内核配置信息，确保编译环境与开发板的实际情况相匹配。（其实这段话我是问AI的，我也不是很懂）&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;make oldconfig&lt;/code&gt;是为了查看是否有新的配置信息要处理，这里感觉没有什么用，但是网上都做了这个😋。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;make prepare&lt;/code&gt;是为了准备之后编译要用到的文件和符号链接，以及处理一些依赖关系，以确保所需的工具和资源都已准备好。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;make scripts&lt;/code&gt;是为了编译一些之后编译要用到的脚本文件。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;更改驱动源码&#34;&gt;更改驱动源码&lt;/h1&gt;
+&lt;p&gt;原来的源码&lt;code&gt;chrdevbase.c&lt;/code&gt;有些问题，头文件的引用并不对，需要改成下面的：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#737994;font-weight:bold;font-style:italic&#34;&gt;&amp;lt;linux/kernel.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#737994;font-weight:bold;font-style:italic&#34;&gt;&amp;lt;linux/fs.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#737994;font-weight:bold;font-style:italic&#34;&gt;&amp;lt;linux/init.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#737994;font-weight:bold;font-style:italic&#34;&gt;&amp;lt;linux/module.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#737994;font-weight:bold;font-style:italic&#34;&gt;&amp;lt;linux/uaccess.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这里的引用我是复制老师发的&lt;a href=&#34;https://blog.csdn.net/weixin_46829095/article/details/128768229&#34;&gt;那篇CSDN博客&lt;/a&gt;的。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;更改makefiletxt&#34;&gt;更改makefile.txt&lt;/h1&gt;
+&lt;p&gt;这个文件内容也有些问题，改成下面的就行：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-makefile&#34; data-lang=&#34;makefile&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f2d5cf&#34;&gt;KERNELDIR&lt;/span&gt; &lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;:=&lt;/span&gt; /home/hx/linux/mini2440-lib/linux-2.6.32.2
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f2d5cf&#34;&gt;ENV&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;:=&lt;/span&gt;&lt;span style=&#34;color:#f2d5cf&#34;&gt;ARCH&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;=&lt;/span&gt;arm &lt;span style=&#34;color:#f2d5cf&#34;&gt;CROSS_COMPILE&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;=&lt;/span&gt;arm-none-linux-gnueabi-
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f2d5cf&#34;&gt;obj-m&lt;/span&gt; &lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;:=&lt;/span&gt; chrdevbase.o
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;all&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;MAKE&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;ENV&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; -C &lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;KERNELDIR&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f2d5cf&#34;&gt;M&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;shell &lt;span style=&#34;color:#99d1db&#34;&gt;pwd&lt;/span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; modules
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;clean&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;MAKE&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;ENV&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; -C &lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;KERNELDIR&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f2d5cf&#34;&gt;M&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;shell &lt;span style=&#34;color:#99d1db&#34;&gt;pwd&lt;/span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; clean
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;而且文件名也要改成Makefile，注意一定要大写M开头。&lt;/p&gt;
+&lt;h2 id=&#34;补充&#34;&gt;补充&lt;/h2&gt;
+&lt;p&gt;后来发现上面的更改的添加的&lt;code&gt;ENV&lt;/code&gt;不是必要的，这个只是用在编译的gcc版本和开发板的不对的时候用的，具体可以看&lt;a href=&#34;https://blog.csdn.net/qq_41115702/article/details/104655050&#34;&gt;这里&lt;/a&gt;。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;编译及测试&#34;&gt;编译及测试&lt;/h1&gt;
+&lt;p&gt;在驱动源码目录下执行&lt;code&gt;make&lt;/code&gt;即可，如果前面没有问题，那就可以看到&lt;code&gt;chrdevbase.ko&lt;/code&gt;了。&lt;/p&gt;
+&lt;p&gt;后续的驱动测试就按参考一进行。&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_41753052/article/details/109138710&#34;&gt;嵌入式linux驱动开发-字符设备驱动&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_28576837/article/details/142790697&#34;&gt;加载驱动模块的两种方法&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/weixin_42109053/article/details/124526066&#34;&gt;linux make modules 命令详解&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/cha1290878789/article/details/121453401&#34;&gt;Linux驱动——编译驱动的两种形式（内核目录外、内核目录中）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/Zander0/article/details/134871301&#34;&gt;Linux驱动安装遇到的问题（Kernel configuration is invalid）（Invalid module format）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/u011202336/article/details/9172095&#34;&gt;驱动编译错误 /bin/sh: scripts/mod/modpost&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_41115702/article/details/104655050&#34;&gt;编译内核驱动模块出错（error: asm/xxx: No such file or directory）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/daocaokafei/article/details/115472862&#34;&gt;Linux模块文件如何编译到内核和独立编译成模块？&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+- https://hxxxer.github.io/%E7%BC%96%E8%AF%91mini2440%E7%9A%84%E8%99%9A%E6%8B%9F%E5%AD%97%E7%AC%A6%E9%A9%B1%E5%8A%A8/ - This is a customized copyright.</description>
+        </item>
     
     
     
@@ -278,29 +353,6 @@ WantedBy=multi-user.target
 &lt;p&gt;全是AI写的😋&lt;/p&gt;
 &lt;/blockquote&gt;
 - https://hxxxer.github.io/linux%E6%96%B0%E5%BB%BA%E5%BC%80%E6%9C%BA%E6%9C%8D%E5%8A%A1/ - This is a customized copyright.</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>VS NET开发桌面程序的一些小经验</title>
-        <link>https://hxxxer.github.io/20241105net%E7%A8%8B%E5%BA%8F/</link>
-        <pubDate>Tue, 05 Nov 2024 22:15:00 +0800</pubDate>
-        
-        <guid>https://hxxxer.github.io/20241105net%E7%A8%8B%E5%BA%8F/</guid>
-        <description>闲碎 https://hxxxer.github.io/20241105net%E7%A8%8B%E5%BA%8F/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月05日&lt;/strong&gt;&lt;/p&gt;
-&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
-&lt;p&gt;这篇博客就是记录一些提醒自己（包括未来的自己😋）的tips&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;控件改name事件重新绑定&#34;&gt;控件改(Name)，事件重新绑定&lt;/h1&gt;
-&lt;p&gt;如上。以按钮为例，新建了一个button1，然后还没改名，不小心双击了，结果就直接新建Click事件了，这时候再改名的话，&lt;code&gt;form1.cs&lt;/code&gt;里面Click事件还是&lt;code&gt;button1_Click&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;结论就是直接改成改名之后的事件名，这时候设计器肯定变成空白了，然后打开随便一个控件或者窗口，什么都行，的属性页，然后选到改动的那个按钮，更改Click事件的绑定函数就行。&lt;/p&gt;
-&lt;p&gt;如果设计器还是空白，那就关闭设计器，再打开，根据设计器的报错去设计文件里面更改事件绑定的函数就行。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/%E6%9B%B4%E6%94%B9%E4%BA%8B%E4%BB%B6%E7%BB%91%E5%AE%9A%E5%87%BD%E6%95%B0.png&#34; alt=&#34;更改事件绑定函数&#34;&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;参考&lt;/p&gt;
-&lt;hr&gt;
-- https://hxxxer.github.io/20241105net%E7%A8%8B%E5%BA%8F/ - This is a customized copyright.</description>
         </item>
     
     
