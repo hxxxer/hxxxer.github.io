@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>压缩 on 闲碎</title>
+    <link>https://hxxxer.github.io/tags/%E5%8E%8B%E7%BC%A9/</link>
+    <description>Recent content in 压缩 on 闲碎</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>This is a customized copyright.</copyright>
+    <lastBuildDate>Mon, 11 Nov 2024 00:16:42 +0800</lastBuildDate>
+    <atom:link href="https://hxxxer.github.io/tags/%E5%8E%8B%E7%BC%A9/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux压缩不包含绝对路径命令</title>
+      <link>https://hxxxer.github.io/linux%E5%8E%8B%E7%BC%A9%E4%B8%8D%E5%8C%85%E5%90%AB%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Mon, 11 Nov 2024 00:16:42 +0800</pubDate>
+      <guid>https://hxxxer.github.io/linux%E5%8E%8B%E7%BC%A9%E4%B8%8D%E5%8C%85%E5%90%AB%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%91%BD%E4%BB%A4/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月11日&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;&#xA;&lt;p&gt;在GitHub actions自动发布的时候，需要使用&lt;code&gt;zip&lt;/code&gt;命令来压缩发布文件，但是会连带很多上级目录一起压缩，需要去除这些目录。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h1 id=&#34;操作&#34;&gt;操作&lt;/h1&gt;&#xA;&lt;p&gt;原来的命令是这样的：&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;zip -r ShortcutVisualizer.zip ./ShortcutVisualizer/bin/Release/net6.0-windows/win-x64/publish&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这样在压缩出来的时候就会带上&lt;code&gt;ShortcutVisualizer/bin/Release/net6.0-windows/win-x64/publish/&lt;/code&gt;这些无关的文件夹。&lt;/p&gt;&#xA;&lt;p&gt;想要去除只需要将&lt;code&gt;-r&lt;/code&gt;更改为&lt;code&gt;-rj&lt;/code&gt;。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h1 id=&#34;补充&#34;&gt;补充&lt;/h1&gt;&#xA;&lt;p&gt;使用tar命令压缩的话，只需要在末尾使用-C指定文件所在目录就行，其本质是切换工作目录，来达到工作目录之前的文件夹不压缩的目的。&lt;/p&gt;&#xA;&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;&#xA;&lt;hr&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/iamfy/archive/2012/11/10/2764307.html&#34;&gt;Linux下压缩不包含路径信息的压缩包&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/azureology/p/13217461.html&#34;&gt;Shell创建zip文件不包含完整路径方法&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
+    </item>
+  </channel>
+</rss>

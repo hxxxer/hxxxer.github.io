@@ -7,9 +7,83 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>This is a customized copyright.</copyright>
-    <lastBuildDate>Sun, 10 Nov 2024 01:36:15 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 11 Nov 2024 00:29:13 +0800</lastBuildDate>
     
         <atom:link href="https://hxxxer.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>C#调用DLL的方法</title>
+        <link>https://hxxxer.github.io/c%23%E8%B0%83%E7%94%A8dll%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+        <pubDate>Mon, 11 Nov 2024 00:29:13 +0800</pubDate>
+        
+        <guid>https://hxxxer.github.io/c%23%E8%B0%83%E7%94%A8dll%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+        <description>闲碎 https://hxxxer.github.io/c%23%E8%B0%83%E7%94%A8dll%E7%9A%84%E6%96%B9%E6%B3%95/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月11日&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;之前需要调用dll里面的图标，而调用的函数用的是一个dll的内部的函数，所以这里记录一下调用的两种方法。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;vs的项目引用&#34;&gt;VS的项目引用&lt;/h1&gt;
+&lt;p&gt;在VS的方案资源管理器里面（&lt;code&gt;Ctrl+Alt+L&lt;/code&gt;），右键依赖项 - 添加项目引用，然后选择dll文件，例如AddDll.dll（里面有一个ADD类，ADD里面有一个calculate公共方法）。&lt;/p&gt;
+&lt;p&gt;之后就可以在依赖项 - 程序集里面看到Add了。&lt;/p&gt;
+&lt;p&gt;调用也很简单：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c#&#34; data-lang=&#34;c#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;using&lt;/span&gt; &lt;span style=&#34;color:#ef9f76&#34;&gt;AddDll&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;AddDll.ADD &lt;span style=&#34;color:#ca9ee6&#34;&gt;add&lt;/span&gt; = &lt;span style=&#34;color:#ca9ee6&#34;&gt;new&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt; c = &lt;span style=&#34;color:#ca9ee6&#34;&gt;add&lt;/span&gt;.calculate(a,b);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h1 id=&#34;使用dllimport&#34;&gt;使用DllImport&lt;/h1&gt;
+&lt;p&gt;在需要引用的函数的上一行添加&lt;code&gt;[DllImport(&amp;quot;user.dll&amp;quot;, ......)]&lt;/code&gt;就行，下面是我调用的获取dll图标函数：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c#&#34; data-lang=&#34;c#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;[DllImport(&amp;#34;shell32.dll&amp;#34;, CharSet = CharSet.Auto)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;extern&lt;/span&gt; IntPtr ExtractIcon(IntPtr hInst, &lt;span style=&#34;color:#e78284&#34;&gt;string&lt;/span&gt; lpszExeFileName, &lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt; nIconIndex);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;后面那个&lt;code&gt;CharSet = CharSet.Auto&lt;/code&gt;是调用字符集，Auto是自动选择合适的。&lt;/p&gt;
+&lt;p&gt;下面函数的定义记得加&lt;code&gt;static extern&lt;/code&gt;，以表示这个是一个外部方法实现，它将在运行时解析到指定的非托管代码。&lt;/p&gt;
+&lt;p&gt;这个方法需要知道dll内部的函数及其形参。&lt;/p&gt;
+&lt;h2 id=&#34;补充其它的dllimportattribute属性&#34;&gt;补充其它的DllImportAttribute属性&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;EntryPoint=&amp;quot;MessageBoxA&amp;quot;&lt;/code&gt;，这个可以也指定函数，这样下面的函数引用就可以用别的名字，但是注意这个EntryPoint赋值和下面的函数引用不一定相同，比如上面的&lt;code&gt;ExtractIcon&lt;/code&gt;，在EntryPoint里面应该是&lt;code&gt;ExtractIconW&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ExactSpelling&lt;/code&gt; 指示 &lt;code&gt;EntryPoint&lt;/code&gt; 是否必须与指示的入口点的拼写完全匹配，如：&lt;code&gt;ExactSpelling=false&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PreserveSig&lt;/code&gt;指示方法的签名应当被保留还是被转换， 如：&lt;code&gt;PreserveSig=true&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SetLastError&lt;/code&gt; 指示方法是否保留 Win32&amp;quot;上一错误&amp;quot;，如：&lt;code&gt;SetLastError=true&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CallingConvention&lt;/code&gt;指示入口点的调用约定， 如：&lt;code&gt;CallingConvention=CallingConvention.Winapi&lt;/code&gt;；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/Im-Victor/p/14708695.html&#34;&gt;C#调用DLL的几种方法&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/wangnaisheng/article/details/142462074&#34;&gt;【C#】DllImport的使用&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_43069920/article/details/123100601&#34;&gt;VS2022 C#编写DLL和调用外部DLL中的方法&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+- https://hxxxer.github.io/c%23%E8%B0%83%E7%94%A8dll%E7%9A%84%E6%96%B9%E6%B3%95/ - This is a customized copyright.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>Linux压缩不包含绝对路径命令</title>
+        <link>https://hxxxer.github.io/linux%E5%8E%8B%E7%BC%A9%E4%B8%8D%E5%8C%85%E5%90%AB%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%91%BD%E4%BB%A4/</link>
+        <pubDate>Mon, 11 Nov 2024 00:16:42 +0800</pubDate>
+        
+        <guid>https://hxxxer.github.io/linux%E5%8E%8B%E7%BC%A9%E4%B8%8D%E5%8C%85%E5%90%AB%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%91%BD%E4%BB%A4/</guid>
+        <description>闲碎 https://hxxxer.github.io/linux%E5%8E%8B%E7%BC%A9%E4%B8%8D%E5%8C%85%E5%90%AB%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%91%BD%E4%BB%A4/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月11日&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;在GitHub actions自动发布的时候，需要使用&lt;code&gt;zip&lt;/code&gt;命令来压缩发布文件，但是会连带很多上级目录一起压缩，需要去除这些目录。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;操作&#34;&gt;操作&lt;/h1&gt;
+&lt;p&gt;原来的命令是这样的：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;zip -r ShortcutVisualizer.zip ./ShortcutVisualizer/bin/Release/net6.0-windows/win-x64/publish
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这样在压缩出来的时候就会带上&lt;code&gt;ShortcutVisualizer/bin/Release/net6.0-windows/win-x64/publish/&lt;/code&gt;这些无关的文件夹。&lt;/p&gt;
+&lt;p&gt;想要去除只需要将&lt;code&gt;-r&lt;/code&gt;更改为&lt;code&gt;-rj&lt;/code&gt;。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;补充&#34;&gt;补充&lt;/h1&gt;
+&lt;p&gt;使用tar命令压缩的话，只需要在末尾使用-C指定文件所在目录就行，其本质是切换工作目录，来达到工作目录之前的文件夹不压缩的目的。&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/iamfy/archive/2012/11/10/2764307.html&#34;&gt;Linux下压缩不包含路径信息的压缩包&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/azureology/p/13217461.html&#34;&gt;Shell创建zip文件不包含完整路径方法&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+- https://hxxxer.github.io/linux%E5%8E%8B%E7%BC%A9%E4%B8%8D%E5%8C%85%E5%90%AB%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%91%BD%E4%BB%A4/ - This is a customized copyright.</description>
+        </item>
     
     
     
@@ -22,7 +96,8 @@
         <description>闲碎 https://hxxxer.github.io/%E7%BC%96%E8%AF%91mini2440%E7%9A%84%E8%99%9A%E6%8B%9F%E5%AD%97%E7%AC%A6%E9%A9%B1%E5%8A%A8/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月10日&lt;/strong&gt;&lt;/p&gt;
 &lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;嵌入式的第四次实验是编译一个虚拟字符驱动模块，我在学校电脑上可以编译成适合x86架构的版本，但是编译成开发板上的arm架构的就不行。&lt;/p&gt;
-&lt;p&gt;后来在自己的电脑上尝试了一下，在一些参考资料的帮助下，最终完成既定目标。现在记录一下&lt;/p&gt;
+&lt;p&gt;后来在自己的电脑上尝试了一下，在一些参考资料的帮助下，最终完成既定目标。现在记录一下。&lt;/p&gt;
+&lt;p&gt;虚拟机平台VBox，Ubuntu22.04。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;配置编译环境&#34;&gt;配置编译环境&lt;/h1&gt;
 &lt;p&gt;将资料里面的开发板linux源码&lt;code&gt;\FriendlyARM-2440-DVD\Linux\linux-2.6.32.2-mini2440-20150709.tgz&lt;/code&gt;解压到虚拟机。&lt;/p&gt;
@@ -89,7 +164,7 @@
     
     
         <item>
-        <title>NET获取dll中的图标</title>
+        <title>C#获取dll中的图标</title>
         <link>https://hxxxer.github.io/net%E8%8E%B7%E5%8F%96dll%E4%B8%AD%E7%9A%84%E5%9B%BE%E6%A0%87/</link>
         <pubDate>Sat, 09 Nov 2024 16:24:42 +0800</pubDate>
         
@@ -227,132 +302,6 @@
 &lt;p&gt;&lt;a href=&#34;https://www.cjavapy.com/article/328/&#34;&gt;.NET Core项目提示找不到project.assets.json文件&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 - https://hxxxer.github.io/net%E4%BD%BF%E7%94%A8github-actions/ - This is a customized copyright.</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>VS推送tags</title>
-        <link>https://hxxxer.github.io/vs%E6%8E%A8%E9%80%81tags/</link>
-        <pubDate>Fri, 08 Nov 2024 01:07:05 +0800</pubDate>
-        
-        <guid>https://hxxxer.github.io/vs%E6%8E%A8%E9%80%81tags/</guid>
-        <description>闲碎 https://hxxxer.github.io/vs%E6%8E%A8%E9%80%81tags/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月08日&lt;/strong&gt;&lt;/p&gt;
-&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
-&lt;p&gt;我在GitHub启用了actions，其工作是检测到上传的tags是v开头时，自动构建并发布。但是刚开始不会在vs里面搞。现在搞明白了，记录一下。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;打标签&#34;&gt;打标签&lt;/h1&gt;
-&lt;p&gt;打开位于vs顶栏的git - 管理分支，然后对某一个上传记录右键 - 新建标签。新建完成之后，打开顶栏的视图 - git更改，然后在git更改窗口的分支那一栏，打开右边的选项（三个点） - 将所有标签推送到 - origin。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/VS%E7%AE%A1%E7%90%86%E5%88%86%E6%94%AF.png&#34; alt=&#34;管理分支&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/VS%E6%8E%A8%E9%80%81tags.png&#34; alt=&#34;推送tags&#34;&gt;&lt;/p&gt;
-&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
-&lt;hr&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/71379079/visual-studio-2022-git-push-tags&#34;&gt;Visual Studio 2022 Git Push Tags&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-- https://hxxxer.github.io/vs%E6%8E%A8%E9%80%81tags/ - This is a customized copyright.</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>Ubuntu新建开机服务</title>
-        <link>https://hxxxer.github.io/linux%E6%96%B0%E5%BB%BA%E5%BC%80%E6%9C%BA%E6%9C%8D%E5%8A%A1/</link>
-        <pubDate>Wed, 06 Nov 2024 22:36:41 +0800</pubDate>
-        
-        <guid>https://hxxxer.github.io/linux%E6%96%B0%E5%BB%BA%E5%BC%80%E6%9C%BA%E6%9C%8D%E5%8A%A1/</guid>
-        <description>闲碎 https://hxxxer.github.io/linux%E6%96%B0%E5%BB%BA%E5%BC%80%E6%9C%BA%E6%9C%8D%E5%8A%A1/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月06日&lt;/strong&gt;&lt;/p&gt;
-&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
-&lt;p&gt;在搞VBox的共享文件夹的时候，怎么搞都不能在开机的时候自动挂载，包括安装增强功能，指定目录开启自动挂载，这些都不行。最后直接祭出杀器，新建一个开机服务。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;法一使用etcrclocal&#34;&gt;法一：使用&lt;code&gt;/etc/rc.local&lt;/code&gt;&lt;/h1&gt;
-&lt;p&gt;因为这个方法是很传统的方法，在新版本的Ubuntu已经不推荐了，但是可能用得上，记录一下。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;打开或新建&lt;code&gt;/etc/rc.local&lt;/code&gt;文件。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;在文件中添加挂载命令：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;#!/bin/bash
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;&lt;/span&gt;/bin/mount -t vboxsf shared /home/hx/Desktop/shared
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#99d1db&#34;&gt;exit&lt;/span&gt; &lt;span style=&#34;color:#ef9f76&#34;&gt;0&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;给予&lt;code&gt;+x&lt;/code&gt;权限。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;法二使用服务单元文件推荐&#34;&gt;法二：使用服务单元文件（推荐）&lt;/h1&gt;
-&lt;p&gt;这个方法在新版Ubuntu中更为推荐，因为可操纵性更强。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;新建&lt;code&gt;/etc/systemd/system/vbox-mount.service&lt;/code&gt;。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;写入以下内容：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[Unit]
-Description=vbox mount shared
-After=network.target
-
-[Service]
-Type=oneshot
-RemainAfterExit=yes
-ExecStart=/bin/mount -t vboxsf shared /home/hx/Desktop/shared
-User=root
-
-[Install]
-WantedBy=multi-user.target
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;然后重新加载配置文件：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl daemon-reload
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;然后启动服务单元：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl &lt;span style=&#34;color:#99d1db&#34;&gt;enable&lt;/span&gt; vbox-mount.service
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;可以查看一下启动状态：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl status vbox-mount.service
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&#34;内容解释&#34;&gt;内容解释&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;After=network.target&lt;/code&gt;，就是在网路服务之后再执行，注意不是强制性的。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Type=oneshot&lt;/code&gt;，只执行一次。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;RemainAfterExit=yes&lt;/code&gt;，执行退出之后仍然认为服务活跃，这是为了依赖这项服务的服务能正常运行（虽然这里没有）。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;WantedBy=multi-user.target&lt;/code&gt;，在多用户模式下启动？猜测是在开机选用户那里启动。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;法三使用initd脚本&#34;&gt;法三：使用&lt;code&gt;init.d&lt;/code&gt;脚本&lt;/h1&gt;
-&lt;p&gt;这个和法一一样不常用了，但我是松鼠😋！&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;创建启动脚本&lt;code&gt;/etc/init.d/myscript&lt;/code&gt;。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;在文件中添加挂载命令：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;#!/bin/bash
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;&lt;/span&gt;/bin/mount -t vboxsf shared /home/hx/Desktop/shared
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#99d1db&#34;&gt;exit&lt;/span&gt; &lt;span style=&#34;color:#ef9f76&#34;&gt;0&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;给予&lt;code&gt;+x&lt;/code&gt;权限。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;注册脚本到启动序列：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo update-rc.d myscript defaults
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;法四使用profile文件&#34;&gt;法四：使用&lt;code&gt;profile&lt;/code&gt;文件&lt;/h1&gt;
-&lt;p&gt;就像将&lt;code&gt;arm-linux-gcc&lt;/code&gt;及其库添加到环境变量一样，直接添加命令到&lt;code&gt;~/.profile&lt;/code&gt;或者&lt;code&gt;~/.bashrc&lt;/code&gt;即可&lt;/p&gt;
-&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
-&lt;hr&gt;
-&lt;blockquote&gt;
-&lt;p&gt;全是AI写的😋&lt;/p&gt;
-&lt;/blockquote&gt;
-- https://hxxxer.github.io/linux%E6%96%B0%E5%BB%BA%E5%BC%80%E6%9C%BA%E6%9C%8D%E5%8A%A1/ - This is a customized copyright.</description>
         </item>
     
     
