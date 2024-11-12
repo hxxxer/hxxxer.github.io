@@ -7,9 +7,102 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>This is a customized copyright.</copyright>
-    <lastBuildDate>Mon, 11 Nov 2024 00:29:13 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 12 Nov 2024 17:00:34 +0800</lastBuildDate>
     
         <atom:link href="https://hxxxer.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>NET使用Github Actions</title>
+        <link>https://hxxxer.github.io/net%E4%BD%BF%E7%94%A8github-actions/</link>
+        <pubDate>Fri, 08 Nov 2024 01:53:42 +0800</pubDate>
+        
+        <guid>https://hxxxer.github.io/net%E4%BD%BF%E7%94%A8github-actions/</guid>
+        <description>闲碎 https://hxxxer.github.io/net%E4%BD%BF%E7%94%A8github-actions/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月09日&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;早就知道GitHub actions很方便好用，所以我想搞一个。不过遇到了好多困难，现在基本搞定了，记录一下。&lt;/p&gt;
+&lt;p&gt;主要的难点是yml文件的编写，毕竟是第一次接触，脑子有点混。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;新建工作流&#34;&gt;新建工作流&lt;/h1&gt;
+&lt;p&gt;就直接在actions里面新建就行，GitHub有net desktop模板。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;yml文件的理解&#34;&gt;yml文件的理解&lt;/h1&gt;
+&lt;p&gt;开头的on是指当发生什么的时候开始这条工作流，比如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;on&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#ca9ee6&#34;&gt;push&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;tags&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - v*
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;就是在push且tag是以v开头时启动。注意push内的每个条件是或关系，只要满足一个就开始工作。&lt;/p&gt;
+&lt;p&gt;然后就是具体工作内容，是一种多级列表，每一级都可以有多个。&lt;/p&gt;
+&lt;p&gt;其实工作流程就是大概按顺序运行steps，这里大概是：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;启动系统&lt;/li&gt;
+&lt;li&gt;拉取仓库&lt;/li&gt;
+&lt;li&gt;安装net core&lt;/li&gt;
+&lt;li&gt;net项目初始化依赖&lt;/li&gt;
+&lt;li&gt;构建release版本&lt;/li&gt;
+&lt;li&gt;压缩成zip&lt;/li&gt;
+&lt;li&gt;发布到release&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;感觉就像自动执行指令。&lt;/p&gt;
+&lt;h2 id=&#34;steps属性理解&#34;&gt;steps属性理解&lt;/h2&gt;
+&lt;p&gt;最末级就是steps，里面的属性有：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;name&lt;/strong&gt;，就是名字。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;id&lt;/strong&gt;，非必要，其它地方引用时候用。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;uses&lt;/strong&gt;，可以选择GitHub上现有的操作，比如获取仓库内容、安装net vore。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;with&lt;/strong&gt;，一般是使用uses时配置具体的参数，比如安装net core时指定版本。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;run&lt;/strong&gt;，就是执行指令，不同平台（win，Ubuntu）使用的不同&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;env&lt;/strong&gt;，一些变量，通过$env:&amp;lt;名字&amp;gt;，来引用。（好像在一些字符串里面不能被正确解析），比如：
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;run&lt;/span&gt;: |&lt;span style=&#34;color:#737994&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994&#34;&gt;    $zipFilePath = &amp;#34;${{ github.workspace }}\$env:&amp;#34;&lt;/span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;发布到release&#34;&gt;发布到release&lt;/h2&gt;
+&lt;p&gt;这边是重点，我是先搞了一个给这个action用的token，然后再在yml文件里面设定steps。&lt;/p&gt;
+&lt;h3 id=&#34;token&#34;&gt;TOKEN&lt;/h3&gt;
+&lt;h4 id=&#34;新建token&#34;&gt;&lt;del&gt;新建TOKEN&lt;/del&gt;&lt;/h4&gt;
+&lt;p&gt;在头像 - &lt;strong&gt;setting&lt;/strong&gt; - 侧边栏的&lt;strong&gt;Developer Settings&lt;/strong&gt; - 侧边栏的&lt;strong&gt;Personal accesskey tokens&lt;/strong&gt; - &lt;strong&gt;Token (classic)&lt;/strong&gt;。然后&lt;strong&gt;generate new token&lt;/strong&gt; - &lt;strong&gt;Generate new token (classic)&lt;/strong&gt;。然后输密码之后，来到新建token的页面，名字随便起，过期时间随便，下面是&lt;strong&gt;Select scopes&lt;/strong&gt;选择前三个。
+**
+新建完成之后记得复制token，因为只会出现一次，后面要用。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/%E9%80%89%E6%8B%A9token%E7%B1%BB%E5%9E%8B.png&#34; alt=&#34;选择token类型&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/%E6%96%B0%E5%BB%BAtoken.png&#34; alt=&#34;新建token&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;新建secrets&#34;&gt;&lt;del&gt;新建secrets&lt;/del&gt;&lt;/h4&gt;
+&lt;p&gt;刚刚的token要保存到项目的secrets里面。secrets是一种可以在yml里面调用的变量，但是无法得知内容。&lt;/p&gt;
+&lt;p&gt;打开项目的&lt;strong&gt;setting&lt;/strong&gt; - 侧边栏的&lt;strong&gt;Secrets and variables&lt;/strong&gt; - &lt;strong&gt;Actions&lt;/strong&gt;。然后选择绿色的&lt;strong&gt;New repository secret&lt;/strong&gt;。接下来就是新建页面，名字随便，记住就行，secret就填刚刚的token。然后保存就行。&lt;/p&gt;
+&lt;p&gt;但是还没完，还要配置项目的权限。打开项目的&lt;strong&gt;setting&lt;/strong&gt; - 侧边栏的&lt;strong&gt;Actions&lt;/strong&gt; - &lt;strong&gt;General&lt;/strong&gt;，找到&lt;strong&gt;Workflow permission&lt;/strong&gt;，选择第一个Read and write permissions。到这里就完成了。&lt;/p&gt;
+&lt;h4 id=&#34;补充&#34;&gt;补充&lt;/h4&gt;
+&lt;p&gt;后来发现不用新建，直接在发布的&lt;code&gt;with: token&lt;/code&gt;里用&lt;code&gt;${{ secrets.GITHUB_TOKEN }}&lt;/code&gt;就行😂。&lt;/p&gt;
+&lt;h3 id=&#34;在yml文件设定发布&#34;&gt;在yml文件设定发布&lt;/h3&gt;
+&lt;p&gt;这里我是使用别人的actions和网友的模板：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#ca9ee6&#34;&gt;name&lt;/span&gt;: Create and Upload Release
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#ca9ee6&#34;&gt;uses&lt;/span&gt;: softprops/action-gh-release@v2
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#ca9ee6&#34;&gt;if&lt;/span&gt;: startsWith(github.ref, &amp;#39;refs/tags/&amp;#39;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#ca9ee6&#34;&gt;with&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;token&lt;/span&gt;: ${{ secrets.PB_TOKEN }}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;tag_name&lt;/span&gt;: ${{ github.ref_name }}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;name&lt;/span&gt;: Release ${{ github.ref_name }}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;body&lt;/span&gt;: 船新版本！
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;makelatest&lt;/span&gt;: &lt;span style=&#34;color:#ef9f76&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;draft&lt;/span&gt;: &lt;span style=&#34;color:#ef9f76&#34;&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;prerelease&lt;/span&gt;: &lt;span style=&#34;color:#ef9f76&#34;&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;files&lt;/span&gt;: |&lt;span style=&#34;color:#737994&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994&#34;&gt;      HugoHelper.zip&lt;/span&gt;      
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;github.ref_name&lt;/code&gt;就是上传连接的名字，比如我是限制在tags前缀是v时启动工作流，那这里就是v&amp;hellip;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;name&lt;/code&gt;和&lt;code&gt;tag_name&lt;/code&gt;顾名思义，&lt;code&gt;name&lt;/code&gt;就是这次发布的名字，&lt;code&gt;tag_name&lt;/code&gt;就是发布的tag的名字。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;makelatest&lt;/code&gt;就是让这次发布设置为项目的最新release。&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/m0_74075298/article/details/141230617&#34;&gt;Github Actions自动发布release&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://segmentfault.com/a/1190000045270503&#34;&gt;学会Github Actions自动发布版本&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://cloud.tencent.com/developer/article/1970730&#34;&gt;GitHub Action 自动构建 并release&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://juejin.cn/post/6908427616298991629&#34;&gt;GitHub Actions - 使用 tag 作为发布的版本号&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cjavapy.com/article/328/&#34;&gt;.NET Core项目提示找不到project.assets.json文件&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+- https://hxxxer.github.io/net%E4%BD%BF%E7%94%A8github-actions/ - This is a customized copyright.</description>
+        </item>
     
     
     
@@ -241,87 +334,6 @@ WantedBy=multi-user.target
 &lt;/ol&gt;
 &lt;/div&gt;
 - https://hxxxer.github.io/20241105022715/ - This is a customized copyright.</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>使用.NET开发hugo小程序</title>
-        <link>https://hxxxer.github.io/20241105015218/</link>
-        <pubDate>Tue, 05 Nov 2024 01:52:20 +0800</pubDate>
-        
-        <guid>https://hxxxer.github.io/20241105015218/</guid>
-        <description>闲碎 https://hxxxer.github.io/20241105015218/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月07日&lt;/strong&gt;&lt;/p&gt;
-&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
-&lt;p&gt;因为使用hugo时，有几个很常用的指令，比如&lt;code&gt;hugo server&lt;/code&gt;之类的，但是去文件夹、然后打开ps7、再执行命令，这套流程实在是太麻烦了，所以我就想搞一个exe，把常用的功能都搞进去。&lt;/p&gt;
-&lt;p&gt;项目地址&lt;a href=&#34;https://github.com/hxxxer/HugoHelper&#34;&gt;HugoHelper&lt;/a&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;常用命令&#34;&gt;常用命令&lt;/h1&gt;
-&lt;p&gt;这段其实是为了防止我忘了而写了😋。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;# 切环境&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Set-Location -Path &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;D:\Tools\hugot\BST&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;# 生成可以上传到github的网页文件&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo --contentDir &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;C:\Users\15641\Documents\Blog&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;# 运行本地测试服务&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo server --port &lt;span style=&#34;color:#ef9f76&#34;&gt;6138&lt;/span&gt; --contentDir &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;C:\Users\15641\Documents\Blog&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;# 创建新博客&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo new content &lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#f2d5cf&#34;&gt;$fileName&lt;/span&gt; + &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;.md&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;)&lt;/span&gt; --contentDir &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;C:\Users\15641\Documents\Blog&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;# 清理垃圾&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo --cleanDestinationDir  --contentDir &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;C:\Users\15641\Documents\Blog&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;注意！&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;刚运行玩本地服务不能马上&lt;code&gt;git add .&lt;/code&gt;，因为此时那些html的指向还是localhost😓，这时候上传就搞笑了。要&lt;code&gt;hugo&lt;/code&gt;一下才行。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;开发进程&#34;&gt;开发进程&lt;/h1&gt;
-&lt;h2 id=&#34;配置vs开发环境&#34;&gt;配置VS开发环境&lt;/h2&gt;
-&lt;p&gt;其实直接在选择新项目里面就有可以添加新环境的地方，安装就行。&lt;/p&gt;
-&lt;p&gt;安装之后，新建一个.NET项目，然后就会看到一个设计用的窗口，这时候摁&lt;code&gt;Ctrl+Alt+X&lt;/code&gt;打开工具箱，拖一个Botton出来。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/NET%E5%B7%A5%E5%85%B7%E7%AE%B1.png&#34; alt=&#34;VS .NET工具箱&#34;&gt;&lt;/p&gt;
-&lt;p&gt;右键按钮 - 属性，可以修改(Name)，这个(Name)是程序用的，好像只能字母数字。而后面那个Text才是我看到的按钮文本。&lt;/p&gt;
-&lt;p&gt;窗口的属性里面还能更改图标，就在那个Icon里面选一个ico文件就行。&lt;/p&gt;
-&lt;h2 id=&#34;创建新blog按钮&#34;&gt;“创建新Blog”按钮&lt;/h2&gt;
-&lt;p&gt;基本思路就是新开一个ps7进程，然后输入指令，或者在启动的时候用&lt;code&gt;-Command&lt;/code&gt;来实现带命令启动。&lt;/p&gt;
-&lt;p&gt;我一开始就是直接将ps1脚本里面的内容搬到代码里，脚本内容是通过&lt;code&gt;--fileName&lt;/code&gt;来实现文件名的传递，但是如果直接照搬到&lt;code&gt;-Command&lt;/code&gt;之后，无论我怎么搞都不能实现正常的文件名传递。&lt;/p&gt;
-&lt;p&gt;然后我就用直接执行脚本 + 传递参数的方式，执行很完美，但是感觉代码太WET😅，放弃。&lt;/p&gt;
-&lt;p&gt;&lt;del&gt;最后我就是通过新开一个无窗口ps7进程，重定向输入输出，然后通过&lt;code&gt;streamWriter.WriteLine&lt;/code&gt;，&lt;strong&gt;一行行&lt;/strong&gt;地输入到ps7&lt;/del&gt;&lt;/p&gt;
-&lt;p&gt;最新的是新开了一个创建blog窗口，这样就可以自由输入文件名了，原来是硬编码以当前时间为文件名。&lt;/p&gt;
-&lt;h2 id=&#34;一些简单的按钮&#34;&gt;一些简单的按钮&lt;/h2&gt;
-&lt;p&gt;就是一些在点击事件内就能完全执行的按钮，包括开启Server、构建网页、清理垃圾。&lt;/p&gt;
-&lt;p&gt;开启Server我想看到ps窗口，就简单设定了一下ps进程设定：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c#&#34; data-lang=&#34;c#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;RedirectStandardInput = &lt;span style=&#34;color:#ef9f76&#34;&gt;true&lt;/span&gt;, &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 重定向标准输入&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;RedirectStandardOutput = &lt;span style=&#34;color:#ef9f76&#34;&gt;false&lt;/span&gt;, &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 重定向标准输出&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;UseShellExecute = &lt;span style=&#34;color:#ef9f76&#34;&gt;false&lt;/span&gt;, &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 不使用系统外壳程序启动&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;CreateNoWindow = &lt;span style=&#34;color:#ef9f76&#34;&gt;false&lt;/span&gt; &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 创建窗口&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;git窗口&#34;&gt;Git窗口&lt;/h2&gt;
-&lt;p&gt;&lt;del&gt;我是想将Git操作也写在窗口里，但是目前还没搞定。&lt;/del&gt;&lt;/p&gt;
-&lt;h3 id=&#34;手动&#34;&gt;手动&lt;/h3&gt;
-&lt;p&gt;目前搞定了手动git，设置ps进程信息为进入&lt;code&gt;public&lt;/code&gt;目录，并添加&lt;code&gt;NoExit&lt;/code&gt;参数就行。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c#&#34; data-lang=&#34;c#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;string&lt;/span&gt; script = &lt;span style=&#34;color:#a6d189&#34;&gt;$&amp;#34;Set-Location {AppConfig.HugoRootDir};cd public&amp;#34;&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.........
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;FileName = &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;C:\\Program Files\\PowerShell\\7\\pwsh.exe&amp;#34;&lt;/span&gt;,
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Arguments = &lt;span style=&#34;color:#a6d189&#34;&gt;$&amp;#34;-NoExit -Command {script}&amp;#34;&lt;/span&gt;,
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;RedirectStandardOutput = &lt;span style=&#34;color:#ef9f76&#34;&gt;false&lt;/span&gt;, &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 重定向标准输出&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;UseShellExecute = &lt;span style=&#34;color:#ef9f76&#34;&gt;false&lt;/span&gt;, &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 不使用系统外壳程序启动&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;CreateNoWindow = &lt;span style=&#34;color:#ef9f76&#34;&gt;false&lt;/span&gt; &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 不创建窗口&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;自动&#34;&gt;自动&lt;/h3&gt;
-&lt;p&gt;这个就确实没搞定。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;11月7&#34;&gt;11月7&lt;/h1&gt;
-&lt;h2 id=&#34;添加配置文件&#34;&gt;添加配置文件&lt;/h2&gt;
-&lt;p&gt;右键项目 - 添加 - 新建项，找到应用程序配置文件就行。在里面添加键值对就行，通过在代码使用&lt;code&gt;ConfigurationManager.AppSettings[&amp;quot;键&amp;quot;]&lt;/code&gt;来获取对应的值。&lt;/p&gt;
-&lt;p&gt;我现在是把配置的初始化写在专门一个类里面&lt;code&gt;AppConfig.cs&lt;/code&gt;，只要其它的类的命名开机和它一样（都是&lt;code&gt;namespace Hugo&lt;/code&gt;），就可以通过&lt;code&gt;AppConfig.HugoRootDir&lt;/code&gt;直接调用。&lt;/p&gt;
-&lt;h2 id=&#34;窗口虚化&#34;&gt;窗口虚化&lt;/h2&gt;
-&lt;p&gt;因为按钮的点击事件都是通过ps间接实现的，所以有的耗时，为了提醒我正在运行而不是没响应之类的。&lt;/p&gt;
-&lt;p&gt;现在是直接将窗口的透明度临时设置为0.91，结束再改回来。不过我想实现类似高斯模糊的效果，但是好像都要引入包。&lt;/p&gt;
-&lt;h1 id=&#34;参帮考手&#34;&gt;参（帮）考（手）&lt;/h1&gt;
-&lt;hr&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&#34;https://tongyi.aliyun.com/qianwen/&#34;&gt;通义千问&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-- https://hxxxer.github.io/20241105015218/ - This is a customized copyright.</description>
         </item>
     
     
