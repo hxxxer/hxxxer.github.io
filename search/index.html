@@ -130,10 +130,26 @@ Initial setup Search depends on additional output content type of JSON in config
         margin-right: 10px;
         width: 300px;  
     }
+
     .search-button {
-<!--        padding: 10px 20px;-->
-        cursor: pointer;
-        border: 1px black;
+      border: 1;
+      border-radius: 10px;
+      background: white;
+      text-transform: uppercase;
+      color: black;
+      font-size: 16px;
+      padding: 7px 30px;
+      outline: none;
+      position: relative;
+      transition: border-radius 3s;
+      -webkit-transition: border-radius 2s;
+    }
+
+    .search-button:hover {
+       border-bottom-right-radius: 28px;
+       border-top-left-radius: 28px;
+       border-bottom-left-radius: 10px;
+       border-top-right-radius: 10px;
     }
     .snippet{
         -webkit-mask-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 70%); 
@@ -327,7 +343,7 @@ Initial setup Search depends on additional output content type of JSON in config
     <a href="https://hxxxer.github.io/">
         <div class="single-column-header-title">闲碎</div>
         
-        <div class="single-column-header-subtitle">夜雨寄北</div>
+        <div class="single-column-header-subtitle">夜语寄北 Scattered Musings</div>
         
 
     </a>
@@ -366,7 +382,7 @@ Initial setup Search depends on additional output content type of JSON in config
         </div>
         
         <div class="nav-subtitle">
-            夜雨寄北
+            夜语寄北 Scattered Musings
         </div>
         
     </a>
