@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html><head>
+<title>CSS实现文本渐变消失</title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="G-XXXXXXXXXX">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="通过CSS的蒙版和渐变，实现一个元素的渐变消失。当然也可以应用到其它的领域">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:url" content="https://hxxxer.github.io/css%E5%AE%9E%E7%8E%B0%E6%96%87%E6%9C%AC%E6%B8%90%E5%8F%98%E6%B6%88%E5%A4%B1/">
+  <meta property="og:site_name" content="闲碎">
+  <meta property="og:title" content="CSS实现文本渐变消失">
+  <meta property="og:description" content="通过CSS的蒙版和渐变，实现一个元素的渐变消失。当然也可以应用到其它的领域">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2024-11-14T01:45:42+08:00">
+    <meta property="article:modified_time" content="2024-11-14T01:45:42+08:00">
+    <meta property="article:tag" content="Css">
+
+
+
+
+
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        }
+      </script>
+
+
+
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "abcdefghzd");
+</script>
+
+
+
+  
+
+
+
+
+
+
+      <script src="/js/toc.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/scss/dark-mode.min.cb53f1bee2b8900cb4f082afbf00175d6618f281cf9a2fe8619e3b52d20b5721.css" integrity="sha256-y1PxvuK4kAy08IKvvwAXXWYY8oHPmi/oYZ47UtILVyE=" media="screen">
+
+
+<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/search">
+                    搜索 Search
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    分类 Categories
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    标签 Tags
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/index.xml">
+                    RSS
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- 目录 -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%89%8d%e8%a8%80" class="nav-前言">
+									前言
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e4%bb%a3%e7%a0%81%e5%b1%95%e7%a4%ba" class="nav-代码展示">
+									代码展示
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e4%bb%a3%e7%a0%81%e8%a7%a3%e9%87%8a" class="nav-代码解释">
+									代码解释
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%a1%a5%e5%85%85" class="nav-补充">
+									补充
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%8f%82%e8%80%83" class="nav-参考">
+									参考
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="https://hxxxer.github.io/">
+            闲碎
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="https://hxxxer.github.io/">
+        <div class="single-column-header-title">闲碎</div>
+        
+        <div class="single-column-header-subtitle">夜雨寄北</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+
+            <div class="post-head-wrapper-text-only"
+                
+            >
+                <div class="post-title">
+                    CSS实现文本渐变消失
+                    
+                    <div class="post-subtitle">
+                        通过CSS的蒙版和渐变，实现一个元素的渐变消失。当然也可以应用到其它的领域
+                    </div>
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2024-11-14 01:45
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/%E7%BB%8F%E9%AA%8C">经验</a>
+                                &nbsp;
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/css">css</a>
+                                &nbsp;
+                            
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <p><strong>最后编辑于2024年11月14日</strong></p>
+<h1 id="前言">前言</h1>
+<p>在搞博客搜索的时候，由于摘要只截了120个字符，导致我想在末尾加个省略号，加完之后又想加一个渐变消失的效果。</p>
+<p>虽然最后也没有加上😂。</p>
+<hr>
+<h1 id="代码展示">代码展示</h1>
+<p>下面是文本html：</p>
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#ca9ee6">p</span> <span style="color:#8caaee">class</span><span style="color:#99d1db;font-weight:bold">=</span><span style="color:#a6d189">&#34;wraps&#34;</span>&gt;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&lt;/<span style="color:#ca9ee6">p</span>&gt;
+</span></span></code></pre></div><p>下面是从左到右，渐渐消失的效果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#e5c890">wraps</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#ca9ee6">-webkit-</span><span style="color:#ca9ee6">mask-image</span>: <span style="color:#ca9ee6">-webkit-</span><span style="color:#99d1db">linear-gradient</span>(<span style="color:#ef9f76">right</span>, <span style="color:#99d1db">rgba</span>(<span style="color:#ef9f76">0</span>, <span style="color:#ef9f76">0</span>, <span style="color:#ef9f76">0</span>, <span style="color:#ef9f76">0</span>) <span style="color:#ef9f76">0</span><span style="color:#e78284">%</span>, <span style="color:#99d1db">rgba</span>(<span style="color:#ef9f76">0</span>, <span style="color:#ef9f76">0</span>, <span style="color:#ef9f76">0</span>, <span style="color:#ef9f76">1</span>) <span style="color:#ef9f76">70</span><span style="color:#e78284">%</span>); 
+</span></span><span style="display:flex;"><span><span style="color:#e78284">&lt;!--</span>	<span style="color:#ca9ee6">background</span>: <span style="color:#ef9f76">#fff</span>;<span style="color:#e78284">--&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ca9ee6">width</span>: <span style="color:#ef9f76">500</span><span style="color:#e78284">px</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#ca9ee6">height</span>: <span style="color:#ef9f76">30</span><span style="color:#e78284">px</span>;
+</span></span><span style="display:flex;"><span><span style="color:#e78284">&lt;!--</span>	<span style="color:#ca9ee6">border</span>: <span style="color:#ef9f76">1</span><span style="color:#e78284">px</span> <span style="color:#ef9f76">solid</span> <span style="color:#ef9f76">red</span>;<span style="color:#e78284">--&gt;</span>
+</span></span></code></pre></div><p>改成从右到左只需要将上面css代码第二行的right改成left即可。</p>
+<h1 id="代码解释">代码解释</h1>
+<p>像<code>background</code>、<code>width</code>、<code>height</code>就纯纯一看便知，而border是指一个框的效果；真正要解释的就第二行。</p>
+<ul>
+<li>
+<p><code>-webkit-mask-image</code>是类似于ps的蒙版效果，蒙版上越黑越透明。</p>
+</li>
+<li>
+<p><code>-webkit-linear-gradient</code>是生成一种或多种颜色进行线性过渡的效果的图像，第一个参数是方向，后面的是颜色。以从左到右渐渐消失的为例：</p>
+<ol>
+<li>方向为右，意味着是从右边开始，由第一种颜色向第二种颜色过渡。</li>
+<li>rgba的第四个参数是<strong>不透明度</strong>，默认为1，即不透明。</li>
+<li>颜色参数后面那个百分数，意思是从方向上的路径的多少。比如right+30%就是以最左边为起点（0%），向右30%。</li>
+<li>根据上面3点，可以得出效果如下图所示：
+<img src="/images/%E9%BB%91%E7%99%BD%E8%BF%87%E6%B8%A1.png" alt="过渡黑白图"></li>
+</ol>
+</li>
+</ul>
+<p>最后就能得出从左到右逐渐消失的效果。</p>
+<p>其实和PS的蒙版可以说是一样的。</p>
+<p>注意：上面的的70%等表示位置的是以元素的框的大小为标准的（这个框可以在F12里面看），不是以文字的长度为标准的。</p>
+<h1 id="补充">补充</h1>
+<p>MDN上面的方法是没有<code>-webkit</code>前缀的，暂时不清楚为什么。</p>
+<h1 id="参考">参考</h1>
+<hr>
+<blockquote>
+<p><a href="https://segmentfault.com/q/1010000022493842">css div怎么渐变到透明</a></p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient/linear-gradient">MDN linear-gradient()</a></p>
+</blockquote>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">最后修改于 2024-11-14</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts">
+			下回<br>已经到头啦。
+                </a>
+                
+                
+                
+                <a class="older-posts" href="/git%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4%E5%8E%86%E5%8F%B2%E4%B8%AD%E7%9A%84%E5%A4%A7%E6%96%87%E4%BB%B6/">
+			上回<br>Git彻底删除历史中的大文件
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+                <p style="opacity: 0.6" align="center">
+                    <small>此篇文章的评论功能已经停用。</small>
+                </p>
+                
+            </div>
+        </div>
+    </div>
+
+
+                    </div>
+            </div><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="https://hxxxer.github.io/">
+    
+        <div class="nav-title">
+            闲碎
+        </div>
+        
+        <div class="nav-subtitle">
+            夜雨寄北
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/search">
+                搜索 Search
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                分类 Categories
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                标签 Tags
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/index.xml">
+                RSS
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+移植自 <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    <div class="toc-wrapper">
+        
+
+        
+        <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- 目录 -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%89%8d%e8%a8%80" class="nav-前言">
+									前言
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e4%bb%a3%e7%a0%81%e5%b1%95%e7%a4%ba" class="nav-代码展示">
+									代码展示
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e4%bb%a3%e7%a0%81%e8%a7%a3%e9%87%8a" class="nav-代码解释">
+									代码解释
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%a1%a5%e5%85%85" class="nav-补充">
+									补充
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e5%8f%82%e8%80%83" class="nav-参考">
+									参考
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+        
+    </div>
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top"
+            :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
+</div>
+
+<div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+移植自 <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	This is a customized copyright.
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script>
+    </body>
+</html>

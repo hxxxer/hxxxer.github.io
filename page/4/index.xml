@@ -1,0 +1,18 @@
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>闲碎</title>
+    <link>https://hxxxer.github.io/</link>
+    <description>Recent content on 闲碎</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>This is a customized copyright.</copyright>
+    <lastBuildDate>Thu, 14 Nov 2024 01:45:42 +0800</lastBuildDate>
+    
+        <atom:link href="https://hxxxer.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+    
+  </channel>
+</rss> 

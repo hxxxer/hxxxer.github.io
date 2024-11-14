@@ -7,9 +7,59 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>This is a customized copyright.</copyright>
-    <lastBuildDate>Tue, 12 Nov 2024 17:00:34 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 14 Nov 2024 01:45:42 +0800</lastBuildDate>
     
         <atom:link href="https://hxxxer.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>C#获取dll中的图标</title>
+        <link>https://hxxxer.github.io/net%E8%8E%B7%E5%8F%96dll%E4%B8%AD%E7%9A%84%E5%9B%BE%E6%A0%87/</link>
+        <pubDate>Sat, 09 Nov 2024 16:24:42 +0800</pubDate>
+        
+        <guid>https://hxxxer.github.io/net%E8%8E%B7%E5%8F%96dll%E4%B8%AD%E7%9A%84%E5%9B%BE%E6%A0%87/</guid>
+        <description>闲碎 https://hxxxer.github.io/net%E8%8E%B7%E5%8F%96dll%E4%B8%AD%E7%9A%84%E5%9B%BE%E6%A0%87/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月09日&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;在搞那个快捷方式可视化的net程序时，因为图标列表第一个是百度网盘的图标，而文件夹没有指定图标，就默认第一个。结果就是一堆百度网盘😅。&lt;/p&gt;
+&lt;p&gt;就算指定文件夹节点的图标索引为-1也还是这样，不知道为什么，所以就要搞一个文件夹图标。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;代码&#34;&gt;代码&lt;/h1&gt;
+&lt;p&gt;主要是通过shell32 API的ExtractIcon函数来提取，然后文件夹图标的索引在shell32.dll里面是3。代码如下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c#&#34; data-lang=&#34;c#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#ca9ee6&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#e5c890&#34;&gt;ShellIcon&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;    [DllImport(&amp;#34;shell32.dll&amp;#34;, CharSet = CharSet.Auto)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;extern&lt;/span&gt; IntPtr ExtractIcon(IntPtr hInst, &lt;span style=&#34;color:#e78284&#34;&gt;string&lt;/span&gt; lpszExeFileName, &lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt; nIconIndex);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;static&lt;/span&gt; Icon? GetFolderIcon(&lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt; index)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 从shell32.dll提取文件夹图标 (索引3是标准的关闭文件夹图标)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        IntPtr hIcon = ExtractIcon(IntPtr.Zero, &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;shell32.dll&amp;#34;&lt;/span&gt;, index);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ca9ee6&#34;&gt;if&lt;/span&gt; (hIcon != IntPtr.Zero)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ca9ee6&#34;&gt;return&lt;/span&gt; Icon.FromHandle(hIcon);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ca9ee6&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ef9f76&#34;&gt;null&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.......
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 添加文件夹图标&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Icon folderIcon = ShellIcon.GetFolderIcon(&lt;span style=&#34;color:#ef9f76&#34;&gt;3&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;if&lt;/span&gt; (folderIcon != &lt;span style=&#34;color:#ef9f76&#34;&gt;null&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    imageList1.Images.Add(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;folder&amp;#34;&lt;/span&gt;, folderIcon);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Claude&lt;del&gt;又是AI😋&lt;/del&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+- https://hxxxer.github.io/net%E8%8E%B7%E5%8F%96dll%E4%B8%AD%E7%9A%84%E5%9B%BE%E6%A0%87/ - This is a customized copyright.</description>
+        </item>
     
     
     
@@ -251,89 +301,6 @@ WantedBy=multi-user.target
 &lt;p&gt;参考&lt;/p&gt;
 &lt;hr&gt;
 - https://hxxxer.github.io/20241105net%E7%A8%8B%E5%BA%8F/ - This is a customized copyright.</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>mini2440的交叉编译环境搭建</title>
-        <link>https://hxxxer.github.io/20241105022715/</link>
-        <pubDate>Tue, 05 Nov 2024 02:27:17 +0800</pubDate>
-        
-        <guid>https://hxxxer.github.io/20241105022715/</guid>
-        <description>闲碎 https://hxxxer.github.io/20241105022715/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月05日&lt;/strong&gt;&lt;/p&gt;
-&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
-&lt;p&gt;c语言编写的代码需要编译才能运行，在电脑的amd64架构就是使用&lt;code&gt;gcc&lt;/code&gt;来编译。如果想要编译成板子能运行的文件，就需要适配板子的arm架构的编译工具，也就是&lt;code&gt;arm-linux-gcc&lt;/code&gt;，因为和电脑的不同，也叫做交叉编译。&lt;/p&gt;
-&lt;p&gt;下面就是我的交叉编译环境的搭建。（因为这篇Blog是在我搭建完成之后写的，可能会有所错漏，文章的尾部添加了评论功能，不过要登录Github）&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;我的环境配置&#34;&gt;我的环境配置&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;win11 64位，21H2，专业版&lt;/li&gt;
-&lt;li&gt;虚拟机平台为Oracle VM VirtualBox（VBox），安装映像为Ubuntu 22.04.5&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;配置前准备&#34;&gt;配置前准备&lt;/h1&gt;
-&lt;h2 id=&#34;交叉编译工具&#34;&gt;交叉编译工具&lt;/h2&gt;
-&lt;p&gt;就资料里面那个&lt;code&gt;arm-linux-gcc-4.4.3.tar.gz&lt;/code&gt;，路径是&lt;code&gt;\FriendlyARM-2440-DVD\Linux\arm-linux-gcc-4.4.3.tar.gz&lt;/code&gt;。&lt;/p&gt;
-&lt;h2 id=&#34;虚拟机配置&#34;&gt;虚拟机配置&lt;/h2&gt;
-&lt;p&gt;虚拟机平台可以选择VMware，也可以和我一样。系统就Ubuntu，版本选择LTS版的20、22、24应该都可以。&lt;/p&gt;
-&lt;p&gt;打开虚拟机，先确保你可以获取root权限。摁&lt;code&gt;Ctrl+Alt+T&lt;/code&gt;打开终端，输入&lt;code&gt;su&lt;/code&gt;，然后输入密码（看不到但确实在输入），可能是你的开机密码。如果不是，可以百度（你的虚拟机平台）root账户，之类的。因为有的虚拟机平台会新建一个root账户，我的就是。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/VBoxRoot%E7%94%A8%E6%88%B7.png&#34; alt=&#34;进入root用户&#34;&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;开始搭建环境&#34;&gt;开始搭建环境&lt;/h1&gt;
-&lt;p&gt;以下内容均参考一篇CDSN博客&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;，命令均在root权限下执行。&lt;/p&gt;
-&lt;h2 id=&#34;解压文件&#34;&gt;解压文件&lt;/h2&gt;
-&lt;p&gt;首先通过共享文件夹或者拖文件等方法，将&lt;code&gt;arm-linux-gcc-4.4.3.tar.gz&lt;/code&gt;复制到虚拟机内，并在当前文件夹打开终端，执行解压指令。&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo tar xvzf arm-linux-gcc-4.4.3.tar.gz -C/
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;执行完成之后会将压缩文件解压到&lt;code&gt;/opt/&lt;/code&gt;内，可以使用&lt;code&gt;cd&lt;/code&gt;和&lt;code&gt;ls&lt;/code&gt;命令去看一下。下面是文件夹树, 我们主要需要的就是文件夹&lt;code&gt;4.4.3&lt;/code&gt;。&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;|opt
-|-- FriendlyARM
-|   `-- toolschain
-|       `-- 4.4.3
-|.......
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;复制交叉编译工具到arm&#34;&gt;复制交叉编译工具到arm&lt;/h2&gt;
-&lt;p&gt;然后在&lt;code&gt;/usr/local/&lt;/code&gt;下新建一个文件夹&lt;code&gt;arm&lt;/code&gt;，并给权限。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mkdir /usr/local/arm
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo chmod &lt;span style=&#34;color:#ef9f76&#34;&gt;777&lt;/span&gt; /usr/local/arm
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后将文件夹&lt;code&gt;4.4.3&lt;/code&gt;复制到&lt;code&gt;arm&lt;/code&gt;文件夹。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#99d1db&#34;&gt;cd&lt;/span&gt; /opt/FriendlyARM/toolschain/
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo cp -r 4.4.3 /usr/local/arm
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;配置环境变量&#34;&gt;配置环境变量&lt;/h2&gt;
-&lt;p&gt;环境变量是写在&lt;code&gt;/etc/profile&lt;/code&gt;里面，所以下面的操作可以在终端执行，也可以用文本编辑器。&lt;/p&gt;
-&lt;p&gt;终端命令：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo nano /etc/profile
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后在文件尾部添加两行：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#99d1db&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#f2d5cf&#34;&gt;PATH&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f2d5cf&#34;&gt;$PATH&lt;/span&gt;:/usr/local/arm/4.4.3/bin
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#99d1db&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#f2d5cf&#34;&gt;LD_LIBRARY_PATH&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f2d5cf&#34;&gt;$LD_LIBRARY_PATH&lt;/span&gt;:/usr/local/arm/4.4.3/lib
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/profile%E6%96%87%E4%BB%B6%E6%B7%BB%E5%8A%A0%E8%B7%AF%E5%BE%84.png&#34; alt=&#34;添加环境变量&#34;&gt;&lt;/p&gt;
-&lt;p&gt;添加完之后，使用source命令重新加载配置文件：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#99d1db&#34;&gt;source&lt;/span&gt; /etc/profile
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;执行完后终端不会有什么输出，以防万一可以重启。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;安装缺失的库&#34;&gt;安装缺失的库&lt;/h1&gt;
-&lt;p&gt;在执行完上面的操作之后，理论上&lt;code&gt;arm-linux-gcc&lt;/code&gt;就安装完成了，但是事实上还没完，因为这个交叉编译工具非常老，是为32位系统做的，而现在的系统基本都是64位，所以需要补装一些32位的库。&lt;/p&gt;
-&lt;p&gt;由于我的虚拟机已经安装好了，所以无法复现，但是可以根据报错来安装缺失的32位库。先在终端输入命令检测版本，如果没有库是缺失的话，是可以正常输出的。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;arm-linux-gcc -v
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/arm-linux-gcc%E6%A3%80%E6%9F%A5%E7%89%88%E6%9C%AC%E6%AD%A3%E5%B8%B8%E8%BE%93%E5%87%BA.png&#34; alt=&#34;正常输出&#34;&gt;&lt;/p&gt;
-&lt;p&gt;如果没有安装好32位的库，就会报错（下面不是原始的报错，是我网上找到报错信息的重点，但格式相差不大）：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;error &lt;span style=&#34;color:#ca9ee6&#34;&gt;while&lt;/span&gt; loading shared libraries: libstdc++.so.6: cannot open shared object file: No such file or directory
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;重点是&lt;strong&gt;libstdc++.so.6&lt;/strong&gt;，根据这个来安装合适的32位版本的库，以防万一，64位也一起安装（其实一般64位版本是预安装的）：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt-get install libstdc++6
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt-get install lib32stdc++6
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可以看到32位就是在&lt;code&gt;lib&lt;/code&gt;后面加&lt;code&gt;32&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;如果安装失败，可以拿报错去百度搜一下。&lt;/p&gt;
-&lt;p&gt;接下来就是不断重复&lt;code&gt;arm-linux-gcc -v&lt;/code&gt;、看报错、&lt;code&gt;sudo apt-get install lib...&lt;/code&gt;、&lt;code&gt;sudo apt-get install lib32...&lt;/code&gt;，直至看到正常输出了。&lt;/p&gt;
-&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
-&lt;hr&gt;
-&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
-&lt;hr&gt;
-&lt;ol&gt;
-&lt;li id=&#34;fn:1&#34;&gt;
-&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/weixin_43734095/article/details/104941659&#34;&gt;【嵌入式】Linux开发工具arm-linux-gcc安装及使用&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-- https://hxxxer.github.io/20241105022715/ - This is a customized copyright.</description>
         </item>
     
     
