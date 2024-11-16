@@ -14,17 +14,18 @@
     
     
         <item>
-        <title>C#获取dll中的图标</title>
+        <title>C#获取文件的图标</title>
         <link>https://hxxxer.github.io/net%E8%8E%B7%E5%8F%96dll%E4%B8%AD%E7%9A%84%E5%9B%BE%E6%A0%87/</link>
         <pubDate>Sat, 09 Nov 2024 16:24:42 +0800</pubDate>
         
         <guid>https://hxxxer.github.io/net%E8%8E%B7%E5%8F%96dll%E4%B8%AD%E7%9A%84%E5%9B%BE%E6%A0%87/</guid>
-        <description>闲碎 https://hxxxer.github.io/net%E8%8E%B7%E5%8F%96dll%E4%B8%AD%E7%9A%84%E5%9B%BE%E6%A0%87/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月09日&lt;/strong&gt;&lt;/p&gt;
+        <description>闲碎 https://hxxxer.github.io/net%E8%8E%B7%E5%8F%96dll%E4%B8%AD%E7%9A%84%E5%9B%BE%E6%A0%87/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月16日&lt;/strong&gt;&lt;/p&gt;
 &lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;在搞那个快捷方式可视化的net程序时，因为图标列表第一个是百度网盘的图标，而文件夹没有指定图标，就默认第一个。结果就是一堆百度网盘😅。&lt;/p&gt;
 &lt;p&gt;就算指定文件夹节点的图标索引为-1也还是这样，不知道为什么，所以就要搞一个文件夹图标。&lt;/p&gt;
+&lt;p&gt;下面的方法都可以提取可执行文件、DLL 或图标文件里面的图标，但是能提取任意文件的只有方法三。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h1 id=&#34;代码&#34;&gt;代码&lt;/h1&gt;
+&lt;h1 id=&#34;方法一&#34;&gt;方法一&lt;/h1&gt;
 &lt;p&gt;主要是通过shell32 API的ExtractIcon函数来提取，然后文件夹图标的索引在shell32.dll里面是3。代码如下&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c#&#34; data-lang=&#34;c#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#ca9ee6&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#e5c890&#34;&gt;ShellIcon&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
@@ -33,7 +34,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;static&lt;/span&gt; Icon? GetFolderIcon(&lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt; index)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 从shell32.dll提取文件夹图标 (索引3是标准的关闭文件夹图标)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 从shell32.dll提取文件夹图标 (索引3是标准的关闭文件夹图标，从0开始)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        IntPtr hIcon = ExtractIcon(IntPtr.Zero, &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;shell32.dll&amp;#34;&lt;/span&gt;, index);
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ca9ee6&#34;&gt;if&lt;/span&gt; (hIcon != IntPtr.Zero)
@@ -53,7 +54,142 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    imageList1.Images.Add(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;folder&amp;#34;&lt;/span&gt;, folderIcon);
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;根据微软的官网中shell32里面的函数介绍，ExtractIconEx也可以，而且还可以同时获取大小图标，但是使用起来略显麻烦，需要传入图标数组的句柄（说是数组是因为这个函数可以提取多个图标），而且获取完之后要先从句柄创建图标- 复制图标，然后消除句柄。下面是函数的使用例子：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c#&#34; data-lang=&#34;c#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;[DllImport(&amp;#34;shell32.dll&amp;#34;, CharSet = CharSet.Unicode)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;extern&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;uint&lt;/span&gt; ExtractIconEx(&lt;span style=&#34;color:#e78284&#34;&gt;string&lt;/span&gt; lpszFile, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt; nIconIndex, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;out&lt;/span&gt; IntPtr phiconLarge, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;out&lt;/span&gt; IntPtr phiconSmall, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;uint&lt;/span&gt; nIcons);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;[DllImport(&amp;#34;user32.dll&amp;#34;)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;extern&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;bool&lt;/span&gt; DestroyIcon(IntPtr hIcon);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;uint&lt;/span&gt; iconsExtracted = ExtractIconEx(dllPath, &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 文件路径&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    index, &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 图标起始索引，注意是从0开始的&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;out&lt;/span&gt; largeIconHandle, &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 大图标数组句柄0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;out&lt;/span&gt; smallIconHandle, &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ef9f76&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 提取图标数);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 从句柄创建Icon&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Icon icon = Icon.FromHandle(largeIconHandle);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 创建icon的克隆，这样我们就可以安全地销毁原始句柄&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Icon clonedIcon = (Icon)icon.Clone();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 清理资源&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;DestroyIcon(largeIconHandle);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://learn.microsoft.com/zh-cn/windows/win32/api/shellapi/nf-shellapi-extracticona&#34;&gt;ExtractIcon&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://learn.microsoft.com/zh-cn/windows/win32/api/shellapi/nf-shellapi-extracticonexa&#34;&gt;ExtractIconEx&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;方法二&#34;&gt;方法二&lt;/h1&gt;
+&lt;p&gt;还可以使用shell32里面的SHDefExtractIcon，这个也需要清除句柄:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c#&#34; data-lang=&#34;c#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;[DllImport(&amp;#34;shell32.dll&amp;#34;, CharSet = CharSet.Auto)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;extern&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt; SHDefExtractIcon(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;string&lt;/span&gt; pszIconFile,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt; iIndex,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;uint&lt;/span&gt; flags,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;out&lt;/span&gt; IntPtr phiconLarge,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;out&lt;/span&gt; IntPtr phiconSmall,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;uint&lt;/span&gt; nIconSize);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;[DllImport(&amp;#34;user32.dll&amp;#34;)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;extern&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;bool&lt;/span&gt; DestroyIcon(IntPtr hIcon);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 从shell32.dll提取文件夹图标 (索引3是标准文件夹)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt; result = SHDefExtractIcon(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;shell32.dll&amp;#34;&lt;/span&gt;,      &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 图标文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ef9f76&#34;&gt;3&lt;/span&gt;,                  &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 图标索引&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ef9f76&#34;&gt;0&lt;/span&gt;,                  &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 标志&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;out&lt;/span&gt; hIconLarge,     &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 大图标句柄&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;out&lt;/span&gt; hIconSmall,     &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 小图标句柄&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ef9f76&#34;&gt;0&lt;/span&gt;                   &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 使用默认尺寸);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;不过那个&lt;strong&gt;nIconSize&lt;/strong&gt;我没有搞懂。&lt;/p&gt;
+&lt;h2 id=&#34;参考-1&#34;&gt;参考&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://learn.microsoft.com/zh-cn/windows/win32/api/shlobj_core/nf-shlobj_core-shdefextracticonw&#34;&gt;SHDefExtractIcon&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;方法三&#34;&gt;方法三&lt;/h1&gt;
+&lt;p&gt;这个是使用shell32的&lt;strong&gt;SHGetFileInfo&lt;/strong&gt;函数，加上&lt;strong&gt;SHFILEINFO&lt;/strong&gt;结构的引用变量（引用就是函数内部对变量本身修改，有点类似传指针进去）和标志组合，具体的标志内容可以去微软的官网看。&lt;/p&gt;
+&lt;p&gt;这个方法就可以获取任意文件的图标。但是我不知道怎么读取shell32.dll里面的图标。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c#&#34; data-lang=&#34;c#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;[StructLayout(LayoutKind.Sequential)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#ca9ee6&#34;&gt;struct&lt;/span&gt; &lt;span style=&#34;color:#e5c890&#34;&gt;SHFILEINFO&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;public&lt;/span&gt; IntPtr hIcon;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt; iIcon;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;uint&lt;/span&gt; dwAttributes;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;string&lt;/span&gt; szDisplayName;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;string&lt;/span&gt; szTypeName;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;[DllImport(&amp;#34;shell32.dll&amp;#34;, CharSet = CharSet.Auto)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;extern&lt;/span&gt; IntPtr SHGetFileInfo(&lt;span style=&#34;color:#e78284&#34;&gt;string&lt;/span&gt; pszPath, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;uint&lt;/span&gt; dwFileAttributes,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;ref&lt;/span&gt; SHFILEINFO psfi, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;uint&lt;/span&gt; cbSizeFileInfo, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;uint&lt;/span&gt; uFlags);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;[DllImport(&amp;#34;user32.dll&amp;#34;)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;extern&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;bool&lt;/span&gt; DestroyIcon(IntPtr hIcon);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;uint&lt;/span&gt; SHGFI_ICON = &lt;span style=&#34;color:#ef9f76&#34;&gt;0x100&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;uint&lt;/span&gt; SHGFI_LARGEICON = &lt;span style=&#34;color:#ef9f76&#34;&gt;0x0&lt;/span&gt;;    &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 大图标&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;uint&lt;/span&gt; SHGFI_SMALLICON = &lt;span style=&#34;color:#ef9f76&#34;&gt;0x1&lt;/span&gt;;    &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 小图标&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;SHFILEINFO shfi = &lt;span style=&#34;color:#ca9ee6&#34;&gt;new&lt;/span&gt; SHFILEINFO();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;uint&lt;/span&gt; flags = SHGFI_ICON | SHGFI_LARGEICON;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 获取图标&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;IntPtr result = SHGetFileInfo(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6d189&#34;&gt;@&amp;#34;D:\软件\tModLoader.lnk&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    FILE_ATTRIBUTE_DIRECTORY,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;ref&lt;/span&gt; shfi,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    (&lt;span style=&#34;color:#e78284&#34;&gt;uint&lt;/span&gt;)Marshal.SizeOf(shfi),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    flags);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;参考-2&#34;&gt;参考&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://learn.microsoft.com/zh-cn/windows/win32/api/shellapi/nf-shellapi-shgetfileinfoa&#34;&gt;SHGetFileInfo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://learn.microsoft.com/zh-cn/windows/win32/api/shellapi/ns-shellapi-shfileinfoa&#34;&gt;SHFILEINFO&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;方法四&#34;&gt;方法四&lt;/h1&gt;
+&lt;p&gt;这个方法就可以获取更大尺寸的图标，比如256*256，使用的是user32.dll里面的PrivateExtractIcons函数，不过这个函数可能会在后续Windows版本移除。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c#&#34; data-lang=&#34;c#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;[DllImport(&amp;#34;User32.dll&amp;#34;, CharSet = CharSet.Auto)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;extern&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt; PrivateExtractIcons(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;string&lt;/span&gt; lpszFile, &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;//文件名可以是exe,dll,ico,cur,ani,bmp&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt; nIconIndex,  &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;//从第几个图标开始获取&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt; cxIcon,      &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;//获取图标的尺寸x&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt; cyIcon,      &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;//获取图标的尺寸y&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    IntPtr[] phicon, &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;//获取到的图标指针数组&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt;[] piconid,   &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;//图标对应的资源编号&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt; nIcons,      &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;//指定获取的图标数量，仅当文件类型为.exe 和 .dll时候可用&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt; flags        &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;//标志，默认0就可以，具体可以看LoadImage函数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;[DllImport(&amp;#34;user32.dll&amp;#34;)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;extern&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;bool&lt;/span&gt; DestroyIcon(IntPtr hIcon);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 从shell32.dll提取文件夹图标 (索引3是标准文件夹)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt; result = PrivateExtractIcons(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;shell32.dll&amp;#34;&lt;/span&gt;,      &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 图标文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ef9f76&#34;&gt;3&lt;/span&gt;,                  &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 图标索引&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ef9f76&#34;&gt;32&lt;/span&gt;, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ef9f76&#34;&gt;32&lt;/span&gt;, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    hIcons,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ids, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ef9f76&#34;&gt;1&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ef9f76&#34;&gt;0&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;参考-3&#34;&gt;参考&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/JmlSaul/p/7515885.html&#34;&gt;C# 获取exe、dll中的图标，支持获取256x256分辨率&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://learn.microsoft.com/zh-cn/windows/win32/api/winuser/nf-winuser-privateextracticonsw&#34;&gt;PrivateExtractIcons&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;参考-4&#34;&gt;参考&lt;/h1&gt;
 &lt;hr&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Claude&lt;del&gt;又是AI😋&lt;/del&gt;&lt;/p&gt;

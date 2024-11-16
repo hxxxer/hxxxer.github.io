@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html><head>
-<title>C#获取dll中的图标</title>
+<title>C#获取文件的图标</title>
 
 
 
@@ -10,7 +10,7 @@
 <meta name="google-site-verification" content="G-XXXXXXXXXX">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 <meta content="telephone=no" name="format-detection">
-<meta name="description" content="在NET里面用C#来获取shell32.dll里面的图标">
+<meta name="description" content="在NET里面用C#来获取shell32.dll里面或者文件的图标">
 <meta name="renderer" content="webkit">
 <meta name="theme-color" content="#ffffff">
 
@@ -18,8 +18,8 @@
 
 <meta property="og:url" content="https://hxxxer.github.io/net%E8%8E%B7%E5%8F%96dll%E4%B8%AD%E7%9A%84%E5%9B%BE%E6%A0%87/">
   <meta property="og:site_name" content="闲碎">
-  <meta property="og:title" content="C#获取dll中的图标">
-  <meta property="og:description" content="在NET里面用C#来获取shell32.dll里面的图标">
+  <meta property="og:title" content="C#获取文件的图标">
+  <meta property="og:description" content="在NET里面用C#来获取shell32.dll里面或者文件的图标">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:published_time" content="2024-11-09T16:24:42+08:00">
@@ -193,8 +193,8 @@
 						
 						
 							<li>
-								<a href="#%e4%bb%a3%e7%a0%81" class="nav-代码">
-									代码
+								<a href="#%e6%96%b9%e6%b3%95%e4%b8%80" class="nav-方法一">
+									方法一
 								</a>
 							</li>
 						
@@ -209,9 +209,175 @@
 						
 						
 						
+							
+								
+									<ul>
+								
+							
+						
 						
 							<li>
 								<a href="#%e5%8f%82%e8%80%83" class="nav-参考">
+									参考
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%96%b9%e6%b3%95%e4%ba%8c" class="nav-方法二">
+									方法二
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%8f%82%e8%80%83-1" class="nav-参考-1">
+									参考
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%96%b9%e6%b3%95%e4%b8%89" class="nav-方法三">
+									方法三
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%8f%82%e8%80%83-2" class="nav-参考-2">
+									参考
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%96%b9%e6%b3%95%e5%9b%9b" class="nav-方法四">
+									方法四
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%8f%82%e8%80%83-3" class="nav-参考-3">
+									参考
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e5%8f%82%e8%80%83-4" class="nav-参考-4">
 									参考
 								</a>
 							</li>
@@ -282,10 +448,10 @@
                 
             >
                 <div class="post-title">
-                    C#获取dll中的图标
+                    C#获取文件的图标
                     
                     <div class="post-subtitle">
-                        在NET里面用C#来获取shell32.dll里面的图标
+                        在NET里面用C#来获取shell32.dll里面或者文件的图标
                     </div>
                     
                     <div class="post-meta">
@@ -323,12 +489,13 @@
                 
                 <div class="post-body" v-pre>
                 
-                    <p><strong>最后编辑于2024年11月09日</strong></p>
+                    <p><strong>最后编辑于2024年11月16日</strong></p>
 <h1 id="前言">前言</h1>
 <p>在搞那个快捷方式可视化的net程序时，因为图标列表第一个是百度网盘的图标，而文件夹没有指定图标，就默认第一个。结果就是一堆百度网盘😅。</p>
 <p>就算指定文件夹节点的图标索引为-1也还是这样，不知道为什么，所以就要搞一个文件夹图标。</p>
+<p>下面的方法都可以提取可执行文件、DLL 或图标文件里面的图标，但是能提取任意文件的只有方法三。</p>
 <hr>
-<h1 id="代码">代码</h1>
+<h1 id="方法一">方法一</h1>
 <p>主要是通过shell32 API的ExtractIcon函数来提取，然后文件夹图标的索引在shell32.dll里面是3。代码如下</p>
 <div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c#" data-lang="c#"><span style="display:flex;"><span><span style="color:#e78284">public</span> <span style="color:#ca9ee6">class</span> <span style="color:#e5c890">ShellIcon</span>
 </span></span><span style="display:flex;"><span>{
@@ -337,7 +504,7 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#e78284">public</span> <span style="color:#e78284">static</span> Icon? GetFolderIcon(<span style="color:#e78284">int</span> index)
 </span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#737994;font-style:italic">// 从shell32.dll提取文件夹图标 (索引3是标准的关闭文件夹图标)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#737994;font-style:italic">// 从shell32.dll提取文件夹图标 (索引3是标准的关闭文件夹图标，从0开始)</span>
 </span></span><span style="display:flex;"><span>        IntPtr hIcon = ExtractIcon(IntPtr.Zero, <span style="color:#a6d189">&#34;shell32.dll&#34;</span>, index);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        <span style="color:#ca9ee6">if</span> (hIcon != IntPtr.Zero)
@@ -357,7 +524,142 @@
 </span></span><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>    imageList1.Images.Add(<span style="color:#a6d189">&#34;folder&#34;</span>, folderIcon);
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h1 id="参考">参考</h1>
+</span></span></code></pre></div><p>根据微软的官网中shell32里面的函数介绍，ExtractIconEx也可以，而且还可以同时获取大小图标，但是使用起来略显麻烦，需要传入图标数组的句柄（说是数组是因为这个函数可以提取多个图标），而且获取完之后要先从句柄创建图标- 复制图标，然后消除句柄。下面是函数的使用例子：</p>
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c#" data-lang="c#"><span style="display:flex;"><span><span style="color:#8caaee">[DllImport(&#34;shell32.dll&#34;, CharSet = CharSet.Unicode)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">public</span> <span style="color:#e78284">static</span> <span style="color:#e78284">extern</span> <span style="color:#e78284">uint</span> ExtractIconEx(<span style="color:#e78284">string</span> lpszFile, 
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">int</span> nIconIndex, 
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">out</span> IntPtr phiconLarge, 
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">out</span> IntPtr phiconSmall, 
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">uint</span> nIcons);
+</span></span><span style="display:flex;"><span><span style="color:#8caaee">
+</span></span></span><span style="display:flex;"><span><span style="color:#8caaee">[DllImport(&#34;user32.dll&#34;)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">private</span> <span style="color:#e78284">static</span> <span style="color:#e78284">extern</span> <span style="color:#e78284">bool</span> DestroyIcon(IntPtr hIcon);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">uint</span> iconsExtracted = ExtractIconEx(dllPath, <span style="color:#737994;font-style:italic">// 文件路径</span>
+</span></span><span style="display:flex;"><span>    index, <span style="color:#737994;font-style:italic">// 图标起始索引，注意是从0开始的</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">out</span> largeIconHandle, <span style="color:#737994;font-style:italic">// 大图标数组句柄0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">out</span> smallIconHandle, <span style="color:#737994;font-style:italic">// </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ef9f76">1</span> <span style="color:#737994;font-style:italic">// 提取图标数);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">// 从句柄创建Icon</span>
+</span></span><span style="display:flex;"><span>Icon icon = Icon.FromHandle(largeIconHandle);
+</span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">// 创建icon的克隆，这样我们就可以安全地销毁原始句柄</span>
+</span></span><span style="display:flex;"><span>Icon clonedIcon = (Icon)icon.Clone();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">// 清理资源</span>
+</span></span><span style="display:flex;"><span>DestroyIcon(largeIconHandle);
+</span></span></code></pre></div><h2 id="参考">参考</h2>
+<blockquote>
+<p><a href="https://learn.microsoft.com/zh-cn/windows/win32/api/shellapi/nf-shellapi-extracticona">ExtractIcon</a></p>
+<p><a href="https://learn.microsoft.com/zh-cn/windows/win32/api/shellapi/nf-shellapi-extracticonexa">ExtractIconEx</a></p>
+</blockquote>
+<hr>
+<h1 id="方法二">方法二</h1>
+<p>还可以使用shell32里面的SHDefExtractIcon，这个也需要清除句柄:</p>
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c#" data-lang="c#"><span style="display:flex;"><span><span style="color:#8caaee">[DllImport(&#34;shell32.dll&#34;, CharSet = CharSet.Auto)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">private</span> <span style="color:#e78284">static</span> <span style="color:#e78284">extern</span> <span style="color:#e78284">int</span> SHDefExtractIcon(
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">string</span> pszIconFile,
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">int</span> iIndex,
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">uint</span> flags,
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">out</span> IntPtr phiconLarge,
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">out</span> IntPtr phiconSmall,
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">uint</span> nIconSize);
+</span></span><span style="display:flex;"><span><span style="color:#8caaee">
+</span></span></span><span style="display:flex;"><span><span style="color:#8caaee">[DllImport(&#34;user32.dll&#34;)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">private</span> <span style="color:#e78284">static</span> <span style="color:#e78284">extern</span> <span style="color:#e78284">bool</span> DestroyIcon(IntPtr hIcon);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">// 从shell32.dll提取文件夹图标 (索引3是标准文件夹)</span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">int</span> result = SHDefExtractIcon(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6d189">&#34;shell32.dll&#34;</span>,      <span style="color:#737994;font-style:italic">// 图标文件</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ef9f76">3</span>,                  <span style="color:#737994;font-style:italic">// 图标索引</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ef9f76">0</span>,                  <span style="color:#737994;font-style:italic">// 标志</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">out</span> hIconLarge,     <span style="color:#737994;font-style:italic">// 大图标句柄</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">out</span> hIconSmall,     <span style="color:#737994;font-style:italic">// 小图标句柄</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ef9f76">0</span>                   <span style="color:#737994;font-style:italic">// 使用默认尺寸);</span>
+</span></span></code></pre></div><p>不过那个<strong>nIconSize</strong>我没有搞懂。</p>
+<h2 id="参考-1">参考</h2>
+<blockquote>
+<p><a href="https://learn.microsoft.com/zh-cn/windows/win32/api/shlobj_core/nf-shlobj_core-shdefextracticonw">SHDefExtractIcon</a></p>
+</blockquote>
+<hr>
+<h1 id="方法三">方法三</h1>
+<p>这个是使用shell32的<strong>SHGetFileInfo</strong>函数，加上<strong>SHFILEINFO</strong>结构的引用变量（引用就是函数内部对变量本身修改，有点类似传指针进去）和标志组合，具体的标志内容可以去微软的官网看。</p>
+<p>这个方法就可以获取任意文件的图标。但是我不知道怎么读取shell32.dll里面的图标。</p>
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c#" data-lang="c#"><span style="display:flex;"><span><span style="color:#8caaee">[StructLayout(LayoutKind.Sequential)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">public</span> <span style="color:#ca9ee6">struct</span> <span style="color:#e5c890">SHFILEINFO</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">public</span> IntPtr hIcon;
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">public</span> <span style="color:#e78284">int</span> iIcon;
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">public</span> <span style="color:#e78284">uint</span> dwAttributes;
+</span></span><span style="display:flex;"><span><span style="color:#8caaee">    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">public</span> <span style="color:#e78284">string</span> szDisplayName;
+</span></span><span style="display:flex;"><span><span style="color:#8caaee">    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">public</span> <span style="color:#e78284">string</span> szTypeName;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#8caaee">
+</span></span></span><span style="display:flex;"><span><span style="color:#8caaee">[DllImport(&#34;shell32.dll&#34;, CharSet = CharSet.Auto)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">public</span> <span style="color:#e78284">static</span> <span style="color:#e78284">extern</span> IntPtr SHGetFileInfo(<span style="color:#e78284">string</span> pszPath, 
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">uint</span> dwFileAttributes,
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">ref</span> SHFILEINFO psfi, 
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">uint</span> cbSizeFileInfo, 
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">uint</span> uFlags);
+</span></span><span style="display:flex;"><span><span style="color:#8caaee">
+</span></span></span><span style="display:flex;"><span><span style="color:#8caaee">[DllImport(&#34;user32.dll&#34;)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">public</span> <span style="color:#e78284">static</span> <span style="color:#e78284">extern</span> <span style="color:#e78284">bool</span> DestroyIcon(IntPtr hIcon);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">public</span> <span style="color:#e78284">const</span> <span style="color:#e78284">uint</span> SHGFI_ICON = <span style="color:#ef9f76">0x100</span>;
+</span></span><span style="display:flex;"><span><span style="color:#e78284">public</span> <span style="color:#e78284">const</span> <span style="color:#e78284">uint</span> SHGFI_LARGEICON = <span style="color:#ef9f76">0x0</span>;    <span style="color:#737994;font-style:italic">// 大图标</span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">public</span> <span style="color:#e78284">const</span> <span style="color:#e78284">uint</span> SHGFI_SMALLICON = <span style="color:#ef9f76">0x1</span>;    <span style="color:#737994;font-style:italic">// 小图标</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SHFILEINFO shfi = <span style="color:#ca9ee6">new</span> SHFILEINFO();
+</span></span><span style="display:flex;"><span><span style="color:#e78284">uint</span> flags = SHGFI_ICON | SHGFI_LARGEICON;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">// 获取图标</span>
+</span></span><span style="display:flex;"><span>IntPtr result = SHGetFileInfo(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6d189">@&#34;D:\软件\tModLoader.lnk&#34;</span>,
+</span></span><span style="display:flex;"><span>    FILE_ATTRIBUTE_DIRECTORY,
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">ref</span> shfi,
+</span></span><span style="display:flex;"><span>    (<span style="color:#e78284">uint</span>)Marshal.SizeOf(shfi),
+</span></span><span style="display:flex;"><span>    flags);
+</span></span></code></pre></div><h2 id="参考-2">参考</h2>
+<blockquote>
+<p><a href="https://learn.microsoft.com/zh-cn/windows/win32/api/shellapi/nf-shellapi-shgetfileinfoa">SHGetFileInfo</a></p>
+<p><a href="https://learn.microsoft.com/zh-cn/windows/win32/api/shellapi/ns-shellapi-shfileinfoa">SHFILEINFO</a></p>
+</blockquote>
+<hr>
+<h1 id="方法四">方法四</h1>
+<p>这个方法就可以获取更大尺寸的图标，比如256*256，使用的是user32.dll里面的PrivateExtractIcons函数，不过这个函数可能会在后续Windows版本移除。</p>
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c#" data-lang="c#"><span style="display:flex;"><span><span style="color:#8caaee">[DllImport(&#34;User32.dll&#34;, CharSet = CharSet.Auto)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">public</span> <span style="color:#e78284">static</span> <span style="color:#e78284">extern</span> <span style="color:#e78284">int</span> PrivateExtractIcons(
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">string</span> lpszFile, <span style="color:#737994;font-style:italic">//文件名可以是exe,dll,ico,cur,ani,bmp</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">int</span> nIconIndex,  <span style="color:#737994;font-style:italic">//从第几个图标开始获取</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">int</span> cxIcon,      <span style="color:#737994;font-style:italic">//获取图标的尺寸x</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">int</span> cyIcon,      <span style="color:#737994;font-style:italic">//获取图标的尺寸y</span>
+</span></span><span style="display:flex;"><span>    IntPtr[] phicon, <span style="color:#737994;font-style:italic">//获取到的图标指针数组</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">int</span>[] piconid,   <span style="color:#737994;font-style:italic">//图标对应的资源编号</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">int</span> nIcons,      <span style="color:#737994;font-style:italic">//指定获取的图标数量，仅当文件类型为.exe 和 .dll时候可用</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">int</span> flags        <span style="color:#737994;font-style:italic">//标志，默认0就可以，具体可以看LoadImage函数</span>
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span><span style="color:#8caaee">
+</span></span></span><span style="display:flex;"><span><span style="color:#8caaee">[DllImport(&#34;user32.dll&#34;)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">public</span> <span style="color:#e78284">static</span> <span style="color:#e78284">extern</span> <span style="color:#e78284">bool</span> DestroyIcon(IntPtr hIcon);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">// 从shell32.dll提取文件夹图标 (索引3是标准文件夹)</span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">int</span> result = PrivateExtractIcons(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6d189">&#34;shell32.dll&#34;</span>,      <span style="color:#737994;font-style:italic">// 图标文件</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ef9f76">3</span>,                  <span style="color:#737994;font-style:italic">// 图标索引</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ef9f76">32</span>, 
+</span></span><span style="display:flex;"><span>    <span style="color:#ef9f76">32</span>, 
+</span></span><span style="display:flex;"><span>    hIcons,
+</span></span><span style="display:flex;"><span>    ids, 
+</span></span><span style="display:flex;"><span>    <span style="color:#ef9f76">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ef9f76">0</span>);
+</span></span></code></pre></div><h2 id="参考-3">参考</h2>
+<blockquote>
+<p><a href="https://www.cnblogs.com/JmlSaul/p/7515885.html">C# 获取exe、dll中的图标，支持获取256x256分辨率</a></p>
+<p><a href="https://learn.microsoft.com/zh-cn/windows/win32/api/winuser/nf-winuser-privateextracticonsw">PrivateExtractIcons</a></p>
+</blockquote>
+<h1 id="参考-4">参考</h1>
 <hr>
 <blockquote>
 <p>Claude<del>又是AI😋</del></p>
@@ -517,8 +819,8 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 						
 						
 							<li>
-								<a href="#%e4%bb%a3%e7%a0%81" class="nav-代码">
-									代码
+								<a href="#%e6%96%b9%e6%b3%95%e4%b8%80" class="nav-方法一">
+									方法一
 								</a>
 							</li>
 						
@@ -533,9 +835,175 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 						
 						
 						
+							
+								
+									<ul>
+								
+							
+						
 						
 							<li>
 								<a href="#%e5%8f%82%e8%80%83" class="nav-参考">
+									参考
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%96%b9%e6%b3%95%e4%ba%8c" class="nav-方法二">
+									方法二
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%8f%82%e8%80%83-1" class="nav-参考-1">
+									参考
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%96%b9%e6%b3%95%e4%b8%89" class="nav-方法三">
+									方法三
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%8f%82%e8%80%83-2" class="nav-参考-2">
+									参考
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e6%96%b9%e6%b3%95%e5%9b%9b" class="nav-方法四">
+									方法四
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%8f%82%e8%80%83-3" class="nav-参考-3">
+									参考
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e5%8f%82%e8%80%83-4" class="nav-参考-4">
 									参考
 								</a>
 							</li>

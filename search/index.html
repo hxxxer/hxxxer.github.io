@@ -19,11 +19,7 @@
 <meta property="og:url" content="https://hxxxer.github.io/search/">
   <meta property="og:site_name" content="闲碎">
   <meta property="og:title" content="Search Results">
-  <meta property="og:description" content="This file exists solely to respond to /search URL with the related search layout template.
-No content shown here is rendered, all content is based in the template layouts/page/search.html
-Setting a very low sitemap priority will tell search engines this is not important content.
-This implementation uses Fusejs, jquery and mark.js
-Initial setup Search depends on additional output content type of JSON in config.toml ``` [outputs] home = [“HTML”, “JSON”] ```">
+  <meta property="og:description" content="My HomePage Description">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
 
@@ -101,30 +97,10 @@ Initial setup Search depends on additional output content type of JSON in config
 
 
 <script src="/js/jquery-3.3.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
+<script src="/js/fuse-3.2.0.min.js"></script>
 <script src="/js/jquery.mark-8.11.1.min.js"></script>
 <script src="/js/search.js"></script>
-<script>
-    function performSearch() {
-        const input = document.getElementById('search-query');
-        const query = input.value;
-        
-        
-        const currentPath = window.location.pathname;
-        
-        
-        const inputElement = document.getElementById('search-query');
-        const inputName = inputElement.name;
-        
-        if (query) {
-            window.location.href = '/search/?s=' + encodeURIComponent(query);
-        } else {
-            alert('请输入搜索内容');
-        }
-    }
-</script>
 <style>
-
     .search-query {
         padding: 10px;
         margin-right: 10px;
@@ -152,7 +128,7 @@ Initial setup Search depends on additional output content type of JSON in config
        border-top-right-radius: 10px;
     }
     .snippet{
-        -webkit-mask-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 70%); 
+        -webkit-mask-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0) -10%, rgba(0, 0, 0, 1) 80%); 
 
 </style>
 
@@ -213,103 +189,6 @@ Initial setup Search depends on additional output content type of JSON in config
             <div class="toc">
 
 
-	<div class="toc-content">
-	
-		
-		
-		
-		<center>- 目录 -</center>
-		
-		
-		<ul>
-			
-				
-				
-					
-						
-						
-						
-						
-							
-								
-									<ul>
-								
-							
-						
-						
-							<li>
-								<a href="#initial-setup" class="nav-initial-setup">
-									Initial setup
-								</a>
-							</li>
-						
-						
-					
-				
-			
-				
-				
-					
-						
-						
-						
-						
-						
-							<li>
-								<a href="#searching-additional-fileds" class="nav-searching-additional-fileds">
-									Searching additional fileds
-								</a>
-							</li>
-						
-						
-					
-				
-			
-				
-				
-					
-						
-						
-						
-						
-							
-								
-									<ul>
-								
-							
-						
-						
-							<li>
-								<a href="#edit-layouts_defaultindexjson" class="nav-edit-layouts_defaultindexjson">
-									Edit layouts/_default/index.JSON
-								</a>
-							</li>
-						
-						
-					
-				
-			
-				
-				
-					
-						
-						
-						
-						
-						
-							<li>
-								<a href="#edit-fusejs-options-to-search" class="nav-edit-fusejs-options-to-search">
-									Edit fuse.js options to Search
-								</a>
-							</li>
-						
-						
-					
-				
-			
-		</ul>
-	</div>
-
 </div>
             
         </div>
@@ -354,7 +233,7 @@ Initial setup Search depends on additional output content type of JSON in config
 <section class="resume-section p-3 p-lg-5 d-flex flex-column">
   <div class="my-auto" >
     <form action="https://hxxxer.github.io/search">
-      <label for="search-query">搜索：</label><input id="search-query" name="s"/>
+      <input id="search-query" name="s" alt="搜索框"/>
       <button type="button" class="search-button" onclick="performSearch()">点击搜索</button>
     </form>
     <div id="search-results">
@@ -370,6 +249,25 @@ Initial setup Search depends on additional output content type of JSON in config
       ${ isset tags }<p>标签: ${tags}</p>${ end }
       ${ isset categories }<p>分类: ${categories}</p>${ end }
     </div>
+</script>
+<script>
+    function performSearch() {
+        const input = document.getElementById('search-query');
+        const query = input.value;
+        
+        
+        const currentPath = window.location.pathname;
+        
+        
+        const inputElement = document.getElementById('search-query');
+        const inputName = inputElement.name;
+        
+        if (query) {
+            window.location.href = '/search/?s=' + encodeURIComponent(query);
+        } else {
+            alert('请输入搜索内容');
+        }
+    }
 </script>
 
                     </div>
@@ -450,8 +348,30 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 
     </div>
     
+</div><div id="extraContainer" class="extra-container">
+    <div class="toc-wrapper">
+        
+
+        
+    </div>
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top"
+            :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
 </div>
-            
+
 <div id="single-column-footer">
 Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
 <br>
