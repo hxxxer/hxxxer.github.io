@@ -7,9 +7,114 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>This is a customized copyright.</copyright>
-    <lastBuildDate>Thu, 14 Nov 2024 01:45:42 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jan 2025 17:32:47 +0800</lastBuildDate>
     
         <atom:link href="https://hxxxer.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>Linux压缩不包含绝对路径命令</title>
+        <link>https://hxxxer.github.io/linux%E5%8E%8B%E7%BC%A9%E4%B8%8D%E5%8C%85%E5%90%AB%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%91%BD%E4%BB%A4/</link>
+        <pubDate>Mon, 11 Nov 2024 00:16:42 +0800</pubDate>
+        
+        <guid>https://hxxxer.github.io/linux%E5%8E%8B%E7%BC%A9%E4%B8%8D%E5%8C%85%E5%90%AB%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%91%BD%E4%BB%A4/</guid>
+        <description>闲碎 https://hxxxer.github.io/linux%E5%8E%8B%E7%BC%A9%E4%B8%8D%E5%8C%85%E5%90%AB%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%91%BD%E4%BB%A4/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月11日&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;在GitHub actions自动发布的时候，需要使用&lt;code&gt;zip&lt;/code&gt;命令来压缩发布文件，但是会连带很多上级目录一起压缩，需要去除这些目录。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;操作&#34;&gt;操作&lt;/h1&gt;
+&lt;p&gt;原来的命令是这样的：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;zip -r ShortcutVisualizer.zip ./ShortcutVisualizer/bin/Release/net6.0-windows/win-x64/publish
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这样在压缩出来的时候就会带上&lt;code&gt;ShortcutVisualizer/bin/Release/net6.0-windows/win-x64/publish/&lt;/code&gt;这些无关的文件夹。&lt;/p&gt;
+&lt;p&gt;想要去除只需要将&lt;code&gt;-r&lt;/code&gt;更改为&lt;code&gt;-rj&lt;/code&gt;。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;补充&#34;&gt;补充&lt;/h1&gt;
+&lt;p&gt;使用tar命令压缩的话，只需要在末尾使用-C指定文件所在目录就行，其本质是切换工作目录，来达到工作目录之前的文件夹不压缩的目的。&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/iamfy/archive/2012/11/10/2764307.html&#34;&gt;Linux下压缩不包含路径信息的压缩包&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/azureology/p/13217461.html&#34;&gt;Shell创建zip文件不包含完整路径方法&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+- https://hxxxer.github.io/linux%E5%8E%8B%E7%BC%A9%E4%B8%8D%E5%8C%85%E5%90%AB%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%91%BD%E4%BB%A4/ - This is a customized copyright.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>编译mini2440的虚拟字符驱动</title>
+        <link>https://hxxxer.github.io/%E7%BC%96%E8%AF%91mini2440%E7%9A%84%E8%99%9A%E6%8B%9F%E5%AD%97%E7%AC%A6%E9%A9%B1%E5%8A%A8/</link>
+        <pubDate>Sun, 10 Nov 2024 01:36:15 +0800</pubDate>
+        
+        <guid>https://hxxxer.github.io/%E7%BC%96%E8%AF%91mini2440%E7%9A%84%E8%99%9A%E6%8B%9F%E5%AD%97%E7%AC%A6%E9%A9%B1%E5%8A%A8/</guid>
+        <description>闲碎 https://hxxxer.github.io/%E7%BC%96%E8%AF%91mini2440%E7%9A%84%E8%99%9A%E6%8B%9F%E5%AD%97%E7%AC%A6%E9%A9%B1%E5%8A%A8/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月10日&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;嵌入式的第四次实验是编译一个虚拟字符驱动模块，我在学校电脑上可以编译成适合x86架构的版本，但是编译成开发板上的arm架构的就不行。&lt;/p&gt;
+&lt;p&gt;后来在自己的电脑上尝试了一下，在一些参考资料的帮助下，最终完成既定目标。现在记录一下。&lt;/p&gt;
+&lt;p&gt;虚拟机平台VBox，Ubuntu22.04。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;配置编译环境&#34;&gt;配置编译环境&lt;/h1&gt;
+&lt;p&gt;将资料里面的开发板linux源码&lt;code&gt;\FriendlyARM-2440-DVD\Linux\linux-2.6.32.2-mini2440-20150709.tgz&lt;/code&gt;解压到虚拟机。&lt;/p&gt;
+&lt;p&gt;然后在解压目录下，将&lt;code&gt;mini2440_config_t35&lt;/code&gt;复制为&lt;code&gt;.config&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cp mini2440_config_t35 .config
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后执行下面的命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;make oldconfig &lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make prepare
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/make-oldconfig-prepare.png&#34; alt=&#34;执行make oldconfig &amp;amp;&amp;amp; make prepare&#34;&gt;&lt;/p&gt;
+&lt;p&gt;LCD就选择&lt;code&gt;6. 3.5 inch 240X230 Toppoly LCD (FB_S3C2410_T240320)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/LCDSelect.png&#34; alt=&#34;LCD Select&#34;&gt;&lt;/p&gt;
+&lt;p&gt;执行过程中如果出现有关&lt;code&gt;arm-linux-gcc&lt;/code&gt;的报错，就去检测一下&lt;code&gt;arm-linux-gcc -v&lt;/code&gt;有没有输出，没有就配置一下。&lt;/p&gt;
+&lt;p&gt;执行完成之后，再输入以下命令（这里有些报错是没问题的，只要都是warning就行）：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;make scripts
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/make-scripts.png&#34; alt=&#34;make scripts&#34;&gt;&lt;/p&gt;
+&lt;p&gt;执行完成就配置好了编译环境。&lt;/p&gt;
+&lt;h2 id=&#34;解释&#34;&gt;解释&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;mini2440_config_t35&lt;/code&gt;就是适合开发板屏幕的那个config文件，其实里面的&lt;code&gt;mini2440_config_&lt;/code&gt;文件内容都相差不大，只有屏幕相关部分有差别。&lt;/p&gt;
+&lt;p&gt;将其复制为&lt;code&gt;.config&lt;/code&gt;文件是为了设置内核配置信息，确保编译环境与开发板的实际情况相匹配。（其实这段话我是问AI的，我也不是很懂）&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;make oldconfig&lt;/code&gt;是为了查看是否有新的配置信息要处理，这里感觉没有什么用，但是网上都做了这个😋。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;make prepare&lt;/code&gt;是为了准备之后编译要用到的文件和符号链接，以及处理一些依赖关系，以确保所需的工具和资源都已准备好。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;make scripts&lt;/code&gt;是为了编译一些之后编译要用到的脚本文件。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;更改驱动源码&#34;&gt;更改驱动源码&lt;/h1&gt;
+&lt;p&gt;原来的源码&lt;code&gt;chrdevbase.c&lt;/code&gt;有些问题，头文件的引用并不对，需要改成下面的：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#737994;font-weight:bold;font-style:italic&#34;&gt;&amp;lt;linux/kernel.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#737994;font-weight:bold;font-style:italic&#34;&gt;&amp;lt;linux/fs.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#737994;font-weight:bold;font-style:italic&#34;&gt;&amp;lt;linux/init.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#737994;font-weight:bold;font-style:italic&#34;&gt;&amp;lt;linux/module.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#737994;font-weight:bold;font-style:italic&#34;&gt;&amp;lt;linux/uaccess.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这里的引用我是复制老师发的&lt;a href=&#34;https://blog.csdn.net/weixin_46829095/article/details/128768229&#34;&gt;那篇CSDN博客&lt;/a&gt;的。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;更改makefiletxt&#34;&gt;更改makefile.txt&lt;/h1&gt;
+&lt;p&gt;这个文件内容也有些问题，改成下面的就行：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-makefile&#34; data-lang=&#34;makefile&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f2d5cf&#34;&gt;KERNELDIR&lt;/span&gt; &lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;:=&lt;/span&gt; /home/hx/linux/mini2440-lib/linux-2.6.32.2
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f2d5cf&#34;&gt;ENV&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;:=&lt;/span&gt;&lt;span style=&#34;color:#f2d5cf&#34;&gt;ARCH&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;=&lt;/span&gt;arm &lt;span style=&#34;color:#f2d5cf&#34;&gt;CROSS_COMPILE&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;=&lt;/span&gt;arm-none-linux-gnueabi-
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f2d5cf&#34;&gt;obj-m&lt;/span&gt; &lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;:=&lt;/span&gt; chrdevbase.o
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;all&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;MAKE&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;ENV&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; -C &lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;KERNELDIR&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f2d5cf&#34;&gt;M&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;shell &lt;span style=&#34;color:#99d1db&#34;&gt;pwd&lt;/span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; modules
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;clean&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;MAKE&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;ENV&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; -C &lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;KERNELDIR&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f2d5cf&#34;&gt;M&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;shell &lt;span style=&#34;color:#99d1db&#34;&gt;pwd&lt;/span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; clean
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;而且文件名也要改成Makefile，注意一定要大写M开头。&lt;/p&gt;
+&lt;h2 id=&#34;补充&#34;&gt;补充&lt;/h2&gt;
+&lt;p&gt;后来发现上面的更改的添加的&lt;code&gt;ENV&lt;/code&gt;不是必要的，这个只是用在编译的gcc版本和开发板的不对的时候用的，具体可以看&lt;a href=&#34;https://blog.csdn.net/qq_41115702/article/details/104655050&#34;&gt;这里&lt;/a&gt;。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;编译及测试&#34;&gt;编译及测试&lt;/h1&gt;
+&lt;p&gt;在驱动源码目录下执行&lt;code&gt;make&lt;/code&gt;即可，如果前面没有问题，那就可以看到&lt;code&gt;chrdevbase.ko&lt;/code&gt;了。&lt;/p&gt;
+&lt;p&gt;后续的驱动测试就按参考一进行。&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_41753052/article/details/109138710&#34;&gt;嵌入式linux驱动开发-字符设备驱动&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_28576837/article/details/142790697&#34;&gt;加载驱动模块的两种方法&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/weixin_42109053/article/details/124526066&#34;&gt;linux make modules 命令详解&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/cha1290878789/article/details/121453401&#34;&gt;Linux驱动——编译驱动的两种形式（内核目录外、内核目录中）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/Zander0/article/details/134871301&#34;&gt;Linux驱动安装遇到的问题（Kernel configuration is invalid）（Invalid module format）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/u011202336/article/details/9172095&#34;&gt;驱动编译错误 /bin/sh: scripts/mod/modpost&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_41115702/article/details/104655050&#34;&gt;编译内核驱动模块出错（error: asm/xxx: No such file or directory）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/daocaokafei/article/details/115472862&#34;&gt;Linux模块文件如何编译到内核和独立编译成模块？&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+- https://hxxxer.github.io/%E7%BC%96%E8%AF%91mini2440%E7%9A%84%E8%99%9A%E6%8B%9F%E5%AD%97%E7%AC%A6%E9%A9%B1%E5%8A%A8/ - This is a customized copyright.</description>
+        </item>
     
     
     
@@ -19,11 +124,11 @@
         <pubDate>Sat, 09 Nov 2024 16:24:42 +0800</pubDate>
         
         <guid>https://hxxxer.github.io/net%E8%8E%B7%E5%8F%96dll%E4%B8%AD%E7%9A%84%E5%9B%BE%E6%A0%87/</guid>
-        <description>闲碎 https://hxxxer.github.io/net%E8%8E%B7%E5%8F%96dll%E4%B8%AD%E7%9A%84%E5%9B%BE%E6%A0%87/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月16日&lt;/strong&gt;&lt;/p&gt;
+        <description>闲碎 https://hxxxer.github.io/net%E8%8E%B7%E5%8F%96dll%E4%B8%AD%E7%9A%84%E5%9B%BE%E6%A0%87/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月24日&lt;/strong&gt;&lt;/p&gt;
 &lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;在搞那个快捷方式可视化的net程序时，因为图标列表第一个是百度网盘的图标，而文件夹没有指定图标，就默认第一个。结果就是一堆百度网盘😅。&lt;/p&gt;
 &lt;p&gt;就算指定文件夹节点的图标索引为-1也还是这样，不知道为什么，所以就要搞一个文件夹图标。&lt;/p&gt;
-&lt;p&gt;下面的方法都可以提取可执行文件、DLL 或图标文件里面的图标，但是能提取任意文件的只有方法三。&lt;/p&gt;
+&lt;p&gt;下面的方法都可以提取可执行文件、DLL 或图标文件里面的图标，但是能提取任意文件的&lt;del&gt;只有方法三&lt;/del&gt;，现在有方法三和方法五了。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;方法一&#34;&gt;方法一&lt;/h1&gt;
 &lt;p&gt;主要是通过shell32 API的ExtractIcon函数来提取，然后文件夹图标的索引在shell32.dll里面是3。代码如下&lt;/p&gt;
@@ -189,7 +294,23 @@
 &lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/JmlSaul/p/7515885.html&#34;&gt;C# 获取exe、dll中的图标，支持获取256x256分辨率&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://learn.microsoft.com/zh-cn/windows/win32/api/winuser/nf-winuser-privateextracticonsw&#34;&gt;PrivateExtractIcons&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h1 id=&#34;参考-4&#34;&gt;参考&lt;/h1&gt;
+&lt;h1 id=&#34;方法五&#34;&gt;方法五&lt;/h1&gt;
+&lt;p&gt;这个方法是搜索c#的ExtractAssociatedIcon函数的底层时知道的，就是shell32的ExtractAssociatedIcon。（虽然不知道c#的底层是不是这个），但是可以提取文件图标：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c#&#34; data-lang=&#34;c#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 导入shell32.dll的ExtractAssociatedIcon函数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;[DllImport(&amp;#34;shell32.dll&amp;#34;, CharSet = CharSet.Unicode)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;extern&lt;/span&gt; IntPtr ExtractAssociatedIcon(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    IntPtr hInst,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e78284&#34;&gt;string&lt;/span&gt; lpIconPath, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ca9ee6&#34;&gt;ref&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;ushort&lt;/span&gt; lpiIcon);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;ushort&lt;/span&gt; iconIndex = &lt;span style=&#34;color:#ef9f76&#34;&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;IntPtr hInst = IntPtr.Zero;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;IntPtr hIcon = ExtractAssociatedIcon(hInst, filePath, &lt;span style=&#34;color:#ca9ee6&#34;&gt;ref&lt;/span&gt; iconIndex);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;参考-4&#34;&gt;参考&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://learn.microsoft.com/zh-cn/windows/win32/api/shellapi/nf-shellapi-extractassociatediconw&#34;&gt;ExtractAssociatedIconW 函数&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;参考-5&#34;&gt;参考&lt;/h1&gt;
 &lt;hr&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Claude&lt;del&gt;又是AI😋&lt;/del&gt;&lt;/p&gt;
@@ -312,131 +433,6 @@
 &lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/71379079/visual-studio-2022-git-push-tags&#34;&gt;Visual Studio 2022 Git Push Tags&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 - https://hxxxer.github.io/vs%E6%8E%A8%E9%80%81tags/ - This is a customized copyright.</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>Ubuntu新建开机服务</title>
-        <link>https://hxxxer.github.io/linux%E6%96%B0%E5%BB%BA%E5%BC%80%E6%9C%BA%E6%9C%8D%E5%8A%A1/</link>
-        <pubDate>Wed, 06 Nov 2024 22:36:41 +0800</pubDate>
-        
-        <guid>https://hxxxer.github.io/linux%E6%96%B0%E5%BB%BA%E5%BC%80%E6%9C%BA%E6%9C%8D%E5%8A%A1/</guid>
-        <description>闲碎 https://hxxxer.github.io/linux%E6%96%B0%E5%BB%BA%E5%BC%80%E6%9C%BA%E6%9C%8D%E5%8A%A1/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月06日&lt;/strong&gt;&lt;/p&gt;
-&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
-&lt;p&gt;在搞VBox的共享文件夹的时候，怎么搞都不能在开机的时候自动挂载，包括安装增强功能，指定目录开启自动挂载，这些都不行。最后直接祭出杀器，新建一个开机服务。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;法一使用etcrclocal&#34;&gt;法一：使用&lt;code&gt;/etc/rc.local&lt;/code&gt;&lt;/h1&gt;
-&lt;p&gt;因为这个方法是很传统的方法，在新版本的Ubuntu已经不推荐了，但是可能用得上，记录一下。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;打开或新建&lt;code&gt;/etc/rc.local&lt;/code&gt;文件。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;在文件中添加挂载命令：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;#!/bin/bash
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;&lt;/span&gt;/bin/mount -t vboxsf shared /home/hx/Desktop/shared
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#99d1db&#34;&gt;exit&lt;/span&gt; &lt;span style=&#34;color:#ef9f76&#34;&gt;0&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;给予&lt;code&gt;+x&lt;/code&gt;权限。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;法二使用服务单元文件推荐&#34;&gt;法二：使用服务单元文件（推荐）&lt;/h1&gt;
-&lt;p&gt;这个方法在新版Ubuntu中更为推荐，因为可操纵性更强。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;新建&lt;code&gt;/etc/systemd/system/vbox-mount.service&lt;/code&gt;。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;写入以下内容：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[Unit]
-Description=vbox mount shared
-After=network.target
-
-[Service]
-Type=oneshot
-RemainAfterExit=yes
-ExecStart=/bin/mount -t vboxsf shared /home/hx/Desktop/shared
-User=root
-
-[Install]
-WantedBy=multi-user.target
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;然后重新加载配置文件：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl daemon-reload
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;然后启动服务单元：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl &lt;span style=&#34;color:#99d1db&#34;&gt;enable&lt;/span&gt; vbox-mount.service
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;可以查看一下启动状态：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl status vbox-mount.service
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&#34;内容解释&#34;&gt;内容解释&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;After=network.target&lt;/code&gt;，就是在网路服务之后再执行，注意不是强制性的。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Type=oneshot&lt;/code&gt;，只执行一次。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;RemainAfterExit=yes&lt;/code&gt;，执行退出之后仍然认为服务活跃，这是为了依赖这项服务的服务能正常运行（虽然这里没有）。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;WantedBy=multi-user.target&lt;/code&gt;，在多用户模式下启动？猜测是在开机选用户那里启动。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;法三使用initd脚本&#34;&gt;法三：使用&lt;code&gt;init.d&lt;/code&gt;脚本&lt;/h1&gt;
-&lt;p&gt;这个和法一一样不常用了，但我是松鼠😋！&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;创建启动脚本&lt;code&gt;/etc/init.d/myscript&lt;/code&gt;。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;在文件中添加挂载命令：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;#!/bin/bash
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;&lt;/span&gt;/bin/mount -t vboxsf shared /home/hx/Desktop/shared
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#99d1db&#34;&gt;exit&lt;/span&gt; &lt;span style=&#34;color:#ef9f76&#34;&gt;0&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;给予&lt;code&gt;+x&lt;/code&gt;权限。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;注册脚本到启动序列：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo update-rc.d myscript defaults
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;法四使用profile文件&#34;&gt;法四：使用&lt;code&gt;profile&lt;/code&gt;文件&lt;/h1&gt;
-&lt;p&gt;就像将&lt;code&gt;arm-linux-gcc&lt;/code&gt;及其库添加到环境变量一样，直接添加命令到&lt;code&gt;~/.profile&lt;/code&gt;或者&lt;code&gt;~/.bashrc&lt;/code&gt;即可&lt;/p&gt;
-&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
-&lt;hr&gt;
-&lt;blockquote&gt;
-&lt;p&gt;全是AI写的😋&lt;/p&gt;
-&lt;/blockquote&gt;
-- https://hxxxer.github.io/linux%E6%96%B0%E5%BB%BA%E5%BC%80%E6%9C%BA%E6%9C%8D%E5%8A%A1/ - This is a customized copyright.</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>VS NET开发桌面程序的一些小经验</title>
-        <link>https://hxxxer.github.io/20241105net%E7%A8%8B%E5%BA%8F/</link>
-        <pubDate>Tue, 05 Nov 2024 22:15:00 +0800</pubDate>
-        
-        <guid>https://hxxxer.github.io/20241105net%E7%A8%8B%E5%BA%8F/</guid>
-        <description>闲碎 https://hxxxer.github.io/20241105net%E7%A8%8B%E5%BA%8F/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月05日&lt;/strong&gt;&lt;/p&gt;
-&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
-&lt;p&gt;这篇博客就是记录一些提醒自己（包括未来的自己😋）的tips&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;控件改name事件重新绑定&#34;&gt;控件改(Name)，事件重新绑定&lt;/h1&gt;
-&lt;p&gt;如上。以按钮为例，新建了一个button1，然后还没改名，不小心双击了，结果就直接新建Click事件了，这时候再改名的话，&lt;code&gt;form1.cs&lt;/code&gt;里面Click事件还是&lt;code&gt;button1_Click&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;结论就是直接改成改名之后的事件名，这时候设计器肯定变成空白了，然后打开随便一个控件或者窗口，什么都行，的属性页，然后选到改动的那个按钮，更改Click事件的绑定函数就行。&lt;/p&gt;
-&lt;p&gt;如果设计器还是空白，那就关闭设计器，再打开，根据设计器的报错去设计文件里面更改事件绑定的函数就行。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/%E6%9B%B4%E6%94%B9%E4%BA%8B%E4%BB%B6%E7%BB%91%E5%AE%9A%E5%87%BD%E6%95%B0.png&#34; alt=&#34;更改事件绑定函数&#34;&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;参考&lt;/p&gt;
-&lt;hr&gt;
-- https://hxxxer.github.io/20241105net%E7%A8%8B%E5%BA%8F/ - This is a customized copyright.</description>
         </item>
     
     

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html><head>
-<title>CSS实现文本渐变消失</title>
+<title>C# ToString的使用</title>
 
 
 
@@ -10,21 +10,24 @@
 <meta name="google-site-verification" content="G-XXXXXXXXXX">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 <meta content="telephone=no" name="format-detection">
-<meta name="description" content="通过CSS的蒙版和渐变，实现一个元素的渐变消失。当然也可以应用到其它的领域">
+<meta name="description" content="C#中数值转字符串的函数的使用方法">
 <meta name="renderer" content="webkit">
 <meta name="theme-color" content="#ffffff">
 
 
 
-<meta property="og:url" content="https://hxxxer.github.io/css%E5%AE%9E%E7%8E%B0%E6%96%87%E6%9C%AC%E6%B8%90%E5%8F%98%E6%B6%88%E5%A4%B1/">
+<meta property="og:url" content="https://hxxxer.github.io/c%23-tostring%E7%9A%84%E4%BD%BF%E7%94%A8/">
   <meta property="og:site_name" content="闲碎">
-  <meta property="og:title" content="CSS实现文本渐变消失">
-  <meta property="og:description" content="通过CSS的蒙版和渐变，实现一个元素的渐变消失。当然也可以应用到其它的领域">
+  <meta property="og:title" content="C# ToString的使用">
+  <meta property="og:description" content="C#中数值转字符串的函数的使用方法">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
-    <meta property="article:published_time" content="2024-11-14T01:45:42+08:00">
-    <meta property="article:modified_time" content="2024-11-14T01:45:42+08:00">
-    <meta property="article:tag" content="Css">
+    <meta property="article:published_time" content="2024-11-17T01:04:14+08:00">
+    <meta property="article:modified_time" content="2024-11-17T01:04:14+08:00">
+    <meta property="article:tag" content="C#">
+    <meta property="article:tag" content="字符串">
+    <meta property="article:tag" content="数值">
+    <meta property="article:tag" content="四舍五入">
 
 
 
@@ -191,44 +194,8 @@
 						
 						
 							<li>
-								<a href="#%e4%bb%a3%e7%a0%81%e5%b1%95%e7%a4%ba" class="nav-代码展示">
-									代码展示
-								</a>
-							</li>
-						
-						
-					
-				
-			
-				
-				
-					
-						
-						
-						
-						
-						
-							<li>
-								<a href="#%e4%bb%a3%e7%a0%81%e8%a7%a3%e9%87%8a" class="nav-代码解释">
-									代码解释
-								</a>
-							</li>
-						
-						
-					
-				
-			
-				
-				
-					
-						
-						
-						
-						
-						
-							<li>
-								<a href="#%e8%a1%a5%e5%85%85" class="nav-补充">
-									补充
+								<a href="#%e5%b8%b8%e8%a7%81%e4%bd%bf%e7%94%a8%e6%96%b9%e6%b3%95" class="nav-常见使用方法">
+									常见使用方法
 								</a>
 							</li>
 						
@@ -309,16 +276,16 @@
                 
             >
                 <div class="post-title">
-                    CSS实现文本渐变消失
+                    C# ToString的使用
                     
                     <div class="post-subtitle">
-                        通过CSS的蒙版和渐变，实现一个元素的渐变消失。当然也可以应用到其它的领域
+                        C#中数值转字符串的函数的使用方法
                     </div>
                     
                     <div class="post-meta">
                         
                         <time itemprop="datePublished">
-                            2024-11-14 01:45
+                            2024-11-17 01:04
                         </time>
                         
 
@@ -331,7 +298,16 @@
                         
                             <i class="material-icons" style="">label</i>
                             
-                                <a href="/tags/css">css</a>
+                                <a href="/tags/c">C#</a>
+                                &nbsp;
+                            
+                                <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2">字符串</a>
+                                &nbsp;
+                            
+                                <a href="/tags/%E6%95%B0%E5%80%BC">数值</a>
+                                &nbsp;
+                            
+                                <a href="/tags/%E5%9B%9B%E8%88%8D%E4%BA%94%E5%85%A5">四舍五入</a>
                                 &nbsp;
                             
                         
@@ -344,54 +320,38 @@
                 
                 <div class="post-body" v-pre>
                 
-                    <p><strong>最后编辑于2024年11月14日</strong></p>
+                    <p><strong>最后编辑于2024年11月17日</strong></p>
 <h1 id="前言">前言</h1>
-<p>在搞博客搜索的时候，由于摘要只截了120个字符，导致我想在末尾加个省略号，加完之后又想加一个渐变消失的效果。</p>
-<p>虽然最后也没有加上😂。</p>
+<p>在看一篇有关获取图标的博客的时候，看到了这个将数值转字符串的函数，就记录一下。</p>
 <hr>
-<h1 id="代码展示">代码展示</h1>
-<p>下面是文本html：</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#ca9ee6">p</span> <span style="color:#8caaee">class</span><span style="color:#99d1db;font-weight:bold">=</span><span style="color:#a6d189">&#34;wraps&#34;</span>&gt;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&lt;/<span style="color:#ca9ee6">p</span>&gt;
-</span></span></code></pre></div><p>下面是从左到右，渐渐消失的效果：</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#e5c890">wraps</span>{
-</span></span><span style="display:flex;"><span>        <span style="color:#ca9ee6">-webkit-</span><span style="color:#ca9ee6">mask-image</span>: <span style="color:#ca9ee6">-webkit-</span><span style="color:#99d1db">linear-gradient</span>(<span style="color:#ef9f76">right</span>, <span style="color:#99d1db">rgba</span>(<span style="color:#ef9f76">0</span>, <span style="color:#ef9f76">0</span>, <span style="color:#ef9f76">0</span>, <span style="color:#ef9f76">0</span>) <span style="color:#ef9f76">0</span><span style="color:#e78284">%</span>, <span style="color:#99d1db">rgba</span>(<span style="color:#ef9f76">0</span>, <span style="color:#ef9f76">0</span>, <span style="color:#ef9f76">0</span>, <span style="color:#ef9f76">1</span>) <span style="color:#ef9f76">70</span><span style="color:#e78284">%</span>); 
-</span></span><span style="display:flex;"><span><span style="color:#e78284">&lt;!--</span>	<span style="color:#ca9ee6">background</span>: <span style="color:#ef9f76">#fff</span>;<span style="color:#e78284">--&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#ca9ee6">width</span>: <span style="color:#ef9f76">500</span><span style="color:#e78284">px</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#ca9ee6">height</span>: <span style="color:#ef9f76">30</span><span style="color:#e78284">px</span>;
-</span></span><span style="display:flex;"><span><span style="color:#e78284">&lt;!--</span>	<span style="color:#ca9ee6">border</span>: <span style="color:#ef9f76">1</span><span style="color:#e78284">px</span> <span style="color:#ef9f76">solid</span> <span style="color:#ef9f76">red</span>;<span style="color:#e78284">--&gt;</span>
-</span></span></code></pre></div><p>改成从右到左只需要将上面css代码第二行的right改成left即可。</p>
-<h1 id="代码解释">代码解释</h1>
-<p>像<code>background</code>、<code>width</code>、<code>height</code>就纯纯一看便知，而border是指一个框的效果；真正要解释的就第二行。</p>
-<ul>
-<li>
-<p><code>-webkit-mask-image</code>是类似于ps的蒙版效果，蒙版上越黑越透明。</p>
-</li>
-<li>
-<p><code>-webkit-linear-gradient</code>是生成一种或多种颜色进行线性过渡的效果的图像，第一个参数是方向，后面的是颜色。以从左到右渐渐消失的为例：</p>
-<ol>
-<li>方向为右，意味着是从右边开始，由第一种颜色向第二种颜色过渡。</li>
-<li>rgba的第四个参数是<strong>不透明度</strong>，默认为1，即不透明。</li>
-<li>颜色参数后面那个百分数，意思是从方向上的路径的多少。比如right+30%就是以最左边为起点（0%），向右30%。</li>
-<li>根据上面3点，可以得出效果如下图所示：
-<img src="/images/%E9%BB%91%E7%99%BD%E8%BF%87%E6%B8%A1.png" alt="过渡黑白图"></li>
-</ol>
-</li>
-</ul>
-<p>最后就能得出从左到右逐渐消失的效果。</p>
-<p>其实和PS的蒙版可以说是一样的。</p>
-<p>注意：上面的的70%等表示位置的是以元素的框的大小为标准的（这个框可以在F12里面看），不是以文字的长度为标准的。</p>
-<h1 id="补充">补充</h1>
-<p>MDN上面的方法是没有<code>-webkit</code>前缀的，暂时不清楚为什么。</p>
+<h1 id="常见使用方法">常见使用方法</h1>
+<p>可以直接使用一个字母字符代表转换模式：</p>
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c#" data-lang="c#"><span style="display:flex;"><span>ToString(<span style="color:#a6d189">&#34;C{x}&#34;</span>) <span style="color:#737994;font-style:italic">// 货币模式，x代表保留几位小数，默认两位</span>
+</span></span><span style="display:flex;"><span>ToString(<span style="color:#a6d189">&#34;D{x}&#34;</span>) <span style="color:#737994;font-style:italic">// 十进制，x代表有几位数，比如x为3，15就转换为015</span>
+</span></span><span style="display:flex;"><span>ToString(<span style="color:#a6d189">&#34;E{x}&#34;</span>) <span style="color:#737994;font-style:italic">// 科学计数法，x代表底数保留几位小数</span>
+</span></span><span style="display:flex;"><span>ToString(<span style="color:#a6d189">&#34;F{x}&#34;</span>) <span style="color:#737994;font-style:italic">// 小数，x代表底数保留几位小数</span>
+</span></span><span style="display:flex;"><span>ToString(<span style="color:#a6d189">&#34;G&#34;</span>) <span style="color:#737994;font-style:italic">// 直接转换</span>
+</span></span><span style="display:flex;"><span>ToString(<span style="color:#a6d189">&#34;N{x}&#34;</span>) <span style="color:#737994;font-style:italic">// 使用 , 作为分隔符，x代表保留几位小数，默认两位</span>
+</span></span><span style="display:flex;"><span>ToString(<span style="color:#a6d189">&#34;X{x}&#34;</span>) <span style="color:#737994;font-style:italic">// 十六进制，x代表有几位数</span>
+</span></span></code></pre></div><p>也可以使用多个<strong>0</strong>代表转换模式，例子直接说明（Assert.AreEqual()是断言函数，就是判断）：</p>
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c#" data-lang="c#"><span style="display:flex;"><span><span style="color:#e78284">var</span> <span style="color:#ca9ee6">value</span> = <span style="color:#ef9f76">67.89</span>;
+</span></span><span style="display:flex;"><span>Assert.AreEqual(<span style="color:#a6d189">&#34;68&#34;</span>, <span style="color:#ca9ee6">value</span>.ToString(<span style="color:#a6d189">&#34;0&#34;</span>));
+</span></span><span style="display:flex;"><span>Assert.AreEqual(<span style="color:#a6d189">&#34;68&#34;</span>, <span style="color:#ca9ee6">value</span>.ToString(<span style="color:#a6d189">&#34;00&#34;</span>));
+</span></span><span style="display:flex;"><span>Assert.AreEqual(<span style="color:#a6d189">&#34;068&#34;</span>, <span style="color:#ca9ee6">value</span>.ToString(<span style="color:#a6d189">&#34;000&#34;</span>));
+</span></span><span style="display:flex;"><span>Assert.AreEqual(<span style="color:#a6d189">&#34;067.9&#34;</span>, <span style="color:#ca9ee6">value</span>.ToString(<span style="color:#a6d189">&#34;000.0&#34;</span>));
+</span></span><span style="display:flex;"><span>Assert.AreEqual(<span style="color:#a6d189">&#34;067.89&#34;</span>, <span style="color:#ca9ee6">value</span>.ToString(<span style="color:#a6d189">&#34;000.00&#34;</span>));
+</span></span><span style="display:flex;"><span>Assert.AreEqual(<span style="color:#a6d189">&#34;067.890&#34;</span>, <span style="color:#ca9ee6">value</span>.ToString(<span style="color:#a6d189">&#34;000.000&#34;</span>));
+</span></span></code></pre></div><p>这个模式和上面的模式中的部分都可以四舍五入。</p>
 <h1 id="参考">参考</h1>
 <hr>
 <blockquote>
-<p><a href="https://segmentfault.com/q/1010000022493842">css div怎么渐变到透明</a></p>
-<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient/linear-gradient">MDN linear-gradient()</a></p>
+<p><a href="https://stackoverflow.org.cn/questions/17937487">c# - C# ToString(&ldquo;00&rdquo;) 歧义</a></p>
+<p><a href="https://blog.csdn.net/dmlk31/article/details/111206738">C# 之 ToString() 格式化全说明</a></p>
 </blockquote>
 
                     
                     <HR width="100%" id="EOF">
-		    <p style="color:#777;">最后修改于 2024-11-14</p>
+		    <p style="color:#777;">最后修改于 2024-11-17</p>
                     
                 </div>
             </div>
@@ -400,14 +360,14 @@
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts" href="/c%23-tostring%E7%9A%84%E4%BD%BF%E7%94%A8/">
-			下回<br>C# ToString的使用
+                <a class="newer-posts" href="/wpf%E4%B8%AD%E4%BD%BF%E7%94%A8ctrl%E5%A4%9A%E9%80%89%E7%9A%84bug/">
+			下回<br>WPF中使用ctrl多选的bug
                 </a>
                 
                 
                 
-                <a class="older-posts" href="/git%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4%E5%8E%86%E5%8F%B2%E4%B8%AD%E7%9A%84%E5%A4%A7%E6%96%87%E4%BB%B6/">
-			上回<br>Git彻底删除历史中的大文件
+                <a class="older-posts" href="/css%E5%AE%9E%E7%8E%B0%E6%96%87%E6%9C%AC%E6%B8%90%E5%8F%98%E6%B6%88%E5%A4%B1/">
+			上回<br>CSS实现文本渐变消失
                 </a>
                 
             </nav>
@@ -543,44 +503,8 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 						
 						
 							<li>
-								<a href="#%e4%bb%a3%e7%a0%81%e5%b1%95%e7%a4%ba" class="nav-代码展示">
-									代码展示
-								</a>
-							</li>
-						
-						
-					
-				
-			
-				
-				
-					
-						
-						
-						
-						
-						
-							<li>
-								<a href="#%e4%bb%a3%e7%a0%81%e8%a7%a3%e9%87%8a" class="nav-代码解释">
-									代码解释
-								</a>
-							</li>
-						
-						
-					
-				
-			
-				
-				
-					
-						
-						
-						
-						
-						
-							<li>
-								<a href="#%e8%a1%a5%e5%85%85" class="nav-补充">
-									补充
+								<a href="#%e5%b8%b8%e8%a7%81%e4%bd%bf%e7%94%a8%e6%96%b9%e6%b3%95" class="nav-常见使用方法">
+									常见使用方法
 								</a>
 							</li>
 						

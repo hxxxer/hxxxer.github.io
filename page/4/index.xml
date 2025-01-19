@@ -7,9 +7,213 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>This is a customized copyright.</copyright>
-    <lastBuildDate>Thu, 14 Nov 2024 01:45:42 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jan 2025 17:32:47 +0800</lastBuildDate>
     
         <atom:link href="https://hxxxer.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>初步使用Hugo以及主题的尝试</title>
+        <link>https://hxxxer.github.io/20241103/</link>
+        <pubDate>Sun, 03 Nov 2024 02:16:32 +0800</pubDate>
+        
+        <guid>https://hxxxer.github.io/20241103/</guid>
+        <description>闲碎 https://hxxxer.github.io/20241103/ -&lt;p&gt;&lt;strong&gt;编辑于2024年11月03日&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;因为感觉自己需要一个平台来记录一些技术博客，所以寻找了一些开源博客平台，一开始选择的是suiyan，因为其生成的html排版和vscode、marktext的预览都不同，只能放弃。&lt;em&gt;&lt;a href=&#34;https://github.com/bosichong/suiyan&#34;&gt;suiyan项目地址&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;然后看到了使用hugo的&lt;a href=&#34;https://krislinzhao.github.io/docs/create-a-wesite-using-github-pages-and-hugo&#34;&gt;blowfish主题的一篇博客&lt;/a&gt;，感觉很不错，就开始用hugo，但奈何这个主题我一直调不出来，😂😂，又放弃了。不过这次我又找到了hugo上面的&lt;a href=&#34;https://github.com/amazingrise/hugo-theme-diary&#34;&gt;diary主题&lt;/a&gt;，这次一路磕磕碰碰，勉强搞定了，所以记录一下。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;使用suiyan已放弃&#34;&gt;使用suiyan（已放弃）&lt;/h1&gt;
+&lt;p&gt;suiyan项目是在公众号看到的，直接git clone下来，然后运行&lt;code&gt;python -m venv env&lt;/code&gt;来创建虚拟环境（甚至这时候创建虚拟环境已经忘了，还是去百度的），然后就是熟悉的&lt;code&gt;pip install -r requirment.txt&lt;/code&gt;，接着运行&lt;code&gt;w.py&lt;/code&gt;即可。甚至还有窗口GUI，感觉对我这种新手很良好。&lt;/p&gt;
+&lt;p&gt;本来体验挺不错的，但是它的md格式解析好像和vscode、marktext不一样，多级列表没有正确解析成html。这我就没办法了，只能放弃。（也许会去仓库提一下issue？）&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;使用hugo&#34;&gt;使用hugo&lt;/h1&gt;
+&lt;h2 id=&#34;尝试blowfish又放弃了&#34;&gt;尝试blowfish（又放弃了😂）&lt;/h2&gt;
+&lt;p&gt;这个是我直接搜&lt;strong&gt;github blog&lt;/strong&gt;，搜出来一篇介绍hugo+github pages的博客&lt;em&gt;就是参考的第一个链接&lt;/em&gt;。其实这个博客的主题风格我感觉挺喜欢的，所以马上入坑了。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/blowfish-blog.png&#34; alt=&#34;blowfish主题博客&#34;&gt;&lt;/p&gt;
+&lt;p&gt;然后我就安装了Hugo，其实只要去winget安装就行，注意要安装extended（扩展版），因为扩展版才支持modules，而这个主题是需要modules的。&lt;/p&gt;
+&lt;p&gt;但是我按照上面那篇博客进行搭建，却不能正常运行，跑不起来。然后我就去看了主题的toml，发现它支持的最高hugo版本是&lt;code&gt;0.135.0&lt;/code&gt;，但是我安装的是最新版&lt;code&gt;0.136.5&lt;/code&gt;。于是我就卸载最新版，（不知道为什么，执行&lt;code&gt;winget uninstall --id Hugo.Hugo.Extended&lt;/code&gt;不行，要执行&lt;code&gt;winget uninstall --name &amp;quot;Hugo(扩展版)&amp;quot;&lt;/code&gt;），安装&lt;code&gt;0.135.0&lt;/code&gt;版本。&lt;/p&gt;
+&lt;p&gt;结果还是不行，所以懒得折腾了，放弃😂。&lt;/p&gt;
+&lt;h2 id=&#34;接触并使用diary&#34;&gt;接触并使用diary&lt;/h2&gt;
+&lt;p&gt;这个则是我随意逛hugo的主题展览页时挑中的其中一个，只有它符合：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;有目录&lt;/li&gt;
+&lt;li&gt;风格简洁淡雅&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;其它的都不太符合我的要求，所以我就相中它了，下面是我的搭建过程：&lt;/p&gt;
+&lt;h3 id=&#34;搭建过程&#34;&gt;搭建过程&lt;/h3&gt;
+&lt;p&gt;先在一个目录下新建一个hugo站点：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo new site BlogSite
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后通过git拉主题文件下来：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git submodule add https://github.com/AmazingRise/hugo-theme-diary.git themes/diary
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;等下载完之后，就将主题里面一些文件夹拷贝到hugo的站点下：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;/exampleSite/*
+/archetypes
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后将站点根目录的&lt;code&gt;hugo.toml&lt;/code&gt;删除，复制出来的那个&lt;code&gt;config.toml&lt;/code&gt;改名&lt;code&gt;hugo.toml&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;此时就可以在当前目录运行本地服务测试命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo server
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;没问题就完成这一部分了。&lt;/p&gt;
+&lt;h3 id=&#34;修一些bug&#34;&gt;修一些bug&lt;/h3&gt;
+&lt;p&gt;那个新的&lt;code&gt;hugo.toml&lt;/code&gt;里面有个bug，我当时排除了半天😓。文件尾部的定义侧边栏的命名漏了一个字母，导致和模板文件对不上。&lt;/p&gt;
+&lt;p&gt;bug就是下面的&lt;code&gt;[[menus.main]]&lt;/code&gt;，改之前是&lt;code&gt;[[menu.main]]&lt;/code&gt;，模板文件里是&lt;code&gt;site.Munus.main&lt;/code&gt;😓。&lt;del&gt;也许我会去提一下issue😋&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;而且我一开始是不知道要把&lt;code&gt;config.toml&lt;/code&gt;改名&lt;code&gt;hugo.toml&lt;/code&gt;，因为只有&lt;code&gt;hugo.toml&lt;/code&gt;才支持定义列表，可能是&lt;code&gt;config.toml&lt;/code&gt;太老版本了吧，好像从&lt;code&gt;0.110.0&lt;/code&gt;起就改用&lt;code&gt;hugo.toml&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;修改之后的&lt;code&gt;hugo.toml&lt;/code&gt;尾部：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[[menus.main]]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;url = &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;/categories&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;name = &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;分类 Categories&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;weight = &lt;span style=&#34;color:#ef9f76&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[[menus.main]]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;url = &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;/tags&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;name = &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;标签 Tags&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;weight = &lt;span style=&#34;color:#ef9f76&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[[menus.main]]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;url = &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;/posts&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;name = &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;归档 Archive&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;weight = &lt;span style=&#34;color:#ef9f76&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[[menus.main]]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;url = &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;/index.xml&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;name = &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;RSS&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;weight = &lt;span style=&#34;color:#ef9f76&#34;&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h1 id=&#34;托管到github-pages&#34;&gt;托管到Github pages&lt;/h1&gt;
+&lt;p&gt;过程十分滴简单，先在GitHub新建一个仓库，名称一定要是&lt;code&gt;你的用户名.github.io&lt;/code&gt;，比如我的就是&lt;code&gt;hxxxer.github.io&lt;/code&gt;，记得选择公开和新建readme文档（为了在远程建立main分支）。&lt;/p&gt;
+&lt;p&gt;然后在hugo项目根目录的&lt;code&gt;pulic&lt;/code&gt;文件夹下新建仓库，连接远程仓库，拉取，添加，推送：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git init -b main
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git remote add origin-when-cross-origin xxx@github.com:xxx
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git pull --rebase origin main
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git add .
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git commit -m &lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git push origin main
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后完了。以后就直接&lt;code&gt;add&lt;/code&gt; &lt;code&gt;commit&lt;/code&gt; &lt;code&gt;push&lt;/code&gt;就行。&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://krislinzhao.github.io/docs/create-a-wesite-using-github-pages-and-hugo&#34;&gt;使用Hugo + blowfish搭建博客及Github Pages&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://ratmomo.github.io/p/2024/06/%E4%BD%BF%E7%94%A8-hugo--github-pages-%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/&#34;&gt;使用 Hugo + Github Pages 部署个人博客&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://docs.python.org/zh-cn/3/library/venv.html&#34;&gt;python使用自带的venv创建虚拟环境&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+- https://hxxxer.github.io/20241103/ - This is a customized copyright.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>mini2440连接记录</title>
+        <link>https://hxxxer.github.io/20241101/</link>
+        <pubDate>Sat, 02 Nov 2024 15:08:53 +0800</pubDate>
+        
+        <guid>https://hxxxer.github.io/20241101/</guid>
+        <description>闲碎 https://hxxxer.github.io/20241101/ -&lt;p&gt;&lt;strong&gt;编辑于2024年11月1日&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;前言sh&#34;&gt;前言sh&lt;/h1&gt;
+&lt;p&gt;电脑系统为 win11 64位专业版，版本位21H2，版本号为22000.2538&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;1-开发板串口连接&#34;&gt;1. 开发板串口连接&lt;/h1&gt;
+&lt;h2 id=&#34;11-线材选择&#34;&gt;1.1. 线材选择&lt;/h2&gt;
+&lt;p&gt;需要两个线：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;usb转串口，串口要为公头的&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;附带的串口母对母直连线（可以上网买，但是只能买直连的而不是交叉）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;因为板子上面的串口是公头的，但是为母头线序，所以需要母对母直连线。注意买的usb转串口的两侧要匹配串口母对母直连线的螺丝或螺柱（螺丝对螺柱）。&lt;/p&gt;
+&lt;p&gt;其实我感觉可以买一个usb转母头 + 公对母的交叉线，板子的母头线序交叉变成了公头线序，在加上母头线序的usb线，可能可以🤔。&lt;/p&gt;
+&lt;h2 id=&#34;12-连接测试&#34;&gt;1.2. 连接测试&lt;/h2&gt;
+&lt;p&gt;将上面的两组线组装并连接到板子和电脑上，板子拨到NorFlash启动，通电开机，打开SCRT，新建Serial连接（也可以使用minitools的串口工具），选择合适的COM号，可以去设备管理器查看。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/%E8%AE%BE%E5%A4%87COM.png&#34; alt=&#34;看COM号&#34;&gt;&lt;/p&gt;
+&lt;p&gt;待成功连接，发一个数字或者按一下板子的复位按键，就可以看到功能菜单了。&lt;/p&gt;
+&lt;p&gt;usb转串口线应该是不需要安装驱动的，网上好像也没有相关案例。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;2-连接usb下载线&#34;&gt;2. 连接Usb下载线&lt;/h1&gt;
+&lt;h2 id=&#34;21-线材选择&#34;&gt;2.1. 线材选择&lt;/h2&gt;
+&lt;p&gt;直接用老师发的那根usb方口线就行，虽然我是自己买了一根。&lt;/p&gt;
+&lt;h2 id=&#34;22-驱动安装&#34;&gt;2.2. 驱动安装&lt;/h2&gt;
+&lt;h3 id=&#34;221-禁用驱动强制签名&#34;&gt;2.2.1. 禁用驱动强制签名&lt;/h3&gt;
+&lt;p&gt;这一步折磨了我相当久&lt;br&gt;
+网上有些人直接运行&lt;code&gt;FriendlyARM-2440-DVD\windows平台工具\usb下载驱动\FriendlyARM USB Download Driver Setup_20090421.exe&lt;/code&gt;即可成功安装驱动，但是我不行，应该win10甚至win7之后都不行了。&lt;/p&gt;
+&lt;p&gt;禁用驱动强制签名主要有三种：&lt;/p&gt;
+&lt;h4 id=&#34;第一种方法&#34;&gt;第一种方法：&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;设置-恢复-高级启动&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重启之后到高级选项，里面有一个启动设置，选择这个重启之后就可以选禁用驱动签名了&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;但是这种方法我在最后一步缺失了“启动设置”选项，刘诚敏的可行&lt;/p&gt;
+&lt;p&gt;这种方式最简单，而且禁用是只生效一次，再次重启失效，可惜我的不行。&lt;/p&gt;
+&lt;h4 id=&#34;第二种方法&#34;&gt;第二种方法：&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;去UEFI关闭安全启动，可以去高级启动里面进UEFI，也可以按F12（好像是这个键）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;开机后打开cmd/命令提示符，注意要以管理员运行，而且不能是PowerShell。运行指令&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;bcdedit.exe /set &lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;{&lt;/span&gt;current&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;}&lt;/span&gt; testsigning on
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;作用是进入测试模式。执行成功会提示“操作成功完成。”。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重启电脑即可进入测试环境，桌面右下角可以看到测试模式。&lt;br&gt;
+&lt;img src=&#34;https://hxxxer.github.io/images/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83.png&#34; alt=&#34;测试环境水印&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;此时就可以随意安装驱动了，好像是驱动只要是有签名的就行，不安全的测试签名也可以。退出就on改off，要在安全启动关闭下运行。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;第三章方法&#34;&gt;第三章方法：&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;也是关闭安全启动，去cmd（管理员）运行&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;bcdedit /set &lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;{&lt;/span&gt;default&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;}&lt;/span&gt; bootmenupolicy legacy
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;作用是启动高级启动设置，就是第一步那个。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重启之后摁F8，就可以看到高级启动设置了，界面和win7的出问题之后的启动页面很像，按数字键选择就行。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这个方法同样是只生效一次。&lt;/p&gt;
+&lt;h3 id=&#34;222-设备安装usb驱动&#34;&gt;2.2.2. 设备安装usb驱动&lt;/h3&gt;
+&lt;p&gt;板子从NorFlash启动，通过usb方口线连接电脑后，可以在设备管理器看到有黄色感叹号。&lt;/p&gt;
+&lt;p&gt;我在板子的usb连接上的情况下运行&lt;code&gt;FriendlyARM-2440-DVD\windows平台工具\usb下载驱动\FriendlyARM USB Download Driver Setup_20090421.exe&lt;/code&gt;，驱动能成功安装，但是电脑仍然不能正常识别设备。以下为手动安装驱动的步骤。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;找到驱动文件夹，我找到了3个&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;安装minitools，位于&lt;code&gt;FriendlyARM-2440-DVD\windows平台工具\MiniTools-USB下载工具\MiniToolsSetup-Windows-20150528.exe&lt;/code&gt;，安装完成之后驱动文件会存在安装目录&lt;code&gt;FriendlyARM\MiniTools\usb_dirver&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;supervivi-usb-transfer-tool文件夹里面有一个Dirver文件夹。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;网上搜到一个自安装的驱动文件exe，可惜依然不能识别到。安装之后用dism++提取。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;右键设备，选择更新驱动程序。然后按照下面的图片操作。&lt;img src=&#34;https://hxxxer.github.io/images/%E9%A9%B1%E5%8A%A8%E5%AE%89%E8%A3%851.jpg&#34; alt=&#34;驱动安装1-4&#34;&gt;&lt;img src=&#34;https://hxxxer.github.io/images/%E9%A9%B1%E5%8A%A8%E5%AE%89%E8%A3%852.jpg&#34; alt=&#34;驱动安装5-6&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;23-连接测试&#34;&gt;2.3. 连接测试&lt;/h2&gt;
+&lt;p&gt;测试可以将位于&lt;code&gt;FriendlyARM-2440-DVD\images\2440test\&lt;/code&gt;的测试文件2440test_T35.bin烧到板子上运行。&lt;/p&gt;
+&lt;p&gt;具体的烧录过程要去看2011-4-21版的Mini2440用户手册（可以去官网下载）。&lt;/p&gt;
+&lt;p&gt;这里并不能使用minitools烧录，而且minitools也不能识别到设备，原因如下：根据在SCRT看到的功能菜单，说明板子的NorFlash烧录的是旧版的supervivi，而不是新版的superboot，所以不支持minitools。&lt;/p&gt;
+&lt;p&gt;想烧superboot的可以参考&lt;a href=&#34;https://blog.csdn.net/oqqHuTu12345678/article/details/137104410&#34;&gt;这里&lt;/a&gt;，需要JTAG线 + JLINK + 转接板。&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/oqqHuTu12345678/article/details/137104410&#34;&gt;与Mini2440开发板有关的开发操作-CSDN&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_44281591/article/details/134844247&#34;&gt;Android fastboot驱动无法安装和识别问题-CSDN&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.sysgeek.cn/boot-to-uefi-bios-firmware-settings/&#34;&gt;4 种简单方法，快速进入主板 BIOS 或 UEFI 固件设置&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/622920268&#34;&gt;Win11和Win10怎么禁用驱动程序强制签名? - 知乎评论区&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.friendlyelec.com.cn/download.asp&#34;&gt;广州友善电子计算机科技有限公司&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+- https://hxxxer.github.io/20241101/ - This is a customized copyright.</description>
+        </item>
     
     
     

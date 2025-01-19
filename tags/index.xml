@@ -7,20 +7,55 @@
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <copyright>This is a customized copyright.</copyright>
-    <lastBuildDate>Thu, 14 Nov 2024 01:45:42 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jan 2025 17:32:47 +0800</lastBuildDate>
     <atom:link href="https://hxxxer.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Css</title>
-      <link>https://hxxxer.github.io/tags/css/</link>
-      <pubDate>Thu, 14 Nov 2024 01:45:42 +0800</pubDate>
-      <guid>https://hxxxer.github.io/tags/css/</guid>
+      <title>Bug</title>
+      <link>https://hxxxer.github.io/tags/bug/</link>
+      <pubDate>Sun, 19 Jan 2025 17:32:47 +0800</pubDate>
+      <guid>https://hxxxer.github.io/tags/bug/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>WPF</title>
+      <link>https://hxxxer.github.io/tags/wpf/</link>
+      <pubDate>Sun, 19 Jan 2025 17:32:47 +0800</pubDate>
+      <guid>https://hxxxer.github.io/tags/wpf/</guid>
       <description></description>
     </item>
     <item>
       <title>C#</title>
       <link>https://hxxxer.github.io/tags/c%23/</link>
-      <pubDate>Mon, 11 Nov 2024 00:29:13 +0800</pubDate>
+      <pubDate>Sun, 17 Nov 2024 01:04:14 +0800</pubDate>
       <guid>https://hxxxer.github.io/tags/c%23/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>数值</title>
+      <link>https://hxxxer.github.io/tags/%E6%95%B0%E5%80%BC/</link>
+      <pubDate>Sun, 17 Nov 2024 01:04:14 +0800</pubDate>
+      <guid>https://hxxxer.github.io/tags/%E6%95%B0%E5%80%BC/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>四舍五入</title>
+      <link>https://hxxxer.github.io/tags/%E5%9B%9B%E8%88%8D%E4%BA%94%E5%85%A5/</link>
+      <pubDate>Sun, 17 Nov 2024 01:04:14 +0800</pubDate>
+      <guid>https://hxxxer.github.io/tags/%E5%9B%9B%E8%88%8D%E4%BA%94%E5%85%A5/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>字符串</title>
+      <link>https://hxxxer.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+      <pubDate>Sun, 17 Nov 2024 01:04:14 +0800</pubDate>
+      <guid>https://hxxxer.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Css</title>
+      <link>https://hxxxer.github.io/tags/css/</link>
+      <pubDate>Thu, 14 Nov 2024 01:45:42 +0800</pubDate>
+      <guid>https://hxxxer.github.io/tags/css/</guid>
       <description></description>
     </item>
     <item>

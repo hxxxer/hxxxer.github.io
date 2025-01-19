@@ -7,9 +7,104 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>This is a customized copyright.</copyright>
-    <lastBuildDate>Thu, 14 Nov 2024 01:45:42 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jan 2025 17:32:47 +0800</lastBuildDate>
     
         <atom:link href="https://hxxxer.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>WPF中使用ctrl多选的bug</title>
+        <link>https://hxxxer.github.io/wpf%E4%B8%AD%E4%BD%BF%E7%94%A8ctrl%E5%A4%9A%E9%80%89%E7%9A%84bug/</link>
+        <pubDate>Sun, 19 Jan 2025 17:32:47 +0800</pubDate>
+        
+        <guid>https://hxxxer.github.io/wpf%E4%B8%AD%E4%BD%BF%E7%94%A8ctrl%E5%A4%9A%E9%80%89%E7%9A%84bug/</guid>
+        <description>闲碎 https://hxxxer.github.io/wpf%E4%B8%AD%E4%BD%BF%E7%94%A8ctrl%E5%A4%9A%E9%80%89%E7%9A%84bug/ -&lt;p&gt;&lt;strong&gt;最后编辑于2025年01月19日&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;好久没写blog了，近期挺忙的。&lt;/p&gt;
+&lt;p&gt;这次是在尝试在C#下的另一个桌面开发框架WPF中开发一个小程序时，遇到的一个小bug，纯纯是我自己没理解Preview事件导致的。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;背景知识记录&#34;&gt;背景知识记录&lt;/h1&gt;
+&lt;p&gt;Drag-and-drop操作过程中，会由一系列事件Event组成，这些Event有两种模型，一个是冒泡Bubbling，一个是隧道Tunnelling（带Preview前缀的）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Bubbling的event是动作发生后触发；Tunnelling的event是动作发生前触发。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;冒泡事件&#34;&gt;冒泡事件&lt;/h2&gt;
+&lt;p&gt;从最具体的子元素开始，逐层向上冒泡到父元素。如果子元素处理了事件并设置了 e.Handled = true，则父元素不会接收到该事件。&lt;/p&gt;
+&lt;h2 id=&#34;隧道事件&#34;&gt;隧道事件&lt;/h2&gt;
+&lt;p&gt;从最不具体的父元素开始，逐层向下传递到子元素。如果父元素处理了事件并设置了 e.Handled = true，则子元素不会接收到该事件。&lt;/p&gt;
+&lt;h1 id=&#34;bug场景复现&#34;&gt;bug场景复现&lt;/h1&gt;
+&lt;p&gt;我在一个ListBox里面设置了Extended多选，即可以通过按住ctrl来实现多选，这个多选事件是发生在我自己的PreviewMouseLeftButtonDown事件之后的（但是不清除它是冒泡还是隧道事件）。而我的PreviewMouseLeftButtonDown事件里面设定了如下代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c#&#34; data-lang=&#34;c#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 选中当前项&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;listBoxItem.IsSelected = &lt;span style=&#34;color:#ef9f76&#34;&gt;true&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;e.Handled = &lt;span style=&#34;color:#ef9f76&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;当时拖动文件的代码是写在PreviewMouseLeftButtonDown事件里面的，而拖动文件的操作是阻塞的。我这样写是为了在拖动子项时，子项能变成选中状态。&lt;/p&gt;
+&lt;p&gt;然后我就发现按住ctrl无法使已选中的项变成未选中。想了一下，应该是因为&lt;code&gt;e.Handled = true&lt;/code&gt;，使得接下来按住ctrl选择没有接收到点击事件，但是当我删除&lt;code&gt;e.Handled = true&lt;/code&gt;之后，依然存在bug：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;按住ctrl可以使已选中的项变成未选中&lt;/li&gt;
+&lt;li&gt;但是按住ctrl无法使未选中的项变成已选中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;bug原因&#34;&gt;bug原因&lt;/h1&gt;
+&lt;p&gt;后来经过我的分析之后，得出了原因：&lt;code&gt;listBoxItem.IsSelected = true&lt;/code&gt;和ctrl多选依次发生，导致出现bug。这个过程可以如下描述：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;点击之后，&lt;code&gt;listBoxItem.IsSelected = true&lt;/code&gt;正常发生，这时子项被选中。&lt;/li&gt;
+&lt;li&gt;当PreviewMouseLeftButtonDown事件结束之后，ctrl多选发生，它会改变子项的选中状态，可以理解为进行了非操作。&lt;/li&gt;
+&lt;li&gt;最后子项的选中状态是&lt;code&gt;false&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;所以ctrl多选就只能使子项变成非选中状态。&lt;/p&gt;
+&lt;h1 id=&#34;解决方法&#34;&gt;解决方法&lt;/h1&gt;
+&lt;p&gt;解决也很简单，只需要将拖动文件的代码转移到MouseMove事件里面，并删除上面的两行代码即可。&lt;/p&gt;
+&lt;p&gt;因为拖动文件的代码在MouseMove事件里面，所以PreviewMouseLeftButtonDown事件不再会阻塞ctrl多选的事件，这样ctrl多选的各种行为也能正常发生了。&lt;/p&gt;
+&lt;h1 id=&#34;最后总结&#34;&gt;最后总结&lt;/h1&gt;
+&lt;p&gt;Preview事件里面不要放一些会阻塞的代码，最好只放一些检查、记录的代码。我这里就改成记录选中项和鼠标位置了。&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/mqxs/p/7534730.html&#34;&gt;【WPF】鼠标拖拽功能DragOver和Drop&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/lesliexin/p/16073879.html&#34;&gt;（原创）[C#] 一步一步自定义拖拽（Drag&amp;amp;Drop）时的鼠标效果：（一）基本原理及基本实现
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://kimi.moonshot.cn/&#34;&gt;Kimi&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+- https://hxxxer.github.io/wpf%E4%B8%AD%E4%BD%BF%E7%94%A8ctrl%E5%A4%9A%E9%80%89%E7%9A%84bug/ - This is a customized copyright.</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>C# ToString的使用</title>
+        <link>https://hxxxer.github.io/c%23-tostring%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+        <pubDate>Sun, 17 Nov 2024 01:04:14 +0800</pubDate>
+        
+        <guid>https://hxxxer.github.io/c%23-tostring%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+        <description>闲碎 https://hxxxer.github.io/c%23-tostring%E7%9A%84%E4%BD%BF%E7%94%A8/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月17日&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;在看一篇有关获取图标的博客的时候，看到了这个将数值转字符串的函数，就记录一下。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;常见使用方法&#34;&gt;常见使用方法&lt;/h1&gt;
+&lt;p&gt;可以直接使用一个字母字符代表转换模式：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c#&#34; data-lang=&#34;c#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ToString(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;C{x}&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 货币模式，x代表保留几位小数，默认两位&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ToString(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;D{x}&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 十进制，x代表有几位数，比如x为3，15就转换为015&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ToString(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;E{x}&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 科学计数法，x代表底数保留几位小数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ToString(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;F{x}&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 小数，x代表底数保留几位小数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ToString(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;G&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 直接转换&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ToString(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;N{x}&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 使用 , 作为分隔符，x代表保留几位小数，默认两位&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ToString(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;X{x}&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;// 十六进制，x代表有几位数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;也可以使用多个&lt;strong&gt;0&lt;/strong&gt;代表转换模式，例子直接说明（Assert.AreEqual()是断言函数，就是判断）：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c#&#34; data-lang=&#34;c#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#ca9ee6&#34;&gt;value&lt;/span&gt; = &lt;span style=&#34;color:#ef9f76&#34;&gt;67.89&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Assert.AreEqual(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;68&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ca9ee6&#34;&gt;value&lt;/span&gt;.ToString(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;0&amp;#34;&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Assert.AreEqual(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;68&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ca9ee6&#34;&gt;value&lt;/span&gt;.ToString(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;00&amp;#34;&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Assert.AreEqual(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;068&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ca9ee6&#34;&gt;value&lt;/span&gt;.ToString(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;000&amp;#34;&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Assert.AreEqual(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;067.9&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ca9ee6&#34;&gt;value&lt;/span&gt;.ToString(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;000.0&amp;#34;&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Assert.AreEqual(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;067.89&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ca9ee6&#34;&gt;value&lt;/span&gt;.ToString(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;000.00&amp;#34;&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Assert.AreEqual(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;067.890&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ca9ee6&#34;&gt;value&lt;/span&gt;.ToString(&lt;span style=&#34;color:#a6d189&#34;&gt;&amp;#34;000.000&amp;#34;&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这个模式和上面的模式中的部分都可以四舍五入。&lt;/p&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://stackoverflow.org.cn/questions/17937487&#34;&gt;c# - C# ToString(&amp;ldquo;00&amp;rdquo;) 歧义&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/dmlk31/article/details/111206738&#34;&gt;C# 之 ToString() 格式化全说明&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+- https://hxxxer.github.io/c%23-tostring%E7%9A%84%E4%BD%BF%E7%94%A8/ - This is a customized copyright.</description>
+        </item>
     
     
     
@@ -159,111 +254,6 @@
 &lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_43069920/article/details/123100601&#34;&gt;VS2022 C#编写DLL和调用外部DLL中的方法&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 - https://hxxxer.github.io/c%23%E8%B0%83%E7%94%A8dll%E7%9A%84%E6%96%B9%E6%B3%95/ - This is a customized copyright.</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>Linux压缩不包含绝对路径命令</title>
-        <link>https://hxxxer.github.io/linux%E5%8E%8B%E7%BC%A9%E4%B8%8D%E5%8C%85%E5%90%AB%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%91%BD%E4%BB%A4/</link>
-        <pubDate>Mon, 11 Nov 2024 00:16:42 +0800</pubDate>
-        
-        <guid>https://hxxxer.github.io/linux%E5%8E%8B%E7%BC%A9%E4%B8%8D%E5%8C%85%E5%90%AB%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%91%BD%E4%BB%A4/</guid>
-        <description>闲碎 https://hxxxer.github.io/linux%E5%8E%8B%E7%BC%A9%E4%B8%8D%E5%8C%85%E5%90%AB%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%91%BD%E4%BB%A4/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月11日&lt;/strong&gt;&lt;/p&gt;
-&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
-&lt;p&gt;在GitHub actions自动发布的时候，需要使用&lt;code&gt;zip&lt;/code&gt;命令来压缩发布文件，但是会连带很多上级目录一起压缩，需要去除这些目录。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;操作&#34;&gt;操作&lt;/h1&gt;
-&lt;p&gt;原来的命令是这样的：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;zip -r ShortcutVisualizer.zip ./ShortcutVisualizer/bin/Release/net6.0-windows/win-x64/publish
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这样在压缩出来的时候就会带上&lt;code&gt;ShortcutVisualizer/bin/Release/net6.0-windows/win-x64/publish/&lt;/code&gt;这些无关的文件夹。&lt;/p&gt;
-&lt;p&gt;想要去除只需要将&lt;code&gt;-r&lt;/code&gt;更改为&lt;code&gt;-rj&lt;/code&gt;。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;补充&#34;&gt;补充&lt;/h1&gt;
-&lt;p&gt;使用tar命令压缩的话，只需要在末尾使用-C指定文件所在目录就行，其本质是切换工作目录，来达到工作目录之前的文件夹不压缩的目的。&lt;/p&gt;
-&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
-&lt;hr&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/iamfy/archive/2012/11/10/2764307.html&#34;&gt;Linux下压缩不包含路径信息的压缩包&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/azureology/p/13217461.html&#34;&gt;Shell创建zip文件不包含完整路径方法&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-- https://hxxxer.github.io/linux%E5%8E%8B%E7%BC%A9%E4%B8%8D%E5%8C%85%E5%90%AB%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%91%BD%E4%BB%A4/ - This is a customized copyright.</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>编译mini2440的虚拟字符驱动</title>
-        <link>https://hxxxer.github.io/%E7%BC%96%E8%AF%91mini2440%E7%9A%84%E8%99%9A%E6%8B%9F%E5%AD%97%E7%AC%A6%E9%A9%B1%E5%8A%A8/</link>
-        <pubDate>Sun, 10 Nov 2024 01:36:15 +0800</pubDate>
-        
-        <guid>https://hxxxer.github.io/%E7%BC%96%E8%AF%91mini2440%E7%9A%84%E8%99%9A%E6%8B%9F%E5%AD%97%E7%AC%A6%E9%A9%B1%E5%8A%A8/</guid>
-        <description>闲碎 https://hxxxer.github.io/%E7%BC%96%E8%AF%91mini2440%E7%9A%84%E8%99%9A%E6%8B%9F%E5%AD%97%E7%AC%A6%E9%A9%B1%E5%8A%A8/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月10日&lt;/strong&gt;&lt;/p&gt;
-&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
-&lt;p&gt;嵌入式的第四次实验是编译一个虚拟字符驱动模块，我在学校电脑上可以编译成适合x86架构的版本，但是编译成开发板上的arm架构的就不行。&lt;/p&gt;
-&lt;p&gt;后来在自己的电脑上尝试了一下，在一些参考资料的帮助下，最终完成既定目标。现在记录一下。&lt;/p&gt;
-&lt;p&gt;虚拟机平台VBox，Ubuntu22.04。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;配置编译环境&#34;&gt;配置编译环境&lt;/h1&gt;
-&lt;p&gt;将资料里面的开发板linux源码&lt;code&gt;\FriendlyARM-2440-DVD\Linux\linux-2.6.32.2-mini2440-20150709.tgz&lt;/code&gt;解压到虚拟机。&lt;/p&gt;
-&lt;p&gt;然后在解压目录下，将&lt;code&gt;mini2440_config_t35&lt;/code&gt;复制为&lt;code&gt;.config&lt;/code&gt;：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cp mini2440_config_t35 .config
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后执行下面的命令：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;make oldconfig &lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make prepare
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/make-oldconfig-prepare.png&#34; alt=&#34;执行make oldconfig &amp;amp;&amp;amp; make prepare&#34;&gt;&lt;/p&gt;
-&lt;p&gt;LCD就选择&lt;code&gt;6. 3.5 inch 240X230 Toppoly LCD (FB_S3C2410_T240320)&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/LCDSelect.png&#34; alt=&#34;LCD Select&#34;&gt;&lt;/p&gt;
-&lt;p&gt;执行过程中如果出现有关&lt;code&gt;arm-linux-gcc&lt;/code&gt;的报错，就去检测一下&lt;code&gt;arm-linux-gcc -v&lt;/code&gt;有没有输出，没有就配置一下。&lt;/p&gt;
-&lt;p&gt;执行完成之后，再输入以下命令（这里有些报错是没问题的，只要都是warning就行）：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;make scripts
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/make-scripts.png&#34; alt=&#34;make scripts&#34;&gt;&lt;/p&gt;
-&lt;p&gt;执行完成就配置好了编译环境。&lt;/p&gt;
-&lt;h2 id=&#34;解释&#34;&gt;解释&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;mini2440_config_t35&lt;/code&gt;就是适合开发板屏幕的那个config文件，其实里面的&lt;code&gt;mini2440_config_&lt;/code&gt;文件内容都相差不大，只有屏幕相关部分有差别。&lt;/p&gt;
-&lt;p&gt;将其复制为&lt;code&gt;.config&lt;/code&gt;文件是为了设置内核配置信息，确保编译环境与开发板的实际情况相匹配。（其实这段话我是问AI的，我也不是很懂）&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;make oldconfig&lt;/code&gt;是为了查看是否有新的配置信息要处理，这里感觉没有什么用，但是网上都做了这个😋。&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;make prepare&lt;/code&gt;是为了准备之后编译要用到的文件和符号链接，以及处理一些依赖关系，以确保所需的工具和资源都已准备好。&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;make scripts&lt;/code&gt;是为了编译一些之后编译要用到的脚本文件。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;更改驱动源码&#34;&gt;更改驱动源码&lt;/h1&gt;
-&lt;p&gt;原来的源码&lt;code&gt;chrdevbase.c&lt;/code&gt;有些问题，头文件的引用并不对，需要改成下面的：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#737994;font-weight:bold;font-style:italic&#34;&gt;&amp;lt;linux/kernel.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#737994;font-weight:bold;font-style:italic&#34;&gt;&amp;lt;linux/fs.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#737994;font-weight:bold;font-style:italic&#34;&gt;&amp;lt;linux/init.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#737994;font-weight:bold;font-style:italic&#34;&gt;&amp;lt;linux/module.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#737994;font-weight:bold;font-style:italic&#34;&gt;&amp;lt;linux/uaccess.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#737994;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这里的引用我是复制老师发的&lt;a href=&#34;https://blog.csdn.net/weixin_46829095/article/details/128768229&#34;&gt;那篇CSDN博客&lt;/a&gt;的。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;更改makefiletxt&#34;&gt;更改makefile.txt&lt;/h1&gt;
-&lt;p&gt;这个文件内容也有些问题，改成下面的就行：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-makefile&#34; data-lang=&#34;makefile&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f2d5cf&#34;&gt;KERNELDIR&lt;/span&gt; &lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;:=&lt;/span&gt; /home/hx/linux/mini2440-lib/linux-2.6.32.2
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f2d5cf&#34;&gt;ENV&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;:=&lt;/span&gt;&lt;span style=&#34;color:#f2d5cf&#34;&gt;ARCH&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;=&lt;/span&gt;arm &lt;span style=&#34;color:#f2d5cf&#34;&gt;CROSS_COMPILE&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;=&lt;/span&gt;arm-none-linux-gnueabi-
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f2d5cf&#34;&gt;obj-m&lt;/span&gt; &lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;:=&lt;/span&gt; chrdevbase.o
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;all&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;:&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;MAKE&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;ENV&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; -C &lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;KERNELDIR&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f2d5cf&#34;&gt;M&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;shell &lt;span style=&#34;color:#99d1db&#34;&gt;pwd&lt;/span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; modules
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;clean&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;:&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;MAKE&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;ENV&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; -C &lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;KERNELDIR&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f2d5cf&#34;&gt;M&lt;/span&gt;&lt;span style=&#34;color:#99d1db;font-weight:bold&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;$(&lt;/span&gt;shell &lt;span style=&#34;color:#99d1db&#34;&gt;pwd&lt;/span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;)&lt;/span&gt; clean
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;而且文件名也要改成Makefile，注意一定要大写M开头。&lt;/p&gt;
-&lt;h2 id=&#34;补充&#34;&gt;补充&lt;/h2&gt;
-&lt;p&gt;后来发现上面的更改的添加的&lt;code&gt;ENV&lt;/code&gt;不是必要的，这个只是用在编译的gcc版本和开发板的不对的时候用的，具体可以看&lt;a href=&#34;https://blog.csdn.net/qq_41115702/article/details/104655050&#34;&gt;这里&lt;/a&gt;。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;编译及测试&#34;&gt;编译及测试&lt;/h1&gt;
-&lt;p&gt;在驱动源码目录下执行&lt;code&gt;make&lt;/code&gt;即可，如果前面没有问题，那就可以看到&lt;code&gt;chrdevbase.ko&lt;/code&gt;了。&lt;/p&gt;
-&lt;p&gt;后续的驱动测试就按参考一进行。&lt;/p&gt;
-&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
-&lt;hr&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_41753052/article/details/109138710&#34;&gt;嵌入式linux驱动开发-字符设备驱动&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_28576837/article/details/142790697&#34;&gt;加载驱动模块的两种方法&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/weixin_42109053/article/details/124526066&#34;&gt;linux make modules 命令详解&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/cha1290878789/article/details/121453401&#34;&gt;Linux驱动——编译驱动的两种形式（内核目录外、内核目录中）&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/Zander0/article/details/134871301&#34;&gt;Linux驱动安装遇到的问题（Kernel configuration is invalid）（Invalid module format）&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/u011202336/article/details/9172095&#34;&gt;驱动编译错误 /bin/sh: scripts/mod/modpost&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_41115702/article/details/104655050&#34;&gt;编译内核驱动模块出错（error: asm/xxx: No such file or directory）&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/daocaokafei/article/details/115472862&#34;&gt;Linux模块文件如何编译到内核和独立编译成模块？&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-- https://hxxxer.github.io/%E7%BC%96%E8%AF%91mini2440%E7%9A%84%E8%99%9A%E6%8B%9F%E5%AD%97%E7%AC%A6%E9%A9%B1%E5%8A%A8/ - This is a customized copyright.</description>
         </item>
     
     

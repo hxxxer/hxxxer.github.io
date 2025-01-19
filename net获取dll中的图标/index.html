@@ -377,7 +377,53 @@
 						
 						
 							<li>
+								<a href="#%e6%96%b9%e6%b3%95%e4%ba%94" class="nav-方法五">
+									方法五
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
 								<a href="#%e5%8f%82%e8%80%83-4" class="nav-参考-4">
+									参考
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e5%8f%82%e8%80%83-5" class="nav-参考-5">
 									参考
 								</a>
 							</li>
@@ -489,11 +535,11 @@
                 
                 <div class="post-body" v-pre>
                 
-                    <p><strong>最后编辑于2024年11月16日</strong></p>
+                    <p><strong>最后编辑于2024年11月24日</strong></p>
 <h1 id="前言">前言</h1>
 <p>在搞那个快捷方式可视化的net程序时，因为图标列表第一个是百度网盘的图标，而文件夹没有指定图标，就默认第一个。结果就是一堆百度网盘😅。</p>
 <p>就算指定文件夹节点的图标索引为-1也还是这样，不知道为什么，所以就要搞一个文件夹图标。</p>
-<p>下面的方法都可以提取可执行文件、DLL 或图标文件里面的图标，但是能提取任意文件的只有方法三。</p>
+<p>下面的方法都可以提取可执行文件、DLL 或图标文件里面的图标，但是能提取任意文件的<del>只有方法三</del>，现在有方法三和方法五了。</p>
 <hr>
 <h1 id="方法一">方法一</h1>
 <p>主要是通过shell32 API的ExtractIcon函数来提取，然后文件夹图标的索引在shell32.dll里面是3。代码如下</p>
@@ -659,7 +705,23 @@
 <p><a href="https://www.cnblogs.com/JmlSaul/p/7515885.html">C# 获取exe、dll中的图标，支持获取256x256分辨率</a></p>
 <p><a href="https://learn.microsoft.com/zh-cn/windows/win32/api/winuser/nf-winuser-privateextracticonsw">PrivateExtractIcons</a></p>
 </blockquote>
-<h1 id="参考-4">参考</h1>
+<h1 id="方法五">方法五</h1>
+<p>这个方法是搜索c#的ExtractAssociatedIcon函数的底层时知道的，就是shell32的ExtractAssociatedIcon。（虽然不知道c#的底层是不是这个），但是可以提取文件图标：</p>
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c#" data-lang="c#"><span style="display:flex;"><span><span style="color:#737994;font-style:italic">// 导入shell32.dll的ExtractAssociatedIcon函数</span>
+</span></span><span style="display:flex;"><span><span style="color:#8caaee">[DllImport(&#34;shell32.dll&#34;, CharSet = CharSet.Unicode)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">private</span> <span style="color:#e78284">static</span> <span style="color:#e78284">extern</span> IntPtr ExtractAssociatedIcon(
+</span></span><span style="display:flex;"><span>    IntPtr hInst,
+</span></span><span style="display:flex;"><span>    <span style="color:#e78284">string</span> lpIconPath, 
+</span></span><span style="display:flex;"><span>    <span style="color:#ca9ee6">ref</span> <span style="color:#e78284">ushort</span> lpiIcon);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#e78284">ushort</span> iconIndex = <span style="color:#ef9f76">0</span>;
+</span></span><span style="display:flex;"><span>IntPtr hInst = IntPtr.Zero;
+</span></span><span style="display:flex;"><span>IntPtr hIcon = ExtractAssociatedIcon(hInst, filePath, <span style="color:#ca9ee6">ref</span> iconIndex);
+</span></span></code></pre></div><h2 id="参考-4">参考</h2>
+<blockquote>
+<p><a href="https://learn.microsoft.com/zh-cn/windows/win32/api/shellapi/nf-shellapi-extractassociatediconw">ExtractAssociatedIconW 函数</a></p>
+</blockquote>
+<h1 id="参考-5">参考</h1>
 <hr>
 <blockquote>
 <p>Claude<del>又是AI😋</del></p>
@@ -1003,7 +1065,53 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 						
 						
 							<li>
+								<a href="#%e6%96%b9%e6%b3%95%e4%ba%94" class="nav-方法五">
+									方法五
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
 								<a href="#%e5%8f%82%e8%80%83-4" class="nav-参考-4">
+									参考
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#%e5%8f%82%e8%80%83-5" class="nav-参考-5">
 									参考
 								</a>
 							</li>

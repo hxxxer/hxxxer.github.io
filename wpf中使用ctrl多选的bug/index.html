@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html><head>
-<title>CSS实现文本渐变消失</title>
+<title>WPF中使用ctrl多选的bug</title>
 
 
 
@@ -10,21 +10,22 @@
 <meta name="google-site-verification" content="G-XXXXXXXXXX">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 <meta content="telephone=no" name="format-detection">
-<meta name="description" content="通过CSS的蒙版和渐变，实现一个元素的渐变消失。当然也可以应用到其它的领域">
+<meta name="description" content="开发WPF程序时，错误地使用PreviewMouseLeftButtonDown和ctrl多选，由此造成了一个bug。">
 <meta name="renderer" content="webkit">
 <meta name="theme-color" content="#ffffff">
 
 
 
-<meta property="og:url" content="https://hxxxer.github.io/css%E5%AE%9E%E7%8E%B0%E6%96%87%E6%9C%AC%E6%B8%90%E5%8F%98%E6%B6%88%E5%A4%B1/">
+<meta property="og:url" content="https://hxxxer.github.io/wpf%E4%B8%AD%E4%BD%BF%E7%94%A8ctrl%E5%A4%9A%E9%80%89%E7%9A%84bug/">
   <meta property="og:site_name" content="闲碎">
-  <meta property="og:title" content="CSS实现文本渐变消失">
-  <meta property="og:description" content="通过CSS的蒙版和渐变，实现一个元素的渐变消失。当然也可以应用到其它的领域">
+  <meta property="og:title" content="WPF中使用ctrl多选的bug">
+  <meta property="og:description" content="开发WPF程序时，错误地使用PreviewMouseLeftButtonDown和ctrl多选，由此造成了一个bug。">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
-    <meta property="article:published_time" content="2024-11-14T01:45:42+08:00">
-    <meta property="article:modified_time" content="2024-11-14T01:45:42+08:00">
-    <meta property="article:tag" content="Css">
+    <meta property="article:published_time" content="2025-01-19T17:32:47+08:00">
+    <meta property="article:modified_time" content="2025-01-19T17:32:47+08:00">
+    <meta property="article:tag" content="WPF">
+    <meta property="article:tag" content="Bug">
 
 
 
@@ -191,8 +192,32 @@
 						
 						
 							<li>
-								<a href="#%e4%bb%a3%e7%a0%81%e5%b1%95%e7%a4%ba" class="nav-代码展示">
-									代码展示
+								<a href="#%e8%83%8c%e6%99%af%e7%9f%a5%e8%af%86%e8%ae%b0%e5%bd%95" class="nav-背景知识记录">
+									背景知识记录
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%86%92%e6%b3%a1%e4%ba%8b%e4%bb%b6" class="nav-冒泡事件">
+									冒泡事件
 								</a>
 							</li>
 						
@@ -209,8 +234,30 @@
 						
 						
 							<li>
-								<a href="#%e4%bb%a3%e7%a0%81%e8%a7%a3%e9%87%8a" class="nav-代码解释">
-									代码解释
+								<a href="#%e9%9a%a7%e9%81%93%e4%ba%8b%e4%bb%b6" class="nav-隧道事件">
+									隧道事件
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#bug%e5%9c%ba%e6%99%af%e5%a4%8d%e7%8e%b0" class="nav-bug场景复现">
+									bug场景复现
 								</a>
 							</li>
 						
@@ -227,8 +274,44 @@
 						
 						
 							<li>
-								<a href="#%e8%a1%a5%e5%85%85" class="nav-补充">
-									补充
+								<a href="#bug%e5%8e%9f%e5%9b%a0" class="nav-bug原因">
+									bug原因
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95" class="nav-解决方法">
+									解决方法
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%9c%80%e5%90%8e%e6%80%bb%e7%bb%93" class="nav-最后总结">
+									最后总结
 								</a>
 							</li>
 						
@@ -309,16 +392,16 @@
                 
             >
                 <div class="post-title">
-                    CSS实现文本渐变消失
+                    WPF中使用ctrl多选的bug
                     
                     <div class="post-subtitle">
-                        通过CSS的蒙版和渐变，实现一个元素的渐变消失。当然也可以应用到其它的领域
+                        开发WPF程序时，错误地使用PreviewMouseLeftButtonDown和ctrl多选，由此造成了一个bug。
                     </div>
                     
                     <div class="post-meta">
                         
                         <time itemprop="datePublished">
-                            2024-11-14 01:45
+                            2025-01-19 17:32
                         </time>
                         
 
@@ -331,7 +414,10 @@
                         
                             <i class="material-icons" style="">label</i>
                             
-                                <a href="/tags/css">css</a>
+                                <a href="/tags/wpf">WPF</a>
+                                &nbsp;
+                            
+                                <a href="/tags/bug">bug</a>
                                 &nbsp;
                             
                         
@@ -344,54 +430,55 @@
                 
                 <div class="post-body" v-pre>
                 
-                    <p><strong>最后编辑于2024年11月14日</strong></p>
+                    <p><strong>最后编辑于2025年01月19日</strong></p>
 <h1 id="前言">前言</h1>
-<p>在搞博客搜索的时候，由于摘要只截了120个字符，导致我想在末尾加个省略号，加完之后又想加一个渐变消失的效果。</p>
-<p>虽然最后也没有加上😂。</p>
+<p>好久没写blog了，近期挺忙的。</p>
+<p>这次是在尝试在C#下的另一个桌面开发框架WPF中开发一个小程序时，遇到的一个小bug，纯纯是我自己没理解Preview事件导致的。</p>
 <hr>
-<h1 id="代码展示">代码展示</h1>
-<p>下面是文本html：</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#ca9ee6">p</span> <span style="color:#8caaee">class</span><span style="color:#99d1db;font-weight:bold">=</span><span style="color:#a6d189">&#34;wraps&#34;</span>&gt;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&lt;/<span style="color:#ca9ee6">p</span>&gt;
-</span></span></code></pre></div><p>下面是从左到右，渐渐消失的效果：</p>
-<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#e5c890">wraps</span>{
-</span></span><span style="display:flex;"><span>        <span style="color:#ca9ee6">-webkit-</span><span style="color:#ca9ee6">mask-image</span>: <span style="color:#ca9ee6">-webkit-</span><span style="color:#99d1db">linear-gradient</span>(<span style="color:#ef9f76">right</span>, <span style="color:#99d1db">rgba</span>(<span style="color:#ef9f76">0</span>, <span style="color:#ef9f76">0</span>, <span style="color:#ef9f76">0</span>, <span style="color:#ef9f76">0</span>) <span style="color:#ef9f76">0</span><span style="color:#e78284">%</span>, <span style="color:#99d1db">rgba</span>(<span style="color:#ef9f76">0</span>, <span style="color:#ef9f76">0</span>, <span style="color:#ef9f76">0</span>, <span style="color:#ef9f76">1</span>) <span style="color:#ef9f76">70</span><span style="color:#e78284">%</span>); 
-</span></span><span style="display:flex;"><span><span style="color:#e78284">&lt;!--</span>	<span style="color:#ca9ee6">background</span>: <span style="color:#ef9f76">#fff</span>;<span style="color:#e78284">--&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#ca9ee6">width</span>: <span style="color:#ef9f76">500</span><span style="color:#e78284">px</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#ca9ee6">height</span>: <span style="color:#ef9f76">30</span><span style="color:#e78284">px</span>;
-</span></span><span style="display:flex;"><span><span style="color:#e78284">&lt;!--</span>	<span style="color:#ca9ee6">border</span>: <span style="color:#ef9f76">1</span><span style="color:#e78284">px</span> <span style="color:#ef9f76">solid</span> <span style="color:#ef9f76">red</span>;<span style="color:#e78284">--&gt;</span>
-</span></span></code></pre></div><p>改成从右到左只需要将上面css代码第二行的right改成left即可。</p>
-<h1 id="代码解释">代码解释</h1>
-<p>像<code>background</code>、<code>width</code>、<code>height</code>就纯纯一看便知，而border是指一个框的效果；真正要解释的就第二行。</p>
+<h1 id="背景知识记录">背景知识记录</h1>
+<p>Drag-and-drop操作过程中，会由一系列事件Event组成，这些Event有两种模型，一个是冒泡Bubbling，一个是隧道Tunnelling（带Preview前缀的）。</p>
+<p><strong>Bubbling的event是动作发生后触发；Tunnelling的event是动作发生前触发。</strong></p>
+<h2 id="冒泡事件">冒泡事件</h2>
+<p>从最具体的子元素开始，逐层向上冒泡到父元素。如果子元素处理了事件并设置了 e.Handled = true，则父元素不会接收到该事件。</p>
+<h2 id="隧道事件">隧道事件</h2>
+<p>从最不具体的父元素开始，逐层向下传递到子元素。如果父元素处理了事件并设置了 e.Handled = true，则子元素不会接收到该事件。</p>
+<h1 id="bug场景复现">bug场景复现</h1>
+<p>我在一个ListBox里面设置了Extended多选，即可以通过按住ctrl来实现多选，这个多选事件是发生在我自己的PreviewMouseLeftButtonDown事件之后的（但是不清除它是冒泡还是隧道事件）。而我的PreviewMouseLeftButtonDown事件里面设定了如下代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c#" data-lang="c#"><span style="display:flex;"><span><span style="color:#737994;font-style:italic">// 选中当前项</span>
+</span></span><span style="display:flex;"><span>listBoxItem.IsSelected = <span style="color:#ef9f76">true</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>e.Handled = <span style="color:#ef9f76">true</span>
+</span></span></code></pre></div><p>当时拖动文件的代码是写在PreviewMouseLeftButtonDown事件里面的，而拖动文件的操作是阻塞的。我这样写是为了在拖动子项时，子项能变成选中状态。</p>
+<p>然后我就发现按住ctrl无法使已选中的项变成未选中。想了一下，应该是因为<code>e.Handled = true</code>，使得接下来按住ctrl选择没有接收到点击事件，但是当我删除<code>e.Handled = true</code>之后，依然存在bug：</p>
 <ul>
-<li>
-<p><code>-webkit-mask-image</code>是类似于ps的蒙版效果，蒙版上越黑越透明。</p>
-</li>
-<li>
-<p><code>-webkit-linear-gradient</code>是生成一种或多种颜色进行线性过渡的效果的图像，第一个参数是方向，后面的是颜色。以从左到右渐渐消失的为例：</p>
-<ol>
-<li>方向为右，意味着是从右边开始，由第一种颜色向第二种颜色过渡。</li>
-<li>rgba的第四个参数是<strong>不透明度</strong>，默认为1，即不透明。</li>
-<li>颜色参数后面那个百分数，意思是从方向上的路径的多少。比如right+30%就是以最左边为起点（0%），向右30%。</li>
-<li>根据上面3点，可以得出效果如下图所示：
-<img src="/images/%E9%BB%91%E7%99%BD%E8%BF%87%E6%B8%A1.png" alt="过渡黑白图"></li>
-</ol>
-</li>
+<li>按住ctrl可以使已选中的项变成未选中</li>
+<li>但是按住ctrl无法使未选中的项变成已选中</li>
 </ul>
-<p>最后就能得出从左到右逐渐消失的效果。</p>
-<p>其实和PS的蒙版可以说是一样的。</p>
-<p>注意：上面的的70%等表示位置的是以元素的框的大小为标准的（这个框可以在F12里面看），不是以文字的长度为标准的。</p>
-<h1 id="补充">补充</h1>
-<p>MDN上面的方法是没有<code>-webkit</code>前缀的，暂时不清楚为什么。</p>
+<h1 id="bug原因">bug原因</h1>
+<p>后来经过我的分析之后，得出了原因：<code>listBoxItem.IsSelected = true</code>和ctrl多选依次发生，导致出现bug。这个过程可以如下描述：</p>
+<ol>
+<li>点击之后，<code>listBoxItem.IsSelected = true</code>正常发生，这时子项被选中。</li>
+<li>当PreviewMouseLeftButtonDown事件结束之后，ctrl多选发生，它会改变子项的选中状态，可以理解为进行了非操作。</li>
+<li>最后子项的选中状态是<code>false</code>。</li>
+</ol>
+<p>所以ctrl多选就只能使子项变成非选中状态。</p>
+<h1 id="解决方法">解决方法</h1>
+<p>解决也很简单，只需要将拖动文件的代码转移到MouseMove事件里面，并删除上面的两行代码即可。</p>
+<p>因为拖动文件的代码在MouseMove事件里面，所以PreviewMouseLeftButtonDown事件不再会阻塞ctrl多选的事件，这样ctrl多选的各种行为也能正常发生了。</p>
+<h1 id="最后总结">最后总结</h1>
+<p>Preview事件里面不要放一些会阻塞的代码，最好只放一些检查、记录的代码。我这里就改成记录选中项和鼠标位置了。</p>
 <h1 id="参考">参考</h1>
 <hr>
 <blockquote>
-<p><a href="https://segmentfault.com/q/1010000022493842">css div怎么渐变到透明</a></p>
-<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient/linear-gradient">MDN linear-gradient()</a></p>
+<p><a href="https://www.cnblogs.com/mqxs/p/7534730.html">【WPF】鼠标拖拽功能DragOver和Drop</a></p>
+<p><a href="https://www.cnblogs.com/lesliexin/p/16073879.html">（原创）[C#] 一步一步自定义拖拽（Drag&amp;Drop）时的鼠标效果：（一）基本原理及基本实现
+</a></p>
+<p><a href="https://kimi.moonshot.cn/">Kimi</a></p>
 </blockquote>
 
                     
                     <HR width="100%" id="EOF">
-		    <p style="color:#777;">最后修改于 2024-11-14</p>
+		    <p style="color:#777;">最后修改于 2025-01-19</p>
                     
                 </div>
             </div>
@@ -400,14 +487,14 @@
             <nav class="post-pagination">
 
                 
-                <a class="newer-posts" href="/c%23-tostring%E7%9A%84%E4%BD%BF%E7%94%A8/">
-			下回<br>C# ToString的使用
+                <a class="newer-posts">
+			下回<br>已经到头啦。
                 </a>
                 
                 
                 
-                <a class="older-posts" href="/git%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4%E5%8E%86%E5%8F%B2%E4%B8%AD%E7%9A%84%E5%A4%A7%E6%96%87%E4%BB%B6/">
-			上回<br>Git彻底删除历史中的大文件
+                <a class="older-posts" href="/c%23-tostring%E7%9A%84%E4%BD%BF%E7%94%A8/">
+			上回<br>C# ToString的使用
                 </a>
                 
             </nav>
@@ -543,8 +630,32 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 						
 						
 							<li>
-								<a href="#%e4%bb%a3%e7%a0%81%e5%b1%95%e7%a4%ba" class="nav-代码展示">
-									代码展示
+								<a href="#%e8%83%8c%e6%99%af%e7%9f%a5%e8%af%86%e8%ae%b0%e5%bd%95" class="nav-背景知识记录">
+									背景知识记录
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#%e5%86%92%e6%b3%a1%e4%ba%8b%e4%bb%b6" class="nav-冒泡事件">
+									冒泡事件
 								</a>
 							</li>
 						
@@ -561,8 +672,30 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 						
 						
 							<li>
-								<a href="#%e4%bb%a3%e7%a0%81%e8%a7%a3%e9%87%8a" class="nav-代码解释">
-									代码解释
+								<a href="#%e9%9a%a7%e9%81%93%e4%ba%8b%e4%bb%b6" class="nav-隧道事件">
+									隧道事件
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#bug%e5%9c%ba%e6%99%af%e5%a4%8d%e7%8e%b0" class="nav-bug场景复现">
+									bug场景复现
 								</a>
 							</li>
 						
@@ -579,8 +712,44 @@ Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> b
 						
 						
 							<li>
-								<a href="#%e8%a1%a5%e5%85%85" class="nav-补充">
-									补充
+								<a href="#bug%e5%8e%9f%e5%9b%a0" class="nav-bug原因">
+									bug原因
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95" class="nav-解决方法">
+									解决方法
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#%e6%9c%80%e5%90%8e%e6%80%bb%e7%bb%93" class="nav-最后总结">
+									最后总结
 								</a>
 							</li>
 						
