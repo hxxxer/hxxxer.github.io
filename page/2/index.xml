@@ -7,9 +7,54 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>This is a customized copyright.</copyright>
-    <lastBuildDate>Sun, 19 Jan 2025 17:32:47 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 12 Dec 2025 01:02:27 +0800</lastBuildDate>
     
         <atom:link href="https://hxxxer.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>C#调用DLL的方法</title>
+        <link>https://hxxxer.github.io/c%23%E8%B0%83%E7%94%A8dll%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+        <pubDate>Mon, 11 Nov 2024 00:29:13 +0800</pubDate>
+        
+        <guid>https://hxxxer.github.io/c%23%E8%B0%83%E7%94%A8dll%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+        <description>闲碎 https://hxxxer.github.io/c%23%E8%B0%83%E7%94%A8dll%E7%9A%84%E6%96%B9%E6%B3%95/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月11日&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;之前需要调用dll里面的图标，而调用的函数用的是一个dll的内部的函数，所以这里记录一下调用的两种方法。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;vs的项目引用&#34;&gt;VS的项目引用&lt;/h1&gt;
+&lt;p&gt;在VS的方案资源管理器里面（&lt;code&gt;Ctrl+Alt+L&lt;/code&gt;），右键依赖项 - 添加项目引用，然后选择dll文件，例如AddDll.dll（里面有一个ADD类，ADD里面有一个calculate公共方法）。&lt;/p&gt;
+&lt;p&gt;之后就可以在依赖项 - 程序集里面看到Add了。&lt;/p&gt;
+&lt;p&gt;调用也很简单：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c#&#34; data-lang=&#34;c#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ca9ee6&#34;&gt;using&lt;/span&gt; &lt;span style=&#34;color:#ef9f76&#34;&gt;AddDll&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;AddDll.ADD &lt;span style=&#34;color:#ca9ee6&#34;&gt;add&lt;/span&gt; = &lt;span style=&#34;color:#ca9ee6&#34;&gt;new&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt; c = &lt;span style=&#34;color:#ca9ee6&#34;&gt;add&lt;/span&gt;.calculate(a,b);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h1 id=&#34;使用dllimport&#34;&gt;使用DllImport&lt;/h1&gt;
+&lt;p&gt;在需要引用的函数的上一行添加&lt;code&gt;[DllImport(&amp;quot;user.dll&amp;quot;, ......)]&lt;/code&gt;就行，下面是我调用的获取dll图标函数：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c#&#34; data-lang=&#34;c#&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#8caaee&#34;&gt;[DllImport(&amp;#34;shell32.dll&amp;#34;, CharSet = CharSet.Auto)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e78284&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#e78284&#34;&gt;extern&lt;/span&gt; IntPtr ExtractIcon(IntPtr hInst, &lt;span style=&#34;color:#e78284&#34;&gt;string&lt;/span&gt; lpszExeFileName, &lt;span style=&#34;color:#e78284&#34;&gt;int&lt;/span&gt; nIconIndex);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;后面那个&lt;code&gt;CharSet = CharSet.Auto&lt;/code&gt;是调用字符集，Auto是自动选择合适的。&lt;/p&gt;
+&lt;p&gt;下面函数的定义记得加&lt;code&gt;static extern&lt;/code&gt;，以表示这个是一个外部方法实现，它将在运行时解析到指定的非托管代码。&lt;/p&gt;
+&lt;p&gt;这个方法需要知道dll内部的函数及其形参。&lt;/p&gt;
+&lt;h2 id=&#34;补充其它的dllimportattribute属性&#34;&gt;补充其它的DllImportAttribute属性&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;EntryPoint=&amp;quot;MessageBoxA&amp;quot;&lt;/code&gt;，这个可以也指定函数，这样下面的函数引用就可以用别的名字，但是注意这个EntryPoint赋值和下面的函数引用不一定相同，比如上面的&lt;code&gt;ExtractIcon&lt;/code&gt;，在EntryPoint里面应该是&lt;code&gt;ExtractIconW&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ExactSpelling&lt;/code&gt; 指示 &lt;code&gt;EntryPoint&lt;/code&gt; 是否必须与指示的入口点的拼写完全匹配，如：&lt;code&gt;ExactSpelling=false&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PreserveSig&lt;/code&gt;指示方法的签名应当被保留还是被转换， 如：&lt;code&gt;PreserveSig=true&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SetLastError&lt;/code&gt; 指示方法是否保留 Win32&amp;quot;上一错误&amp;quot;，如：&lt;code&gt;SetLastError=true&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CallingConvention&lt;/code&gt;指示入口点的调用约定， 如：&lt;code&gt;CallingConvention=CallingConvention.Winapi&lt;/code&gt;；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/Im-Victor/p/14708695.html&#34;&gt;C#调用DLL的几种方法&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/wangnaisheng/article/details/142462074&#34;&gt;【C#】DllImport的使用&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_43069920/article/details/123100601&#34;&gt;VS2022 C#编写DLL和调用外部DLL中的方法&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+- https://hxxxer.github.io/c%23%E8%B0%83%E7%94%A8dll%E7%9A%84%E6%96%B9%E6%B3%95/ - This is a customized copyright.</description>
+        </item>
     
     
     
@@ -409,30 +454,6 @@
 &lt;p&gt;&lt;a href=&#34;https://www.cjavapy.com/article/328/&#34;&gt;.NET Core项目提示找不到project.assets.json文件&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 - https://hxxxer.github.io/net%E4%BD%BF%E7%94%A8github-actions/ - This is a customized copyright.</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>VS推送tags</title>
-        <link>https://hxxxer.github.io/vs%E6%8E%A8%E9%80%81tags/</link>
-        <pubDate>Fri, 08 Nov 2024 01:07:05 +0800</pubDate>
-        
-        <guid>https://hxxxer.github.io/vs%E6%8E%A8%E9%80%81tags/</guid>
-        <description>闲碎 https://hxxxer.github.io/vs%E6%8E%A8%E9%80%81tags/ -&lt;p&gt;&lt;strong&gt;最后编辑于2024年11月08日&lt;/strong&gt;&lt;/p&gt;
-&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
-&lt;p&gt;我在GitHub启用了actions，其工作是检测到上传的tags是v开头时，自动构建并发布。但是刚开始不会在vs里面搞。现在搞明白了，记录一下。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;打标签&#34;&gt;打标签&lt;/h1&gt;
-&lt;p&gt;打开位于vs顶栏的git - 管理分支，然后对某一个上传记录右键 - 新建标签。新建完成之后，打开顶栏的视图 - git更改，然后在git更改窗口的分支那一栏，打开右边的选项（三个点） - 将所有标签推送到 - origin。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/VS%E7%AE%A1%E7%90%86%E5%88%86%E6%94%AF.png&#34; alt=&#34;管理分支&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://hxxxer.github.io/images/VS%E6%8E%A8%E9%80%81tags.png&#34; alt=&#34;推送tags&#34;&gt;&lt;/p&gt;
-&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
-&lt;hr&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/71379079/visual-studio-2022-git-push-tags&#34;&gt;Visual Studio 2022 Git Push Tags&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-- https://hxxxer.github.io/vs%E6%8E%A8%E9%80%81tags/ - This is a customized copyright.</description>
         </item>
     
     
