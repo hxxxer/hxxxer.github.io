@@ -1,5 +1,17 @@
 ---
-title: "初步使用Hugo以及主题的尝试"
+title: 初步使用Hugo以及主题的尝试
+date: 2024-11-03 02:16:32+08:00
+description: 首次尝试搭建本地博客
+tags:
+- Hugo
+- diary
+- blog
+featured_image: hugo-logo.png
+images: []
+categories: 折腾
+---
+
+ "初步使用Hugo以及主题的尝试"
 date: 2024-11-03T02:16:32+08:00
 description: "首次尝试搭建本地博客"
 tags: ["Hugo", "diary", "blog"]
@@ -33,7 +45,7 @@ suiyan项目是在公众号看到的，直接git clone下来，然后运行`pyth
 
 这个是我直接搜**github blog**，搜出来一篇介绍hugo+github pages的博客*就是参考的第一个链接*。其实这个博客的主题风格我感觉挺喜欢的，所以马上入坑了。
 
-![blowfish主题博客](/images/blowfish-blog.png)  
+![blowfish主题博客](blowfish-blog.png)  
 
 然后我就安装了Hugo，其实只要去winget安装就行，注意要安装extended（扩展版），因为扩展版才支持modules，而这个主题是需要modules的。
 

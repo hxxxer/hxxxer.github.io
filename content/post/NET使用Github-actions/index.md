@@ -1,5 +1,18 @@
 ---
-title: "NET使用Github Actions"
+title: NET使用Github Actions
+date: 2024-11-08 01:53:42+08:00
+description: NET项目使用actions自动构建发布
+tags:
+- NET
+- actions
+- 自动化
+featured_image: GitHub-Symbol.png
+images: []
+categories: 经验
+comment: false
+---
+
+"NET使用Github Actions"
 date: 2024-11-08T01:53:42+08:00
 description: "NET项目使用actions自动构建发布"
 tags: ["NET", "actions", "自动化"]
@@ -79,9 +92,9 @@ on:
 **
 新建完成之后记得复制token，因为只会出现一次，后面要用。
 
-![选择token类型](/images/选择token类型.png)
+![选择token类型](选择token类型.png)
 
-![新建token](/images/新建token.png)
+![新建token](新建token.png)
 
 #### ~~新建secrets~~
 

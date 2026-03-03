@@ -1,5 +1,17 @@
 ---
-title: "Linux压缩不包含绝对路径命令"
+title: Linux压缩不包含绝对路径命令
+date: 2024-11-11 00:16:42+08:00
+description: 在Linux压缩文件不包含绝对路径，只有指定目录下的文件
+tags:
+- 压缩
+- Linux
+featured_image: null
+images: []
+categories: 经验
+comment: false
+---
+
+"Linux压缩不包含绝对路径命令"
 date: 2024-11-11T00:16:42+08:00
 description: "在Linux压缩文件不包含绝对路径，只有指定目录下的文件"
 tags: ["压缩", "Linux"]

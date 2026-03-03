@@ -1,5 +1,18 @@
 ---
-title: "编译mini2440的虚拟字符驱动"
+title: 编译mini2440的虚拟字符驱动
+date: 2024-11-10 01:36:15+08:00
+description: 在虚拟机通过开发板的linux内核源码编译虚拟字符驱动模块
+tags:
+- mini2440
+- 驱动
+- 编译
+featured_image: ''
+images: []
+categories: 课程学习
+comment: false
+---
+
+"编译mini2440的虚拟字符驱动"
 date: 2024-11-10T01:36:15+08:00
 description: "在虚拟机通过开发板的linux内核源码编译虚拟字符驱动模块"
 tags: ["mini2440", "驱动", "编译"]
@@ -38,11 +51,11 @@ cp mini2440_config_t35 .config
 make oldconfig && make prepare
 ```
 
-![执行make oldconfig && make prepare](/images/make-oldconfig-prepare.png)
+![执行make oldconfig && make prepare](make-oldconfig-prepare.png)
 
 LCD就选择`6. 3.5 inch 240X230 Toppoly LCD (FB_S3C2410_T240320)`。
 
-![LCD Select](/images/LCDSelect.png)
+![LCD Select](LCDSelect.png)
 
 执行过程中如果出现有关`arm-linux-gcc`的报错，就去检测一下`arm-linux-gcc -v`有没有输出，没有就配置一下。
 
@@ -52,7 +65,7 @@ LCD就选择`6. 3.5 inch 240X230 Toppoly LCD (FB_S3C2410_T240320)`。
 make scripts
 ```
 
-![make scripts](/images/make-scripts.png)
+![make scripts](make-scripts.png)
 
 执行完成就配置好了编译环境。
 

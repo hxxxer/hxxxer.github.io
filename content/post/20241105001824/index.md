@@ -1,5 +1,17 @@
 ---
-title: "异步编程的一些理解"
+title: 异步编程的一些理解
+date: 2024-11-05 00:18:26+08:00
+description: 结合了AI和我自己的一些关于异步编程的思考
+tags:
+- 异步
+featured_image: 异步与同步.jpg
+images:
+- sync.webp
+categories: 经验
+comment: false
+---
+
+"异步编程的一些理解"
 date: 2024-11-05T00:18:26+08:00
 description: "结合了AI和我自己的一些关于异步编程的思考"
 tags: ["异步"]
@@ -170,4 +182,4 @@ int main() {
 
 下面是一张感觉有的点合适的网图：
 
-![sync和async](/images/sync.webp)
+![sync和async](sync.webp)

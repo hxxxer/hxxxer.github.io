@@ -1,5 +1,18 @@
 ---
-title: "C#获取文件的图标"
+title: C#获取文件的图标
+date: 2024-11-09 16:24:42+08:00
+description: 在NET里面用C#来获取shell32.dll里面或者文件的图标
+tags:
+- C#
+- dll
+- 图标
+featured_image: NET.png
+images: []
+categories: 经验
+comment: false
+---
+
+"C#获取文件的图标"
 date: 2024-11-09T16:24:42+08:00
 description: "在NET里面用C#来获取shell32.dll里面或者文件的图标"
 tags: ["C#", "dll", "图标"]

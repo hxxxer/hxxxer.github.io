@@ -1,5 +1,19 @@
 ---
-title: "C# ToString的使用"
+title: C# ToString的使用
+date: 2024-11-17 01:04:14+08:00
+description: C#中数值转字符串的函数的使用方法
+tags:
+- C#
+- 字符串
+- 数值
+- 四舍五入
+featured_image: ''
+images: []
+categories: 经验
+comment: false
+---
+
+"C# ToString的使用"
 date: 2024-11-17T01:04:14+08:00
 description: "C#中数值转字符串的函数的使用方法"
 tags: ["C#", "字符串", "数值", "四舍五入"]

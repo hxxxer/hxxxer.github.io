@@ -1,5 +1,17 @@
 ---
-title: "VS推送tags"
+title: VS推送tags
+date: 2024-11-08 01:07:05+08:00
+description: 在VS将本地的tags推送到服务器
+tags:
+- VS
+- 推送
+featured_image: VS.png
+images: []
+categories: 经验
+comment: false
+---
+
+"VS推送tags"
 date: 2024-11-08T01:07:05+08:00
 description: "在VS将本地的tags推送到服务器"
 tags: ["VS", "推送"]
@@ -22,9 +34,9 @@ comment: false
 
 打开位于vs顶栏的git - 管理分支，然后对某一个上传记录右键 - 新建标签。新建完成之后，打开顶栏的视图 - git更改，然后在git更改窗口的分支那一栏，打开右边的选项（三个点） - 将所有标签推送到 - origin。
 
-![管理分支](/images/VS管理分支.png)
+![管理分支](VS管理分支.png)
 
-![推送tags](/images/VS推送tags.png)
+![推送tags](VS推送tags.png)
 
 # 参考
 

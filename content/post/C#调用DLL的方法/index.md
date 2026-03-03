@@ -1,5 +1,17 @@
 ---
-title: "C#调用DLL的方法"
+title: C#调用DLL的方法
+date: 2024-11-11 00:29:13+08:00
+description: 在C#中调用外部dll的函数的两种方法
+tags:
+- C#
+- dll
+featured_image: ''
+images: []
+categories: 经验
+comment: false
+---
+
+"C#调用DLL的方法"
 date: 2024-11-11T00:29:13+08:00
 description: "在C#中调用外部dll的函数的两种方法"
 tags: ["C#", "dll"]

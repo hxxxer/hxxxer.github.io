@@ -1,5 +1,17 @@
 ---
-title: "使用.NET开发hugo小程序"
+title: 使用.NET开发hugo小程序
+date: 2024-11-05 01:52:20+08:00
+description: 使用.NET，C#将hugo几个常用的功能集成到一个程序内
+tags:
+- NET
+- Hugo
+featured_image: NET.png
+images: []
+categories: 折腾
+comment: false
+---
+
+"使用.NET开发hugo小程序"
 date: 2024-11-05T01:52:20+08:00
 description: "使用.NET，C#将hugo几个常用的功能集成到一个程序内"
 tags: ["NET", "Hugo"]
@@ -55,7 +67,7 @@ hugo --cleanDestinationDir  --contentDir "C:\Users\15641\Documents\Blog"
 
 安装之后，新建一个.NET项目，然后就会看到一个设计用的窗口，这时候摁`Ctrl+Alt+X`打开工具箱，拖一个Botton出来。
 
-![VS .NET工具箱](/images/NET工具箱.png)
+![VS .NET工具箱](NET工具箱.png)
 
 右键按钮 - 属性，可以修改(Name)，这个(Name)是程序用的，好像只能字母数字。而后面那个Text才是我看到的按钮文本。
 

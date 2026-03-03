@@ -1,5 +1,17 @@
 ---
-title: "VS NET开发桌面程序的一些小经验"
+title: VS NET开发桌面程序的一些小经验
+date: 2024-11-05 22:15:00+08:00
+description: 在NET开发过程中遇到的一些有点蠢又有的少见的问题
+tags:
+- NET
+- VS
+featured_image: VS.png
+images: []
+categories: 经验
+comment: false
+---
+
+"VS NET开发桌面程序的一些小经验"
 date: 2024-11-05T22:15:00+08:00
 description: "在NET开发过程中遇到的一些有点蠢又有的少见的问题"
 tags: ["NET", "VS"]
@@ -26,7 +38,7 @@ comment: false
 
 如果设计器还是空白，那就关闭设计器，再打开，根据设计器的报错去设计文件里面更改事件绑定的函数就行。
 
-![更改事件绑定函数](/images/更改事件绑定函数.png)
+![更改事件绑定函数](更改事件绑定函数.png)
 
 ---
 
