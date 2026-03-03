@@ -12,18 +12,6 @@ comment: false
 draft: false
 ---
 
-WPF中使用ctrl多选的bug"
-date: 2025-01-19T17:32:47+08:00
-description: "开发WPF程序时，错误地使用PreviewMouseLeftButtonDown和ctrl多选，由此造成了一个bug。"
-tags: [WPF, bug]
-featured_image: ""
-# images is optional, but needed for showing Twitter Card
-images: []
-categories: "经验"
-comment: false
-draft: false
----
-
 **最后编辑于2025年01月19日**
 
 # 前言

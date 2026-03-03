@@ -9,17 +9,6 @@ categories: null
 comment: false
 ---
 
-"Git彻底删除历史中的大文件"
-date: 2024-11-12T17:00:34+08:00
-description: "git删除那些已经没用或者不小心提交的大文件，包括本地和远程"
-tags: []
-featured_image: ""
-# images is optional, but needed for showing Twitter Card
-images: []
-categories:
-comment: false
----
-
 **最后编辑于2024年11月12日**
 
 # 前言

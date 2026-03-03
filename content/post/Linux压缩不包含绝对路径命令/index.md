@@ -11,17 +11,6 @@ categories: 经验
 comment: false
 ---
 
-"Linux压缩不包含绝对路径命令"
-date: 2024-11-11T00:16:42+08:00
-description: "在Linux压缩文件不包含绝对路径，只有指定目录下的文件"
-tags: ["压缩", "Linux"]
-featured_image: 
-# images is optional, but needed for showing Twitter Card
-images: []
-categories: "经验"
-comment: false
----
-
 **最后编辑于2024年11月11日**
 
 # 前言

@@ -12,18 +12,6 @@ comment: false
 draft: false
 ---
 
-毕设+学习AI日志"
-date: 2026-01-31T00:57:17+08:00
-description: "记录寒假期间的毕设和学习AI的东西"
-tags: ["日记", "AI"]
-featured_image: ""
-# images is optional, but needed for showing Twitter Card
-images: []
-categories: "日记"
-comment: false
-draft: false
----
-
 **最后编辑于2026年02月03日**
 
 # 前言

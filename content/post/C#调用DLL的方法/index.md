@@ -11,17 +11,6 @@ categories: 经验
 comment: false
 ---
 
-"C#调用DLL的方法"
-date: 2024-11-11T00:29:13+08:00
-description: "在C#中调用外部dll的函数的两种方法"
-tags: ["C#", "dll"]
-featured_image: ""
-# images is optional, but needed for showing Twitter Card
-images: []
-categories: "经验"
-comment: false
----
-
 **最后编辑于2024年11月11日**
 
 # 前言

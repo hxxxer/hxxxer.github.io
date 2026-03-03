@@ -10,17 +10,6 @@ categories: 经验
 comment: false
 ---
 
-"CSS实现文本渐变消失"
-date: 2024-11-14T01:45:42+08:00
-description: "通过CSS的蒙版和渐变，实现一个元素的渐变消失。当然也可以应用到其它的领域"
-tags: ["css"]
-featured_image: ""
-# images is optional, but needed for showing Twitter Card
-images: []
-categories: "经验"
-comment: false
----
-
 **最后编辑于2024年11月14日**
 
 # 前言

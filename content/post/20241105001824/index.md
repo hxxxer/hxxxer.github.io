@@ -11,17 +11,6 @@ categories: 经验
 comment: false
 ---
 
-"异步编程的一些理解"
-date: 2024-11-05T00:18:26+08:00
-description: "结合了AI和我自己的一些关于异步编程的思考"
-tags: ["异步"]
-featured_image: "/images/异步与同步.jpg"
-# images is optional, but needed for showing Twitter Card
-images: ["/images/sync.webp"]
-categories: "经验"
-comment: false
----
-
 **最后编辑于2024年11月05日**
 
 # 前言

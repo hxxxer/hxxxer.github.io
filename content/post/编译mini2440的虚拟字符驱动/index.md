@@ -12,17 +12,6 @@ categories: 课程学习
 comment: false
 ---
 
-"编译mini2440的虚拟字符驱动"
-date: 2024-11-10T01:36:15+08:00
-description: "在虚拟机通过开发板的linux内核源码编译虚拟字符驱动模块"
-tags: ["mini2440", "驱动", "编译"]
-featured_image: ""
-# images is optional, but needed for showing Twitter Card
-images: []
-categories: "课程学习"
-comment: false
----
-
 **最后编辑于2024年11月10日**
 
 # 前言

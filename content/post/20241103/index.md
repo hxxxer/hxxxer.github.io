@@ -11,16 +11,6 @@ images: []
 categories: 折腾
 ---
 
- "初步使用Hugo以及主题的尝试"
-date: 2024-11-03T02:16:32+08:00
-description: "首次尝试搭建本地博客"
-tags: ["Hugo", "diary", "blog"]
-featured_image: "/images/hugo-logo.png"
-# images is optional, but needed for showing Twitter Card
-images: []
-categories: "折腾"
----
-
  **编辑于2024年11月03日**
  
 # 前言

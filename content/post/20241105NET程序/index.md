@@ -11,17 +11,6 @@ categories: 经验
 comment: false
 ---
 
-"VS NET开发桌面程序的一些小经验"
-date: 2024-11-05T22:15:00+08:00
-description: "在NET开发过程中遇到的一些有点蠢又有的少见的问题"
-tags: ["NET", "VS"]
-featured_image: "/images/VS.png"
-# images is optional, but needed for showing Twitter Card
-images: []
-categories: "经验"
-comment: false
----
-
 **最后编辑于2024年11月05日**
 
 # 前言

@@ -12,15 +12,6 @@ images:
 comment: true
 ---
 
- 'mini2440连接记录'
-date: 2024-11-02T15:08:53+08:00
-description: '首次全程尝试连接新的板子'
-tags: [嵌入式, mini2440]
-categories: "课程学习"
-featured_image: "/images/mini2440.png"
-images: ["/images/mini2440.png"]
-comment: true
----
 **编辑于2024年11月1日**
 
 # 前言sh

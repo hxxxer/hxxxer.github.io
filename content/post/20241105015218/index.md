@@ -11,17 +11,6 @@ categories: 折腾
 comment: false
 ---
 
-"使用.NET开发hugo小程序"
-date: 2024-11-05T01:52:20+08:00
-description: "使用.NET，C#将hugo几个常用的功能集成到一个程序内"
-tags: ["NET", "Hugo"]
-featured_image: "/images/NET.png"
-# images is optional, but needed for showing Twitter Card
-images: []
-categories: "折腾"
-comment: false
----
-
 **最后编辑于2024年11月07日**
 
 # 前言

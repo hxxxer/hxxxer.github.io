@@ -11,17 +11,6 @@ categories: 经验
 comment: false
 ---
 
-"Ubuntu新建开机服务"
-date: 2024-11-06T22:36:41+08:00
-description: "通过服务单元建立开机服务"
-tags: ["Ubuntu", "开机服务"]
-featured_image: "/images/ubuntu-logo.avif"
-# images is optional, but needed for showing Twitter Card
-images: []
-categories: "经验"
-comment: false
----
-
 **最后编辑于2024年11月06日**
 
 # 前言

@@ -12,17 +12,6 @@ categories: 经验
 comment: false
 ---
 
-"NET使用Github Actions"
-date: 2024-11-08T01:53:42+08:00
-description: "NET项目使用actions自动构建发布"
-tags: ["NET", "actions", "自动化"]
-featured_image: "/images/GitHub-Symbol.png"
-# images is optional, but needed for showing Twitter Card
-images: []
-categories: "经验"
-comment: false
----
-
 **最后编辑于2024年11月09日**
 
 # 前言
